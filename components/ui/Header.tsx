@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Target,
-  TrendingUp,
   Handshake,
   Info,
   X,
@@ -64,7 +63,7 @@ export default function Header() {
 
           <nav className="hidden md:flex items-center md:gap-[40px] lg:gap-[60px]">
             {menuItems.map((item) => {
-              const IconComponent = item.icon;
+              // const IconComponent = item.icon;
               const isActive = pathname === item.href;
               return (
                 <motion.a
@@ -157,7 +156,7 @@ export default function Header() {
                 <nav className="flex-1 p-6">
                   <div className="space-y-2">
                     {menuItems.map((item, index) => {
-                      const IconComponent = item.icon;
+                      // const IconComponent = item.icon;
                       const isActive = pathname === item.href;
                       return (
                         <motion.a

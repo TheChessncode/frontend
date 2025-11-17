@@ -15,7 +15,7 @@ export default function ImpactStats() {
             Collective Impact
           </h2>
           <p className="text-lg text-[var(--text-secondary)]">
-            Together, we're achieving remarkable results
+            Together, we&apos;re achieving remarkable results
           </p>
         </motion.div>
 

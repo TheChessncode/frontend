@@ -14,7 +14,7 @@ export default function CtaSection() {
           Ready to Make <span className="text-cyan-300">History</span>?
         </h2>
         <p className="text-xl text-white/80 mb-8">
-          Have an idea, question, or need support? We're here to help. Reach out and let's make something amazing together!
+          Have an idea, question, or need support? We&apos;re here to help. Reach out and let&apos;s make something amazing together!
         </p>
         <motion.button
           onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}

@@ -23,7 +23,7 @@ export default function PartnersGrid({ partners, setSelectedPartner }: PartnersG
             </span>
           </h2>
           <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">
-            Discover the incredible organizations we're proud to collaborate with in driving meaningful change.
+            Discover the incredible organizations we&apos;re proud to collaborate with in driving meaningful change.
           </p>
         </motion.div>
 

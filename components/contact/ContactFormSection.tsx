@@ -72,7 +72,7 @@ export default function ContactFormSection({
             Start Your <span className="text-[var(--brand-primary)]">Journey</span>
           </h2>
           <p className="text-xl text-[var(--text-secondary)] max-w-2xl mx-auto">
-            Tell us about your vision. We'll handle the technology.
+            Tell us about your vision. We&apos;ll handle the technology.
           </p>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-[10px] xl:gap-12">

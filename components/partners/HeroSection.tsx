@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Handshake, Sparkles, Zap } from "lucide-react";
+import { Handshake, Sparkles } from "lucide-react";
 import { floatingElements } from "@/constants/contactData";
 
 const cosmicFloat = {
@@ -53,7 +53,7 @@ export default function HeroSection() {
   return (
     <motion.section
       className="relative min-h-[90dvh] flex items-center justify-center overflow-hidden"
-      // @ts-ignore
+     // @ts-expect-error - Framer Motion backgroundPosition type issue
       variants={gradientBackground}
       initial="hidden"
       animate="visible"
@@ -72,7 +72,7 @@ export default function HeroSection() {
               left: `${element.x}%`,
               top: `${element.y}%`,
             }}
-            // @ts-ignore
+           // @ts-expect-error - Framer Motion backgroundPosition type issue
             variants={cosmicFloat}
             animate="animate"
             initial={{ scale: 0 }}
@@ -90,7 +90,7 @@ export default function HeroSection() {
         animate="visible"
       >
         <motion.div
-          // @ts-ignore
+         // @ts-expect-error - Framer Motion backgroundPosition type issue
           variants={slideUpFade}
           className="inline-flex items-center gap-3 mb-6 px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20"
         >
@@ -100,7 +100,7 @@ export default function HeroSection() {
           </span>
         </motion.div>
         <motion.h1
-          // @ts-ignore
+         // @ts-expect-error - Framer Motion backgroundPosition type issue
           variants={slideUpFade}
           className="text-6xl md:text-8xl font-black mb-6 text-[var(--text-inverse)]"
         >
@@ -110,7 +110,7 @@ export default function HeroSection() {
           </span>{" "}
         </motion.h1>
         <motion.p
-          // @ts-ignore
+         // @ts-expect-error - Framer Motion backgroundPosition type issue
           variants={slideUpFade}
           className="text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed"
         >
@@ -118,7 +118,7 @@ export default function HeroSection() {
           strategic collaboration and shared vision.
         </motion.p>
         <motion.div
-          // @ts-ignore
+         // @ts-expect-error - Framer Motion backgroundPosition type issue
           variants={slideUpFade}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
@@ -187,7 +187,7 @@ export default function HeroSection() {
 //   return (
 //       <motion.section
 //           className="relative min-h-[90dvh] flex items-center justify-center overflow-hidden py-[20px]"
-//             // @ts-ignore
+//            // @ts-expect-error - Framer Motion backgroundPosition type issue
 //           variants={gradientBackground}
 //           initial="hidden"
 //           animate="visible"

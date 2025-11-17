@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Download, ExternalLink } from "lucide-react";
+import { X, Download } from "lucide-react";
 import Image from "next/image";
 
 interface CertificateModalProps {

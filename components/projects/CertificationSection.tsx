@@ -188,7 +188,7 @@ export default function CertificationsSection() {
                   {/* Action Button */}
                   {cert.status === "achieved" && (
                     <motion.button
-                      onClick={() => setSelectedCert(cert)}
+                      // onClick={() => setSelectedCert(cert)}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       className="w-full mt-4 flex items-center justify-center gap-2 py-2 rounded-lg bg-[var(--brand-primary)] text-[var(--text-inverse)] font-semibold text-sm"

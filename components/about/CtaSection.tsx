@@ -15,8 +15,8 @@ export default function CtaSection() {
           Join Our Movement
         </h2>
         <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-          Whether you're a potential scholar, mentor, partner, or supporter,
-          there's a place for you in the ChessNcode community.
+          Whether you&apos;re a potential scholar, mentor, partner, or supporter,
+          there&apos;s a place for you in the ChessNcode community.
         </p>
         <motion.div
           className="flex flex-wrap gap-4 justify-center"

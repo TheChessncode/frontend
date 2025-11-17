@@ -8,9 +8,7 @@ import {
   MessageSquare,
   AlertCircle,
   CheckCircle,
-  Rocket,
   Sparkles,
-  MessageCircleCode,
   MailCheck,
   Loader2,
 } from "lucide-react";
@@ -99,7 +97,7 @@ export default function ContactForm({
                 <div>
                   <h4 className="font-bold text-lg">Message Sent!</h4>
                   <p>
-                    We've received your message and will get back to you right
+                    We&apos;ve received your message and will get back to you right
                     away.
                   </p>
                 </div>

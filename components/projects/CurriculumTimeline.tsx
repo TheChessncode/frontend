@@ -13,7 +13,7 @@ export default function CurriculumTimeline() {
       <div className="max-w-4xl mx-auto">
         <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}>
           <h2 className="text-3xl font-bold text-[var(--text-primary)] mb-4">
-            Elora's Learning Journey
+            Elora&apos;s Learning Journey
           </h2>
           <p className="text-lg text-[var(--text-secondary)]">
             12-month intensive Data Science & Machine Learning curriculum
@@ -25,7 +25,7 @@ export default function CurriculumTimeline() {
           
           <div className="space-y-8">
             {curriculumData.map((phase, i) => (
-                //@ts-ignore
+                // @ts-expect-error - Framer Motion backgroundPosition type issue
               <TimelineCard key={i} phase={phase} index={i} />
             ))}
           </div>

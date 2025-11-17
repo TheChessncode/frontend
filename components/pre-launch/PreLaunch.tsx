@@ -29,6 +29,7 @@ export default function PreLaunch() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  console.log(error)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,6 +71,7 @@ export default function PreLaunch() {
       }
     } catch (error) {
       const submissions = JSON.parse(localStorage.getItem('chessncodeWaitlist') || '[]');
+      console.log(error)
       submissions.push({ email, date: new Date().toISOString() });
       localStorage.setItem('chessncodeWaitlist', JSON.stringify(submissions));
       setIsSubmitted(true);
@@ -82,7 +84,7 @@ export default function PreLaunch() {
   return (
     <motion.div
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      // @ts-ignore
+      // @ts-expect-error - Framer Motion backgroundPosition type issue
       variants={gradientBackground}
       initial="hidden"
       animate="visible"
@@ -190,8 +192,8 @@ export default function PreLaunch() {
                 animate={{ scale: 1 }}
                 className="bg-white/20 backdrop-blur-lg border border-white/30 text-white p-6 rounded-2xl"
               >
-                <p className="text-lg font-semibold">🎉 You're on the list!</p>
-                <p className="text-sm mt-2">We'll notify you when we launch</p>
+                <p className="text-lg font-semibold">🎉 You&apos;re on the list!</p>
+                <p className="text-sm mt-2">We&apos;ll notify you when we launch</p>
               </motion.div>
             )}
           </motion.div>

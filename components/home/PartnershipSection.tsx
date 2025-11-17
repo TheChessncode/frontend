@@ -172,7 +172,7 @@ export default function PartnershipSection() {
           className="mt-12 pt-8 border-t border-[var(--border-primary)]"
         >
           <p className="text-center text-[var(--text-tertiary)] text-sm">
-            Together, we're building a brighter future for the next generation of female leaders
+            Together, we&apos;re building a brighter future for the next generation of female leaders
           </p>
         </motion.div>
       </div>

@@ -4,14 +4,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Facebook,
   Twitter,
   Instagram,
-  Linkedin,
   Youtube,
   Mail,
   MapPin,
-  Phone,
   ArrowUp,
   Heart,
   Brain,
@@ -22,9 +19,11 @@ import {
 import { useState, useEffect } from "react";
 
 export default function Footer() {
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  // const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [isVisible, setIsVisible] = useState(false);
   const [isClient, setIsClient] = useState(false);
+
+  const currentYear = new Date().getFullYear()
 
   useEffect(() => {
     setIsClient(true);
@@ -215,7 +214,7 @@ export default function Footer() {
                 Programs
               </h3>
               <ul className="space-y-3">
-                {footerLinks.programs.map((link, index) => (
+                {footerLinks.programs.map((link) => (
                   <motion.li key={link.name} whileHover={{ x: 5 }}>
                     <Link
                       href={link.href}
@@ -240,7 +239,7 @@ export default function Footer() {
                 Resources
               </h3>
               <ul className="space-y-3">
-                {footerLinks.resources.map((link, index) => (
+                {footerLinks.resources.map((link) => (
                   <motion.li key={link.name} whileHover={{ x: 5 }}>
                     <Link
                       href={link.href}
@@ -265,7 +264,7 @@ export default function Footer() {
                 Support
               </h3>
               <ul className="space-y-3">
-                {footerLinks.support.map((link, index) => (
+                {footerLinks.support.map((link) => (
                   <motion.li key={link.name} whileHover={{ x: 5 }}>
                     <Link
                       href={link.href}

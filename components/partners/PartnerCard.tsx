@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { Partner } from "@/constants/partnersData";
+import Image from "next/image";
 
 interface PartnerCardProps {
   partner: Partner;
@@ -31,7 +32,10 @@ export default function PartnerCard({ partner, index, setSelectedPartner }: Part
           whileHover={{ x: 5 }}
         >
           <div className="w-16 h-16 bg-[var(--bg-secondary)] rounded-2xl flex items-center justify-center p-3 border border-[var(--border-primary)] group-hover:border-[var(--brand-primary)] transition-colors duration-500">
-            <img 
+            <Image
+              width={500}
+              height={500}
+              priority={true}
               src={partner.logoUrl} 
               alt={partner.partnerName}
               className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"

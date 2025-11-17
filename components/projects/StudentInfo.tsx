@@ -17,12 +17,22 @@ export default function StudentInfo() {
             className="w-24 h-24 rounded-2xl border-4 border-[var(--bg-primary)] shadow-lg"
             whileHover={{ scale: 1.05 }}
           >
-            <Image src={studentData.image} alt={"Elora"} width={500} height={500} className="w-full h-full rounded-xl object-center object-cover"/>
+            <Image
+              src={studentData.image}
+              alt={"Elora"}
+              width={500}
+              height={500}
+              className="w-full h-full rounded-xl object-center object-cover"
+            />
           </motion.div>
           <motion.div
             className="absolute -top-2 -right-2 bg-[var(--success)] text-[var(--text-inverse)] p-1 rounded-full"
             animate={{ scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
-            transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatType: "reverse",
+            }}
           >
             <Award className="w-5 h-5" />
           </motion.div>
@@ -47,7 +57,7 @@ export default function StudentInfo() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
       >
-        "{studentData.quote}"
+        &quot;{studentData.quote}&quot;
       </motion.blockquote>
 
       <div className="grid grid-cols-2 gap-4 mt-8">
@@ -56,16 +66,24 @@ export default function StudentInfo() {
           whileHover={{ scale: 1.05 }}
         >
           <Target className="w-8 h-8 text-[var(--success)] mb-2" />
-          <h3 className="font-semibold text-[var(--text-primary)]">Current Goal</h3>
-          <p className="text-sm text-[var(--text-secondary)]">{studentData.currentGoal}</p>
+          <h3 className="font-semibold text-[var(--text-primary)]">
+            Current Goal
+          </h3>
+          <p className="text-sm text-[var(--text-secondary)]">
+            {studentData.currentGoal}
+          </p>
         </motion.div>
         <motion.div
           className="p-4 rounded-xl bg-[var(--bg-primary)] shadow-sm border border-[var(--border-primary)]"
           whileHover={{ scale: 1.05 }}
         >
           <Calendar className="w-8 h-8 text-[var(--info)] mb-2" />
-          <h3 className="font-semibold text-[var(--text-primary)]">Journey Started</h3>
-          <p className="text-sm text-[var(--text-secondary)]">{studentData.joined}</p>
+          <h3 className="font-semibold text-[var(--text-primary)]">
+            Journey Started
+          </h3>
+          <p className="text-sm text-[var(--text-secondary)]">
+            {studentData.joined}
+          </p>
         </motion.div>
       </div>
     </motion.div>

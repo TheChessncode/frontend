@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 
@@ -17,6 +17,8 @@ export default function HeroSection() {
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
+
+  console.log(isLoaded)
 
   useEffect(() => {
     setIsLoaded(true);
@@ -69,7 +71,7 @@ export default function HeroSection() {
   return (
     <motion.section
       className="relative min-h-[90dvh] flex items-center justify-center overflow-hidden py-[20px]"
-        // @ts-ignore
+        // @ts-expect-error - Framer Motion backgroundPosition type issue
       variants={gradientBackground}
       initial="hidden"
       animate="visible"

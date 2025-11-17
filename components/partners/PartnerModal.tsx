@@ -1,13 +1,17 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, Star } from "lucide-react";
 import { Partner } from "@/constants/partnersData";
+import Image from "next/image";
 
 interface PartnerModalProps {
   selectedPartner: Partner | null;
   setSelectedPartner: (partner: Partner | null) => void;
 }
 
-export default function PartnerModal({ selectedPartner, setSelectedPartner }: PartnerModalProps) {
+export default function PartnerModal({
+  selectedPartner,
+  setSelectedPartner,
+}: PartnerModalProps) {
   return (
     <AnimatePresence>
       {selectedPartner && (
@@ -30,8 +34,11 @@ export default function PartnerModal({ selectedPartner, setSelectedPartner }: Pa
               <div className="flex items-start justify-between mb-6">
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 bg-[var(--bg-secondary)] rounded-2xl flex items-center justify-center p-3 border border-[var(--border-primary)]">
-                    <img 
-                      src={selectedPartner.logoUrl} 
+                    <Image
+                      width={500}
+                      height={500}
+                      priority={true}
+                      src={selectedPartner.logoUrl}
                       alt={selectedPartner.partnerName}
                       className="w-full h-full object-contain"
                     />

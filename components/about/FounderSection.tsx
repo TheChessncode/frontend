@@ -1,18 +1,19 @@
-import { founderItems } from '@/constants/aboutData';
-import { motion } from 'framer-motion';
+import { founderItems } from "@/constants/aboutData";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6 }
+  transition: { duration: 0.6 },
 };
 
 const staggerContainer = {
   animate: {
     transition: {
-      staggerChildren: 0.2
-    }
-  }
+      staggerChildren: 0.2,
+    },
+  },
 };
 
 export default function FounderSection() {
@@ -26,8 +27,10 @@ export default function FounderSection() {
           viewport={{ once: true }}
           variants={staggerContainer}
         >
-          <motion.div variants={fadeInUp}> 
-            <img
+          <motion.div variants={fadeInUp}>
+            <Image
+              width={500}
+              height={500}
               src="/founder.jpeg"
               alt="Founder Abimbola Ayo Osunfuyi"
               className="rounded-2xl shadow-2xl w-full"
@@ -41,9 +44,11 @@ export default function FounderSection() {
               Abimbola Ayo Osunfuyi
             </h3>
             <p className="text-[var(--text-secondary)] mb-6 leading-relaxed">
-              With extensive experience as part of the team that built Promoting Queens from scratch, I understand the importance
-              of matching the right solutions to the right problems. ChessNcode represents the fusion of
-              my passion for chess, technology, and women's empowerment.
+              With extensive experience as part of the team that built Promoting
+              Queens from scratch, I understand the importance of matching the
+              right solutions to the right problems. ChessNcode represents the
+              fusion of my passion for chess, technology, and women&apos;s
+              empowerment.
             </p>
             <div className="space-y-3">
               {founderItems.map((item, index) => (

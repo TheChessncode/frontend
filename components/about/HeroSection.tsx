@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -31,7 +32,7 @@ export default function HeroSection() {
   return (
     <motion.section
       className="relative min-h-[90dvh] flex items-center justify-center overflow-hidden py-[20px]"
-      // @ts-ignore
+      // @ts-expect-error - Framer Motion backgroundPosition type issue
       variants={gradientBackground}
       initial="hidden"
       animate="visible"
@@ -69,7 +70,10 @@ export default function HeroSection() {
               Building pathways to tech careers through strategic thinking,
               mentorship, and community in the AI era.
             </motion.p>
-            <motion.div className="grid grid-cols-2 gap-[10px]" variants={fadeInUp}>
+            <motion.div
+              className="grid grid-cols-2 gap-[10px]"
+              variants={fadeInUp}
+            >
               <div className="text-center">
                 <div className="text-2xl lg:text-3xl font-bold text-[white]">
                   2B
@@ -82,9 +86,7 @@ export default function HeroSection() {
                 <div className="text-2xl lg:text-3xl font-bold text-[white]">
                   1M+
                 </div>
-                <div className="text-[white]/70 text-sm">
-                  Target by 2035
-                </div>
+                <div className="text-[white]/70 text-sm">Target by 2035</div>
               </div>
             </motion.div>
           </motion.div>
@@ -95,7 +97,9 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <div className="relative z-10 bg-white rounded-2xl shadow-2xl p-[10px] transform rotate-[-20deg] hover:rotate-0 transition-transform duration-300">
-              <img
+              <Image
+                width={500}
+                height={500}
                 src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                 alt="Diverse team of women collaborating on technology project with laptops and chess pieces"
                 className="rounded-xl w-full h-64 lg:h-80 object-cover"

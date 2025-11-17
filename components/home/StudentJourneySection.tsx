@@ -105,7 +105,7 @@ export default function StudentJourneySection() {
               </p>
               
               <div className="mt-4 p-3 bg-[var(--bg-tertiary)] rounded-lg">
-                <p className="text-sm italic text-[var(--text-secondary)]">"{student.quote}"</p>
+                <p className="text-sm italic text-[var(--text-secondary)]">&quot;{student.quote}&quot;</p>
               </div>
               
               <div className="mt-4 text-xs text-[var(--text-tertiary)]">

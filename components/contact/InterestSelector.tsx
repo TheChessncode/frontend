@@ -62,7 +62,7 @@ export default function InterestSelector({ activeInterest, setActiveInterest }: 
           >
             <p className="text-sm text-[var(--text-primary)] flex items-center gap-2">
               <CheckCircle className="w-4 h-4" />
-              Great! Now let's get the details.
+              Great! Now let&apos;s get the details.
             </p>
           </motion.div>}
         </div>
