@@ -143,12 +143,11 @@ export const viewport: Viewport = {
   colorScheme: "light dark",
 };
 
-export default function RootLayout() {
-  // export default function RootLayout({
-  //   // children,
-  // }: Readonly<{
-  //   // children: React.ReactNode;
-  // }>) {
+  export default function RootLayout({
+    children,
+  }: Readonly<{
+    children: React.ReactNode;
+  }>) {
   return (
     <html
       lang="en"
@@ -228,8 +227,8 @@ export default function RootLayout() {
         itemScope
         itemType="https://schema.org/WebPage"
       >
-        {/* {children} */}
-        <PreLaunch />
+        {children}
+        {/* <PreLaunch /> */}
       </body>
     </html>
   );
