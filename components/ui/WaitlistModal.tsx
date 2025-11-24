@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Rocket, CheckCircle, Sparkles } from "lucide-react";
+import { X, Rocket, CheckCircle } from "lucide-react";
 
 interface WaitlistModalProps {
   isOpen: boolean;
@@ -154,7 +154,7 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
                           Welcome! 🎉
                         </h3>
                         <p className="text-gray-600">
-                          You'll be the first to know when we launch
+                          You&apos;ll be the first to know when we launch
                         </p>
                       </div>
                     </motion.div>
