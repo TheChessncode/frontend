@@ -18,8 +18,6 @@ export default function HeroSection() {
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
-
-  // Add this state for the modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   console.log(isLoaded);
@@ -127,9 +125,8 @@ export default function HeroSection() {
                   <span>Sponsor a Scholar</span>
                 </motion.a>
 
-                {/* ONLY CHANGE THIS BUTTON */}
                 <motion.button
-                  onClick={() => setIsModalOpen(true)} // Add this onClick
+                  onClick={() => setIsModalOpen(true)} 
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   className="border border-[white]/60 text-[white]/60 px-8 py-4 text-base font-semibold rounded-xl hover:bg-[var(--brand-primary)] hover:border-[var(--brand-primary)] hover:text-white transition-all duration-200"
@@ -139,7 +136,6 @@ export default function HeroSection() {
               </div>
             </motion.div>
 
-            {/* Preparation Banner */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

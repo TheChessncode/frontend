@@ -3,19 +3,14 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Target,
-  Handshake,
-  Info,
-  X,
-  ArrowRight,
-  Mail,
-} from "lucide-react";
+import { Target, Handshake, Info, X, ArrowRight, Mail } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { WaitlistModal } from "./WaitlistModal";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -70,7 +65,11 @@ export default function Header() {
                   key={item.name}
                   href={item.href}
                   whileHover={{ y: -2 }}
-                  className={`${isActive ? "text-[var(--brand-primary)]" : "text-[var(--text-secondary)]"}  hover:text-[var(--brand-primary)] transition-colors duration-200 font-medium flex items-center space-x-2 group`}
+                  className={`${
+                    isActive
+                      ? "text-[var(--brand-primary)]"
+                      : "text-[var(--text-secondary)]"
+                  }  hover:text-[var(--brand-primary)] transition-colors duration-200 font-medium flex items-center space-x-2 group`}
                 >
                   <span>{item.name}</span>
                 </motion.a>
@@ -78,7 +77,10 @@ export default function Header() {
             })}
           </nav>
 
-          <button className="hidden md:flex items-center px-6 py-2.5 rounded-full bg-[var(--brand-primary)] text-[var(--text-inverse)] font-semibold hover:bg-[var(--brand-primary-dark)] transition-all duration-200 shadow-lg hover:shadow-xl">
+          <button
+            className="hidden md:flex items-center px-6 py-2.5 rounded-full bg-[var(--brand-primary)] text-[var(--text-inverse)] font-semibold hover:bg-[var(--brand-primary-dark)] transition-all duration-200 shadow-lg hover:shadow-xl"
+            onClick={() => setIsModalOpen(true)}
+          >
             Join us
             <span className="bg-white text-[var(--brand-primary)] rounded-full inline-flex ml-[10px]">
               <ArrowRight size={20} className="-rotate-45" />
@@ -166,7 +168,12 @@ export default function Header() {
                           animate={{ x: 0, opacity: 1 }}
                           transition={{ delay: index * 0.1 }}
                           onClick={closeMenu}
-                          className={"flex items-center space-x-3 p-4 rounded-xl hover:bg-[var(--bg-secondary)] transition-colors duration-200 text-lg font-medium  group" + (isActive ? " bg-[var(--bg-secondary)] text-[var(--brand-primary)]" : "hidden text-[var(--text-primary)]")}
+                          className={
+                            "flex items-center space-x-3 p-4 rounded-xl hover:bg-[var(--bg-secondary)] transition-colors duration-200 text-lg font-medium  group" +
+                            (isActive
+                              ? " bg-[var(--bg-secondary)] text-[var(--brand-primary)]"
+                              : "hidden text-[var(--text-primary)]")
+                          }
                         >
                           {/* <IconComponent className="w-5 h-5 text-[var(--text-tertiary)] group-hover:text-[var(--brand-primary)] transition-colors duration-200" /> */}
                           <span>{item.name}</span>
@@ -191,6 +198,11 @@ export default function Header() {
           </>
         )}
       </AnimatePresence>
+
+      <WaitlistModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </header>
   );
 }
