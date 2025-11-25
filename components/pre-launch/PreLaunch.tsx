@@ -48,7 +48,7 @@ export default function PreLaunch() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("https://formsubmit.co/ajax/info@chessncode.com", {
+      const response = await fetch("https://formsubmit.co/ajax/info@chessncode.org", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',

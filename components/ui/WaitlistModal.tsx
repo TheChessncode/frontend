@@ -21,7 +21,7 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
     setIsLoading(true);
 
     try {
-      await fetch("https://formsubmit.co/ajax/info@chessncode.com", {
+      await fetch("https://formsubmit.co/ajax/info@chessncode.org", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, _subject: "🎉 New Waitlist Signup" }),
