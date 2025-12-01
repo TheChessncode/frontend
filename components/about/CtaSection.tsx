@@ -25,7 +25,7 @@ export default function CtaSection() {
           <motion.a
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            href='mailto:hello@chessncode.org'
+            href='mailto:info@chessncode.org'
             className="bg-white text-[var(--brand-primary)] px-[13px] py-[5px] md:px-8 md:py-3 rounded-full font-semibold hover:shadow-lg transition-shadow"
           >
             Get Involved

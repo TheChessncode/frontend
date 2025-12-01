@@ -117,7 +117,7 @@ export default function HeroSection() {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <motion.a
-                  href="mailto:hello@chessncode.org"
+                  href="mailto:info@chessncode.org"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   className="bg-[var(--brand-primary)] text-white px-8 py-4 text-base font-semibold rounded-xl hover:bg-[var(--brand-primary-dark)] transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"

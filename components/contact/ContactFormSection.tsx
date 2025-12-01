@@ -34,7 +34,7 @@ export default function ContactFormSection({
         from_email: data.email,
         subject: `[${data.interest}] ${data.subject}`,
         message: data.message,
-        to_email: 'hello@chessncode.org',
+        to_email: 'info@chessncode.org',
         interest: data.interest,
       };
 

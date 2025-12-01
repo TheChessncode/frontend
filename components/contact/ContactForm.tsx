@@ -116,10 +116,10 @@ export default function ContactForm({
                   <p>
                     Please try again or contact us directly at{" "}
                     <a
-                      href="mailto:hello@chessncode.org"
+                      href="mailto:info@chessncode.org"
                       className="underline hover:opacity-80"
                     >
-                      hello@chessncode.org
+                      info@chessncode.org
                     </a>
                   </p>
                 </div>

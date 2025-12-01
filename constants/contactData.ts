@@ -66,10 +66,10 @@ export const contactInfo = [
   {
     icon: Mail,
     title: "Email Us",
-    content: "hello@chessncode.org",
+    content: "info@chessncode.org",
     description: "Our main communication channel",
     gradient: "from-blue-500 to-cyan-500",
-    url: "mailto:hello@chessncode.org",
+    url: "mailto:info@chessncode.org",
     external: false
   },
   {

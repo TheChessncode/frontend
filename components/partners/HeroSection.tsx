@@ -123,7 +123,7 @@ export default function HeroSection() {
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
           <motion.a
-            href="mailto:hello@chessncode.org"
+            href="mailto:info@chessncode.org"
             className="group relative px-8 py-4 bg-[var(--brand-primary)] text-white rounded-xl font-semibold overflow-hidden"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

@@ -188,7 +188,7 @@ export const viewport: Viewport = {
               ],
               contactPoint: {
                 "@type": "ContactPoint",
-                email: "hello@chessncode.com",
+                email: "info@chessncode.org",
                 contactType: "customer service",
               },
               areaServed: "Worldwide",
