@@ -1,9 +1,13 @@
-import { studentData } from "@/constants/projectsData";
+import { Student } from "@/constants/studentsData";
 import { motion } from "framer-motion";
 import { Award, Target, Calendar, MapPin } from "lucide-react";
 import Image from "next/image";
 
-export default function StudentInfo() {
+interface StudentInfoProps {
+  student: Student;
+}
+
+export default function StudentInfo({ student }: StudentInfoProps) {
   return (
     <motion.div
       initial={{ opacity: 0, x: -30 }}
@@ -18,8 +22,8 @@ export default function StudentInfo() {
             whileHover={{ scale: 1.05 }}
           >
             <Image
-              src={studentData.image}
-              alt={"Elora"}
+              src={student.image}
+              alt={student.name}
               width={500}
               height={500}
               className="w-full h-full rounded-xl object-center object-cover"
@@ -39,14 +43,14 @@ export default function StudentInfo() {
         </div>
         <div>
           <h1 className="text-[2xl] md:text-3xl font-bold text-white">
-            {studentData.name}
+            {student.name}
           </h1>
           <p className="text-lg text-white font-semibold">
-            {studentData.chessBackground}
+            {student.chessBackground}
           </p>
           <p className="text-white flex items-center gap-1 mt-1">
             <MapPin className="w-4 h-4" />
-            Nigeria
+            {student.location}
           </p>
         </div>
       </div>
@@ -57,7 +61,7 @@ export default function StudentInfo() {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
       >
-        &quot;{studentData.quote}&quot;
+        &quot;{student.quote}&quot;
       </motion.blockquote>
 
       <div className="grid grid-cols-2 gap-4 mt-8">
@@ -70,7 +74,7 @@ export default function StudentInfo() {
             Current Goal
           </h3>
           <p className="text-sm text-[var(--text-secondary)]">
-            {studentData.currentGoal}
+            {student.currentGoal}
           </p>
         </motion.div>
         <motion.div
@@ -82,7 +86,7 @@ export default function StudentInfo() {
             Journey Started
           </h3>
           <p className="text-sm text-[var(--text-secondary)]">
-            {studentData.joined}
+            {student.joined}
           </p>
         </motion.div>
       </div>

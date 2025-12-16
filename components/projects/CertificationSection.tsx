@@ -5,36 +5,11 @@ import { Award, ExternalLink, Calendar, Clock, Sparkles } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import CertificateModal from "./CertificateModal";
+import { Student } from "@/constants/studentsData";
 
-const certifications = [
-  {
-    id: 1,
-    title: "Introduction to Excel",
-    issuer: "Datacamp",
-    image: "/datacamp-cert.jpg",
-    date: "November 9 2025",
-    status: "achieved",
-    tags: ["Python", "ML", "Data Analysis"],
-  },
-  {
-    id: 2,
-    title: "Introduction to Data Science",
-    issuer: "IBM",
-    image: "/ibm-cert.jpg",
-    date: "October 30 2025",
-    status: "achieved",
-    tags: ["AI", "Cloud", "Big Data"],
-  },
-  {
-    id: 3,
-    title: "Introduction to SQL",
-    issuer: "Datacamp",
-    date: "November 7 2025",
-    image: "/sql-cert.jpg",
-    status: "achieved",
-    tags: ["TensorFlow", "GCP", "MLOps"],
-  },
-];
+interface CertificationSectionProps {
+  student: Student;
+}
 
 const container = {
   hidden: { opacity: 0 },
@@ -51,8 +26,9 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
-export default function CertificationsSection() {
+export default function CertificationsSection({ student }: CertificationSectionProps) {
   const [selectedCert, setSelectedCert] = useState(null);
+  const certifications = student.certifications;
 
   return (
     <>
@@ -82,13 +58,14 @@ export default function CertificationsSection() {
           </motion.div>
 
           {/* Certifications Grid */}
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-          >
-            {certifications.map((cert) => (
+          {certifications.length > 0 ? (
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              variants={container}
+              initial="hidden"
+              whileInView="show"
+            >
+              {certifications.map((cert) => (
               <motion.div
                 key={cert.id}
                 variants={item}
@@ -204,38 +181,56 @@ export default function CertificationsSection() {
                   <div className="absolute inset-0 rounded-2xl bg-[var(--brand-primary)] opacity-0 group-hover:opacity-5 transition-opacity -z-10" />
                 )}
               </motion.div>
-            ))}
-          </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div
+              className="text-center py-12 px-6 rounded-2xl bg-[var(--bg-secondary)] border border-[var(--border-primary)]"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+            >
+              <Award className="w-16 h-16 text-[var(--text-muted)] mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2">
+                Certifications Coming Soon
+              </h3>
+              <p className="text-[var(--text-secondary)]">
+                {student.name} is working hard to earn their first certifications!
+              </p>
+            </motion.div>
+          )}
 
           {/* Progress Summary */}
-          <motion.div
-            className="text-center mt-12 p-6 rounded-2xl bg-[var(--bg-primary)] border border-[var(--border-primary)] max-w-md mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <div className="text-2xl font-bold text-[var(--text-primary)] mb-2">
-              {certifications.filter((c) => c.status === "achieved").length}/
-              {certifications.length}
-            </div>
-            <div className="text-[var(--text-secondary)]">
-              Certifications Completed
-            </div>
-            <div className="w-full bg-[var(--bg-tertiary)] rounded-full h-2 mt-3">
-              <motion.div
-                className="h-2 rounded-full bg-[var(--success)]"
-                initial={{ width: 0 }}
-                whileInView={{
-                  width: `${
-                    (certifications.filter((c) => c.status === "achieved")
-                      .length /
-                      certifications.length) *
-                    100
-                  }%`,
-                }}
-                transition={{ duration: 1.5, delay: 0.5 }}
-              />
-            </div>
-          </motion.div>
+          {certifications.length > 0 && (
+            <motion.div
+              className="text-center mt-12 p-6 rounded-2xl bg-[var(--bg-primary)] border border-[var(--border-primary)] max-w-md mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+            >
+              <div className="text-2xl font-bold text-[var(--text-primary)] mb-2">
+                {certifications.filter((c) => c.status === "achieved").length}/
+                {certifications.length}
+              </div>
+              <div className="text-[var(--text-secondary)]">
+                Certifications Completed
+              </div>
+              <div className="w-full bg-[var(--bg-tertiary)] rounded-full h-2 mt-3">
+                <motion.div
+                  className="h-2 rounded-full bg-[var(--success)]"
+                  initial={{ width: 0 }}
+                  whileInView={{
+                    width: `${
+                      certifications.length > 0
+                        ? (certifications.filter((c) => c.status === "achieved").length /
+                            certifications.length) *
+                          100
+                        : 0
+                    }%`,
+                  }}
+                  transition={{ duration: 1.5, delay: 0.5 }}
+                />
+              </div>
+            </motion.div>
+          )}
         </div>
       </section>
 

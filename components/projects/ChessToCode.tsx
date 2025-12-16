@@ -1,7 +1,19 @@
 import { motion } from "framer-motion";
-import { Brain, Code2 } from "lucide-react";
+import { Brain, Code2, Database } from "lucide-react";
+import { Student } from "@/constants/studentsData";
 
-export default function ChessToCode() {
+interface ChessToCodeProps {
+  student: Student;
+}
+
+export default function ChessToCode({ student }: ChessToCodeProps) {
+  // Determine the target field based on student's goal
+  const isDataAnalyst = student.currentGoal.toLowerCase().includes("data analyst");
+  const targetField = isDataAnalyst ? "Data Analysis" : "Data Science";
+  const targetSkills = isDataAnalyst 
+    ? "Excel • SQL • Python • Data Visualization • BI Tools"
+    : "Machine Learning • Python • Data Analysis • Deployment";
+
   return (
     <motion.div
       className="relative pb-[50px] md:pb-0"
@@ -11,7 +23,7 @@ export default function ChessToCode() {
     >
       <div className="bg-[var(--bg-primary)] rounded-2xl p-[15px] md:p-8 shadow-xl border border-[var(--border-primary)]">
         <h2 className="text-2xl font-bold text-center text-[var(--text-primary)] mb-8">
-          From Chess Master to Data Scientist
+          From Chess to {targetField}
         </h2>
         
         <div className="space-y-6">
@@ -40,10 +52,14 @@ export default function ChessToCode() {
             className="flex items-center gap-4 p-4 rounded-xl bg-[var(--success-light)] border border-[var(--success)]"
             whileHover={{ scale: 1.02 }}
           >
-            <Code2 className="w-8 h-8 text-[var(--success)]" />
+            {isDataAnalyst ? (
+              <Database className="w-8 h-8 text-[var(--success)]" />
+            ) : (
+              <Code2 className="w-8 h-8 text-[var(--success)]" />
+            )}
             <div>
-              <h3 className="font-semibold text-[var(--text-primary)]">Data Science</h3>
-              <p className="text-sm text-[var(--text-secondary)]">Machine Learning • Python • Data Analysis • Deployment</p>
+              <h3 className="font-semibold text-[var(--text-primary)]">{targetField}</h3>
+              <p className="text-sm text-[var(--text-secondary)]">{targetSkills}</p>
             </div>
           </motion.div>
         </div>

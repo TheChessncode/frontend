@@ -2,8 +2,13 @@ import { motion } from "framer-motion";
 import StudentInfo from "./StudentInfo";
 import ChessToCode from "./ChessToCode";
 import { gradientBackground } from "../contact/HeroSection";
+import { Student } from "@/constants/studentsData";
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  student: Student;
+}
+
+export default function HeroSection({ student }: HeroSectionProps) {
   return (
     <motion.section
       className="relative min-h-[90dvh] flex items-center justify-center overflow-hidden"
@@ -19,8 +24,8 @@ export default function HeroSection() {
     >
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <StudentInfo />
-          <ChessToCode />
+          <StudentInfo student={student} />
+          <ChessToCode student={student} />
         </div>
       </div>
     </motion.section>
