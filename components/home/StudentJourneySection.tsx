@@ -51,6 +51,7 @@ export default function StudentJourneySection() {
           projects: ["Model deployment", "Production systems"],
           icon: <Rocket className="w-5 h-5 text-[var(--text-secondary)]" />
     },
+    
     {
       level: 5,
           title: "Advanced Topics & Career",
