@@ -121,7 +121,7 @@ export default function StudentJourneySection() {
   }, [selectedStudentSlug, selectedStudent]);
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-[var(--bg-primary)] to-[var(--bg-secondary)] py-16 px-4">
+    <section className="bg-gradient-to-br from-[var(--bg-primary)] to-[var(--bg-secondary)] py-16 px-4">
       <div className="max-w-6xl mx-auto">
         
         <motion.div
