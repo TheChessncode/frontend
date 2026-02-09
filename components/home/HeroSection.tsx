@@ -73,7 +73,7 @@ export default function HeroSection() {
   return (
     <>
       <motion.section
-        className="relative min-h-[90dvh] flex items-center justify-center overflow-hidden py-[20px]"
+        className="relative min-h-[90dvh] flex items-center justify-center overflow-hidden py-[20px] border-b border-[var(--border-primary)]"
         // @ts-expect-error - Framer Motion backgroundPosition type issue
         variants={gradientBackground}
         initial="hidden"
@@ -109,7 +109,7 @@ export default function HeroSection() {
               className="space-y-6"
             >
               <div className="text-center lg:text-left">
-                <p className="text-[white]/60 text-lg lg:text-xl leading-relaxed">
+                <p className="text-[white] text-lg lg:text-xl leading-relaxed">
                   Chessncode transforms strategic thinking from the chessboard
                   into computational thinking for the digital world.
                 </p>
@@ -126,7 +126,7 @@ export default function HeroSection() {
                 </motion.a>
 
                 <motion.button
-                  onClick={() => setIsModalOpen(true)} 
+                  onClick={() => setIsModalOpen(true)}
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   className="border border-[white]/60 text-[white]/60 px-8 py-4 text-base font-semibold rounded-xl hover:bg-[var(--brand-primary)] hover:border-[var(--brand-primary)] hover:text-white transition-all duration-200"

@@ -41,13 +41,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Scholar/Student pages - high priority for SEO
   const students = getAllStudents();
   const scholarRoutes: MetadataRoute.Sitemap = students.map((student) => ({
     url: `${baseUrl}/projects/${student.slug}`,
     lastModified,
     changeFrequency: 'weekly' as const,
-    priority: 0.9, // High priority for individual scholar pages
+    priority: 0.9,
   }));
 
   return [...coreRoutes, ...scholarRoutes];

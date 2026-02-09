@@ -9,8 +9,15 @@ import InstagramBackgroundDecor from "./instagram/InstagramBackgroundDecor";
 
 export default function InstagramReelsSection() {
   return (
-    <section className="relative py-16 lg:py-24 bg-gradient-to-br from-[var(--bg-primary)] via-[var(--bg-secondary)] to-[var(--bg-primary)] overflow-hidden">
+    <section className="relative py-16 lg:py-24 bg-[var(--bg-primary)] border-b border-[var(--border-primary)] overflow-hidden">
       <InstagramBackgroundDecor />
+
+      {/* Section Separator */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+        <div className="bg-[var(--bg-primary)] p-3 rounded-full border border-[var(--border-primary)] shadow-sm">
+          <div className="w-2 h-2 bg-[var(--brand-primary)] rounded-full animate-pulse" />
+        </div>
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <InstagramSectionHeader />

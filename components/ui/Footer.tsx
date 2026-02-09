@@ -23,7 +23,7 @@ export default function Footer() {
   const [isVisible, setIsVisible] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     setIsClient(true);
