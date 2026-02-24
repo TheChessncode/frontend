@@ -143,11 +143,11 @@ export const viewport: Viewport = {
   colorScheme: "light dark",
 };
 
-  export default function RootLayout({
-    children,
-  }: Readonly<{
-    children: React.ReactNode;
-  }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html
       lang="en"
@@ -188,7 +188,7 @@ export const viewport: Viewport = {
               ],
               contactPoint: {
                 "@type": "ContactPoint",
-                email: "info@chessncode.org",
+                email: "info@chessncode.com",
                 contactType: "customer service",
               },
               areaServed: "Worldwide",

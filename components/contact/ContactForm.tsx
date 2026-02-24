@@ -97,8 +97,8 @@ export default function ContactForm({
                 <div>
                   <h4 className="font-bold text-lg">Message Sent!</h4>
                   <p>
-                    We&apos;ve received your message and will get back to you right
-                    away.
+                    We&apos;ve received your message and will get back to you
+                    right away.
                   </p>
                 </div>
               </motion.div>
@@ -116,10 +116,10 @@ export default function ContactForm({
                   <p>
                     Please try again or contact us directly at{" "}
                     <a
-                      href="mailto:info@chessncode.org"
+                      href="mailto:info@chessncode.com"
                       className="underline hover:opacity-80"
                     >
-                      info@chessncode.org
+                      info@chessncode.com
                     </a>
                   </p>
                 </div>
@@ -246,7 +246,11 @@ export default function ContactForm({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 type="button"
-                onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() =>
+                  document
+                    .getElementById("contact-form")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
                 className="mt-1 text-sm text-[var(--info)] flex items-center gap-2 mb-[10px] cursor-pointer underline hover:opacity-80"
               >
                 <AlertCircle className="w-4 h-4" />

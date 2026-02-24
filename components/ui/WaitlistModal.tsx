@@ -21,14 +21,14 @@ export function WaitlistModal({ isOpen, onClose }: WaitlistModalProps) {
     setIsLoading(true);
 
     try {
-      await fetch("https://formsubmit.co/ajax/info@chessncode.org", {
+      await fetch("https://formsubmit.co/ajax/info@chessncode.com", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, _subject: "🎉 New Waitlist Signup" }),
       });
     } catch {
       const submissions = JSON.parse(
-        localStorage.getItem("chessncodeWaitlist") || "[]"
+        localStorage.getItem("chessncodeWaitlist") || "[]",
       );
       submissions.push({ email, date: new Date().toISOString() });
       localStorage.setItem("chessncodeWaitlist", JSON.stringify(submissions));

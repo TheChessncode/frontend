@@ -29,12 +29,12 @@ export default function PreLaunch() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  console.log(error)
+  console.log(error);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    
+
     if (!email) {
       setError("Please enter your email");
       return;
@@ -48,20 +48,23 @@ export default function PreLaunch() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("https://formsubmit.co/ajax/info@chessncode.org", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
+      const response = await fetch(
+        "https://formsubmit.co/ajax/info@chessncode.com",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            _subject: "🎉 New Waitlist Signup - Chessncode",
+            _captcha: "false",
+            _replyto: email,
+            message: `New waitlist signup from: ${email}`,
+          }),
         },
-        body: JSON.stringify({
-          email: email,
-          _subject: "🎉 New Waitlist Signup - Chessncode",
-          _captcha: "false",
-          _replyto: email,
-          message: `New waitlist signup from: ${email}`
-        })
-      });
+      );
 
       if (response.ok) {
         setIsSubmitted(true);
@@ -70,10 +73,12 @@ export default function PreLaunch() {
         throw new Error("Submission failed");
       }
     } catch (error) {
-      const submissions = JSON.parse(localStorage.getItem('chessncodeWaitlist') || '[]');
-      console.log(error)
+      const submissions = JSON.parse(
+        localStorage.getItem("chessncodeWaitlist") || "[]",
+      );
+      console.log(error);
       submissions.push({ email, date: new Date().toISOString() });
-      localStorage.setItem('chessncodeWaitlist', JSON.stringify(submissions));
+      localStorage.setItem("chessncodeWaitlist", JSON.stringify(submissions));
       setIsSubmitted(true);
       setEmail("");
     } finally {
@@ -102,10 +107,7 @@ export default function PreLaunch() {
           initial="initial"
           animate="animate"
         >
-          <motion.div
-            variants={fadeInUp}
-            className="mb-8"
-          >
+          <motion.div variants={fadeInUp} className="mb-8">
             <Image
               src="/logo.svg"
               width={160}
@@ -118,10 +120,12 @@ export default function PreLaunch() {
           <motion.div variants={fadeInUp} className="mb-8">
             <div className="flex items-center justify-center gap-3 mb-4">
               <Sparkles className="w-6 h-6 text-white" />
-              <span className="text-white font-semibold text-lg">Coming Soon</span>
+              <span className="text-white font-semibold text-lg">
+                Coming Soon
+              </span>
               <Sparkles className="w-6 h-6 text-white" />
             </div>
-            
+
             <motion.h1
               className="text-5xl md:text-7xl font-bold text-white mb-6"
               initial={{ opacity: 0, y: 30 }}
@@ -130,7 +134,7 @@ export default function PreLaunch() {
             >
               Get Ready
             </motion.h1>
-            
+
             <p className="text-xl text-white/80 max-w-md mx-auto">
               Something extraordinary is brewing behind the scenes
             </p>
@@ -138,7 +142,7 @@ export default function PreLaunch() {
 
           <motion.div variants={fadeInUp} className="w-full max-w-md mx-auto">
             {!isSubmitted ? (
-              <motion.form 
+              <motion.form
                 onSubmit={handleSubmit}
                 className="flex flex-col gap-4"
                 whileHover={{ scale: 1.02 }}
@@ -160,7 +164,7 @@ export default function PreLaunch() {
                 </div>
 
                 {error && (
-                  <motion.p 
+                  <motion.p
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="text-red-300 text-sm text-center"
@@ -192,8 +196,12 @@ export default function PreLaunch() {
                 animate={{ scale: 1 }}
                 className="bg-white/20 backdrop-blur-lg border border-white/30 text-white p-6 rounded-2xl"
               >
-                <p className="text-lg font-semibold">🎉 You&apos;re on the list!</p>
-                <p className="text-sm mt-2">We&apos;ll notify you when we launch</p>
+                <p className="text-lg font-semibold">
+                  🎉 You&apos;re on the list!
+                </p>
+                <p className="text-sm mt-2">
+                  We&apos;ll notify you when we launch
+                </p>
               </motion.div>
             )}
           </motion.div>
@@ -205,7 +213,7 @@ export default function PreLaunch() {
           >
             <Sparkles className="w-8 h-8 text-white" />
           </motion.div>
-          
+
           <motion.div
             animate={{ y: [0, 20, 0] }}
             transition={{ duration: 3, repeat: Infinity, delay: 1 }}

@@ -79,15 +79,17 @@ export default function Header() {
               })}
             </nav>
 
-            <button
+            <motion.a
+              href="/apply"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               className="hidden md:flex items-center px-6 py-2.5 rounded-full bg-[var(--brand-primary)] text-[var(--text-inverse)] font-semibold hover:bg-[var(--brand-primary-dark)] transition-all duration-200 shadow-lg hover:shadow-xl"
-              onClick={() => setIsModalOpen(true)}
             >
               Join us
               <span className="bg-white text-[var(--brand-primary)] rounded-full inline-flex ml-[10px]">
                 <ArrowRight size={20} className="-rotate-45" />
               </span>
-            </button>
+            </motion.a>
 
             <motion.button
               whileTap={{ scale: 0.95 }}
@@ -188,14 +190,15 @@ export default function Header() {
                   </nav>
 
                   <div className="p-6 border-t border-[var(--border-primary)]">
-                    <motion.button
+                    <motion.a
+                      href="/apply"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={closeMenu}
-                      className="w-full py-3 px-6 rounded-full bg-[var(--brand-primary)] text-[var(--text-inverse)] font-semibold hover:bg-[var(--brand-primary-dark)] transition-all duration-200 text-center shadow-lg"
+                      className="block w-full py-3 px-6 rounded-full bg-[var(--brand-primary)] text-[var(--text-inverse)] font-semibold hover:bg-[var(--brand-primary-dark)] transition-all duration-200 text-center shadow-lg"
                     >
                       Join
-                    </motion.button>
+                    </motion.a>
                   </div>
                 </div>
               </motion.div>

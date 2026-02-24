@@ -1,15 +1,17 @@
-import { useRef } from 'react';
-import { motion } from 'framer-motion';
-import emailjs from '@emailjs/browser';
-import InterestSelector from './InterestSelector';
-import ContactForm from './ContactForm';
-import { ContactFormData } from './ContactPage';
+import { useRef } from "react";
+import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
+import InterestSelector from "./InterestSelector";
+import ContactForm from "./ContactForm";
+import { ContactFormData } from "./ContactPage";
 
 interface ContactFormSectionProps {
   isSubmitting: boolean;
   setIsSubmitting: React.Dispatch<React.SetStateAction<boolean>>;
-  submitStatus: 'idle' | 'success' | 'error';
-  setSubmitStatus: React.Dispatch<React.SetStateAction<'idle' | 'success' | 'error'>>;
+  submitStatus: "idle" | "success" | "error";
+  setSubmitStatus: React.Dispatch<
+    React.SetStateAction<"idle" | "success" | "error">
+  >;
   activeInterest: string;
   setActiveInterest: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -26,7 +28,7 @@ export default function ContactFormSection({
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
-    setSubmitStatus('idle');
+    setSubmitStatus("idle");
 
     try {
       const templateParams = {
@@ -34,33 +36,36 @@ export default function ContactFormSection({
         from_email: data.email,
         subject: `[${data.interest}] ${data.subject}`,
         message: data.message,
-        to_email: 'info@chessncode.org',
+        to_email: "info@chessncode.com",
         interest: data.interest,
       };
 
-      console.log('Sending email with params:', templateParams);
+      console.log("Sending email with params:", templateParams);
 
       const response = await emailjs.send(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
+        "YOUR_SERVICE_ID",
+        "YOUR_TEMPLATE_ID",
         templateParams,
-        'Iq1bmhElKpD1yorW_'
+        "Iq1bmhElKpD1yorW_",
       );
 
-      console.log('Email sent successfully:', response);
+      console.log("Email sent successfully:", response);
 
-      setSubmitStatus('success');
-      setActiveInterest('');
+      setSubmitStatus("success");
+      setActiveInterest("");
     } catch (error) {
-      console.error('Error sending email:', error);
-      setSubmitStatus('error');
+      console.error("Error sending email:", error);
+      setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <section id="contact-form" className="relative py-20 bg-gradient-to-r from-[var(--brand-primary)]/10 to-[var(--brand-primary-light)]/10">
+    <section
+      id="contact-form"
+      className="relative py-20 bg-gradient-to-r from-[var(--brand-primary)]/10 to-[var(--brand-primary-light)]/10"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -69,7 +74,8 @@ export default function ContactFormSection({
           className="text-center mb-[20px] md:mb-16"
         >
           <h2 className="text-5xl font-bold text-[var(--text-primary)] mb-4">
-            Start Your <span className="text-[var(--brand-primary)]">Journey</span>
+            Start Your{" "}
+            <span className="text-[var(--brand-primary)]">Journey</span>
           </h2>
           <p className="text-xl text-[var(--text-secondary)] max-w-2xl mx-auto">
             Tell us about your vision. We&apos;ll handle the technology.

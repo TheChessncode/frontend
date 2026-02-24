@@ -1,6 +1,6 @@
 /**
  * SEO Utilities and Metadata Generators
- * 
+ *
  * This module provides comprehensive SEO functionality including:
  * - Dynamic metadata generation
  * - Open Graph tags
@@ -9,30 +9,31 @@
  * - Social media preview optimization
  */
 
-import { Metadata } from 'next';
-import { Student } from '@/constants/studentsData';
+import { Metadata } from "next";
+import { Student } from "@/constants/studentsData";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://chessncode.com';
-const siteName = 'Chessncode';
-const defaultDescription = 'Chessncode combines chess strategy with coding education. Learn digital literacy, programming fundamentals, and chess tactics through interactive lessons and exercises.';
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://chessncode.com";
+const siteName = "Chessncode";
+const defaultDescription =
+  "Chessncode combines chess strategy with coding education. Learn digital literacy, programming fundamentals, and chess tactics through interactive lessons and exercises.";
 const defaultKeywords = [
-  'chess learning',
-  'coding education',
-  'digital literacy',
-  'programming for beginners',
-  'chess strategy',
-  'coding tutorials',
-  'web development',
-  'chess tactics',
-  'programming courses',
-  'chess and coding',
-  'STEM education',
-  'learn to code',
-  'girls in tech',
-  'women in coding',
-  'chess training',
-  'data science education',
-  'machine learning courses',
+  "chess learning",
+  "coding education",
+  "digital literacy",
+  "programming for beginners",
+  "chess strategy",
+  "coding tutorials",
+  "web development",
+  "chess tactics",
+  "programming courses",
+  "chess and coding",
+  "STEM education",
+  "learn to code",
+  "girls in tech",
+  "women in coding",
+  "chess training",
+  "data science education",
+  "machine learning courses",
 ];
 
 export interface SEOConfig {
@@ -42,7 +43,7 @@ export interface SEOConfig {
   image?: string;
   imageAlt?: string;
   url?: string;
-  type?: 'website' | 'article' | 'profile';
+  type?: "website" | "article" | "profile";
   publishedTime?: string;
   modifiedTime?: string;
   author?: string;
@@ -62,7 +63,7 @@ export function generateMetadata(config: SEOConfig): Metadata {
     image,
     imageAlt,
     url,
-    type = 'website',
+    type = "website",
     publishedTime,
     modifiedTime,
     author,
@@ -73,25 +74,25 @@ export function generateMetadata(config: SEOConfig): Metadata {
 
   const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
   const pageUrl = url ? `${baseUrl}${url}` : baseUrl;
-  const ogImage = image 
-    ? `${baseUrl}${image.startsWith('/') ? image : `/${image}`}`
+  const ogImage = image
+    ? `${baseUrl}${image.startsWith("/") ? image : `/${image}`}`
     : `${baseUrl}/og-image.jpg`;
   const canonicalUrl = canonical ? `${baseUrl}${canonical}` : pageUrl;
 
   return {
     title: fullTitle,
     description,
-    keywords: keywords.join(', '),
-    authors: author ? [{ name: author }] : [{ name: 'Chessncode Team' }],
-    creator: 'Chessncode',
-    publisher: 'Chessncode',
+    keywords: keywords.join(", "),
+    authors: author ? [{ name: author }] : [{ name: "Chessncode Team" }],
+    creator: "Chessncode",
+    publisher: "Chessncode",
     metadataBase: new URL(baseUrl),
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
       type,
-      locale: 'en_US',
+      locale: "en_US",
       url: pageUrl,
       siteName,
       title: fullTitle,
@@ -102,7 +103,7 @@ export function generateMetadata(config: SEOConfig): Metadata {
           width: 1200,
           height: 630,
           alt: imageAlt || title,
-          type: 'image/jpeg',
+          type: "image/jpeg",
           secureUrl: ogImage,
         },
       ],
@@ -111,11 +112,11 @@ export function generateMetadata(config: SEOConfig): Metadata {
       ...(author && { authors: [author] }),
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: fullTitle,
       description,
-      creator: '@chessncode',
-      site: '@chessncode',
+      creator: "@chessncode",
+      site: "@chessncode",
       images: [ogImage],
     },
     robots: {
@@ -124,13 +125,13 @@ export function generateMetadata(config: SEOConfig): Metadata {
       googleBot: {
         index: !noindex,
         follow: !nofollow,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
       },
     },
-    category: 'education',
-    classification: 'Educational Technology',
+    category: "education",
+    classification: "Educational Technology",
   };
 }
 
@@ -143,20 +144,20 @@ export function generateScholarMetadata(student: Student): Metadata {
   const scholarImage = `${baseUrl}${student.image}`;
   const scholarTitle = `${student.name} - ${student.chessBackground} | Chessncode Scholar`;
   const scholarDescription = `${student.name} is a Chessncode Scholar ${student.chessBackground}. ${student.quote} Currently working towards: ${student.currentGoal}.`;
-  
+
   const scholarKeywords = [
     student.name,
-    'Chessncode Scholar',
+    "Chessncode Scholar",
     student.chessBackground,
     student.currentGoal,
-    'chess and coding',
-    'women in tech',
-    'girls in STEM',
-    'coding education',
-    'chess training',
-    'data science',
-    'data analysis',
-    'machine learning',
+    "chess and coding",
+    "women in tech",
+    "girls in STEM",
+    "coding education",
+    "chess training",
+    "data science",
+    "data analysis",
+    "machine learning",
   ];
 
   return generateMetadata({
@@ -166,7 +167,7 @@ export function generateScholarMetadata(student: Student): Metadata {
     image: student.image,
     imageAlt: `${student.name} - Chessncode Scholar`,
     url: scholarUrl,
-    type: 'profile',
+    type: "profile",
     canonical: scholarUrl,
   });
 }
@@ -176,42 +177,42 @@ export function generateScholarMetadata(student: Student): Metadata {
  */
 export function generateOrganizationSchema() {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'EducationalOrganization',
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
     name: siteName,
     description: defaultDescription,
     url: baseUrl,
     logo: `${baseUrl}/logo.png`,
     image: `${baseUrl}/og-image.jpg`,
     sameAs: [
-      'https://twitter.com/chessncode',
-      'https://linkedin.com/company/chessncode',
-      'https://github.com/chessncode',
-      'https://facebook.com/chessncode',
+      "https://twitter.com/chessncode",
+      "https://linkedin.com/company/chessncode",
+      "https://github.com/chessncode",
+      "https://facebook.com/chessncode",
     ],
     contactPoint: {
-      '@type': 'ContactPoint',
-      email: 'info@chessncode.org',
-      contactType: 'customer service',
-      areaServed: 'Worldwide',
+      "@type": "ContactPoint",
+      email: "info@chessncode.com",
+      contactType: "customer service",
+      areaServed: "Worldwide",
     },
     areaServed: {
-      '@type': 'Place',
-      name: 'Worldwide',
+      "@type": "Place",
+      name: "Worldwide",
     },
     knowsAbout: [
-      'Chess Strategy',
-      'Programming Education',
-      'Digital Literacy',
-      'Web Development',
-      'Coding Tutorials',
-      'Data Science',
-      'Machine Learning',
-      'STEM Education',
+      "Chess Strategy",
+      "Programming Education",
+      "Digital Literacy",
+      "Web Development",
+      "Coding Tutorials",
+      "Data Science",
+      "Machine Learning",
+      "STEM Education",
     ],
     offers: {
-      '@type': 'Offer',
-      category: 'Educational Service',
+      "@type": "Offer",
+      category: "Educational Service",
     },
   };
 }
@@ -221,21 +222,21 @@ export function generateOrganizationSchema() {
  */
 export function generateWebSiteSchema() {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
+    "@context": "https://schema.org",
+    "@type": "WebSite",
     name: siteName,
     description: defaultDescription,
     url: baseUrl,
     potentialAction: {
-      '@type': 'SearchAction',
+      "@type": "SearchAction",
       target: `${baseUrl}/search?q={search_term_string}`,
-      'query-input': 'required name=search_term_string',
+      "query-input": "required name=search_term_string",
     },
     publisher: {
-      '@type': 'Organization',
+      "@type": "Organization",
       name: siteName,
       logo: {
-        '@type': 'ImageObject',
+        "@type": "ImageObject",
         url: `${baseUrl}/logo.png`,
       },
     },
@@ -245,12 +246,14 @@ export function generateWebSiteSchema() {
 /**
  * Generate BreadcrumbList structured data (JSON-LD)
  */
-export function generateBreadcrumbSchema(items: { name: string; url: string }[]) {
+export function generateBreadcrumbSchema(
+  items: { name: string; url: string }[],
+) {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
     itemListElement: items.map((item, index) => ({
-      '@type': 'ListItem',
+      "@type": "ListItem",
       position: index + 1,
       name: item.name,
       item: `${baseUrl}${item.url}`,
@@ -268,37 +271,37 @@ export function generateScholarSchema(student: Student) {
 
   // Build knowsAbout array with curriculum phases (excluding React components)
   const knowsAbout = [
-    'Chess Strategy',
+    "Chess Strategy",
     student.currentGoal,
-    'Programming',
-    'Data Science',
+    "Programming",
+    "Data Science",
   ];
-  
+
   if (student.curriculum) {
-    knowsAbout.push(...student.curriculum.map(phase => phase.phase));
+    knowsAbout.push(...student.curriculum.map((phase) => phase.phase));
   }
 
   return {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
+    "@context": "https://schema.org",
+    "@type": "Person",
     name: student.name,
     description: `${student.chessBackground}. ${student.quote}`,
     image: {
-      '@type': 'ImageObject',
+      "@type": "ImageObject",
       url: scholarImage,
       caption: `${student.name} - Chessncode Scholar`,
     },
     url: scholarUrl,
     jobTitle: student.currentGoal,
     affiliation: {
-      '@type': 'EducationalOrganization',
+      "@type": "EducationalOrganization",
       name: siteName,
       url: baseUrl,
     },
     knowsAbout,
     memberOf: {
-      '@type': 'Organization',
-      name: 'Chessncode Scholars',
+      "@type": "Organization",
+      name: "Chessncode Scholars",
       url: `${baseUrl}/projects`,
     },
   };
@@ -316,17 +319,25 @@ export function generateWebPageSchema(config: {
   modifiedTime?: string;
   author?: string;
 }) {
-  const { title, description, url, image, publishedTime, modifiedTime, author } = config;
-  
+  const {
+    title,
+    description,
+    url,
+    image,
+    publishedTime,
+    modifiedTime,
+    author,
+  } = config;
+
   return {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
+    "@context": "https://schema.org",
+    "@type": "WebPage",
     name: title,
     description,
     url: `${baseUrl}${url}`,
     ...(image && {
       image: {
-        '@type': 'ImageObject',
+        "@type": "ImageObject",
         url: `${baseUrl}${image}`,
       },
     }),
@@ -334,20 +345,20 @@ export function generateWebPageSchema(config: {
     ...(modifiedTime && { dateModified: modifiedTime }),
     ...(author && {
       author: {
-        '@type': 'Person',
+        "@type": "Person",
         name: author,
       },
     }),
     publisher: {
-      '@type': 'Organization',
+      "@type": "Organization",
       name: siteName,
       logo: {
-        '@type': 'ImageObject',
+        "@type": "ImageObject",
         url: `${baseUrl}/logo.png`,
       },
     },
     mainEntity: {
-      '@type': 'EducationalOrganization',
+      "@type": "EducationalOrganization",
       name: siteName,
     },
   };
@@ -364,25 +375,25 @@ export function generateCourseSchema(course: {
   duration?: string;
 }) {
   return {
-    '@context': 'https://schema.org',
-    '@type': 'Course',
+    "@context": "https://schema.org",
+    "@type": "Course",
     name: course.name,
     description: course.description,
     url: `${baseUrl}${course.url}`,
     provider: {
-      '@type': 'Organization',
+      "@type": "Organization",
       name: course.provider,
       url: baseUrl,
     },
     ...(course.duration && {
       timeRequired: course.duration,
     }),
-    educationalLevel: 'Beginner to Advanced',
+    educationalLevel: "Beginner to Advanced",
     teaches: [
-      'Chess Strategy',
-      'Programming',
-      'Data Science',
-      'Machine Learning',
+      "Chess Strategy",
+      "Programming",
+      "Data Science",
+      "Machine Learning",
     ],
   };
 }
@@ -395,8 +406,8 @@ export function getSocialImage(imagePath?: string): string {
   if (!imagePath) {
     return `${baseUrl}/og-image.jpg`;
   }
-  
-  const fullPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+
+  const fullPath = imagePath.startsWith("/") ? imagePath : `/${imagePath}`;
   return `${baseUrl}${fullPath}`;
 }
 
@@ -404,8 +415,7 @@ export function getSocialImage(imagePath?: string): string {
  * Get absolute URL for any path
  */
 export function getAbsoluteUrl(path: string): string {
-  if (path.startsWith('http')) return path;
-  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  if (path.startsWith("http")) return path;
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
   return `${baseUrl}${cleanPath}`;
 }
-

@@ -53,7 +53,7 @@ export default function HeroSection() {
   return (
     <motion.section
       className="relative min-h-[90dvh] flex items-center justify-center overflow-hidden"
-     // @ts-expect-error - Framer Motion backgroundPosition type issue
+      // @ts-expect-error - Framer Motion backgroundPosition type issue
       variants={gradientBackground}
       initial="hidden"
       animate="visible"
@@ -72,7 +72,7 @@ export default function HeroSection() {
               left: `${element.x}%`,
               top: `${element.y}%`,
             }}
-           // @ts-expect-error - Framer Motion backgroundPosition type issue
+            // @ts-expect-error - Framer Motion backgroundPosition type issue
             variants={cosmicFloat}
             animate="animate"
             initial={{ scale: 0 }}
@@ -90,7 +90,7 @@ export default function HeroSection() {
         animate="visible"
       >
         <motion.div
-         // @ts-expect-error - Framer Motion backgroundPosition type issue
+          // @ts-expect-error - Framer Motion backgroundPosition type issue
           variants={slideUpFade}
           className="inline-flex items-center gap-3 mb-6 px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20"
         >
@@ -100,17 +100,17 @@ export default function HeroSection() {
           </span>
         </motion.div>
         <motion.h1
-         // @ts-expect-error - Framer Motion backgroundPosition type issue
+          // @ts-expect-error - Framer Motion backgroundPosition type issue
           variants={slideUpFade}
           className="text-6xl md:text-8xl font-black mb-6 text-[var(--text-inverse)]"
         >
-          Partner With {" "}
+          Partner With{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
             Chessncode
           </span>{" "}
         </motion.h1>
         <motion.p
-         // @ts-expect-error - Framer Motion backgroundPosition type issue
+          // @ts-expect-error - Framer Motion backgroundPosition type issue
           variants={slideUpFade}
           className="text-xl md:text-2xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed"
         >
@@ -118,12 +118,12 @@ export default function HeroSection() {
           strategic collaboration and shared vision.
         </motion.p>
         <motion.div
-         // @ts-expect-error - Framer Motion backgroundPosition type issue
+          // @ts-expect-error - Framer Motion backgroundPosition type issue
           variants={slideUpFade}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
           <motion.a
-            href="mailto:info@chessncode.org"
+            href="mailto:info@chessncode.com"
             className="group relative px-8 py-4 bg-[var(--brand-primary)] text-white rounded-xl font-semibold overflow-hidden"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

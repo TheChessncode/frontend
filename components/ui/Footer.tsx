@@ -94,8 +94,8 @@ export default function Footer() {
   const contactInfo = [
     {
       icon: Mail,
-      text: "info@chessncode.org",
-      href: "mailto:info@chessncode.org",
+      text: "info@chessncode.com",
+      href: "mailto:info@chessncode.com",
     },
     // { icon: Phone, text: '+1 (862) 373-7399', href: 'tel:+18623737399' },
     { icon: MapPin, text: "World wide", href: "#" },
