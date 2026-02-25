@@ -23,7 +23,7 @@ export const timelineItems = [
     phase: "1",
     year: "2025-2026",
     title: "Prove It",
-    description: "One scholar, full documentation. Building brand trust and collecting data on what works.",
+    description: "Two scholars, full documentation. Building brand trust and collecting data on what works.",
     icon: Target,
   },
   {
