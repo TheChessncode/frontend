@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 import { WaitlistModal } from "../ui/WaitlistModal";
+import { useRouter } from "next/navigation";
 
 export default function HeroSection() {
   const [text] = useTypewriter({
@@ -20,7 +21,8 @@ export default function HeroSection() {
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  console.log(isLoaded);
+
+  const router = useRouter();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -126,7 +128,7 @@ export default function HeroSection() {
                 </motion.a>
 
                 <motion.button
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={() => router.push("/apply")}
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   className="border border-[white]/60 text-[white]/60 px-8 py-4 text-base font-semibold rounded-xl hover:bg-[var(--brand-primary)] hover:border-[var(--brand-primary)] hover:text-white transition-all duration-200"
