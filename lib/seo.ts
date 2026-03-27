@@ -14,6 +14,7 @@ import { Student } from "@/constants/studentsData";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://chessncode.com";
 const siteName = "Chessncode";
+const organizationId = `${baseUrl}#organization`;
 const defaultDescription =
   "Chessncode combines chess strategy with coding education. Learn digital literacy, programming fundamentals, and chess tactics through interactive lessons and exercises.";
 const defaultKeywords = [
@@ -178,12 +179,19 @@ export function generateScholarMetadata(student: Student): Metadata {
 export function generateOrganizationSchema() {
   return {
     "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
+    "@type": ["Organization", "EducationalOrganization"],
+    "@id": organizationId,
     name: siteName,
     description: defaultDescription,
     url: baseUrl,
-    logo: `${baseUrl}/logo.png`,
-    image: `${baseUrl}/og-image.jpg`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${baseUrl}/logo.png`,
+    },
+    image: {
+      "@type": "ImageObject",
+      url: `${baseUrl}/og-image.jpg`,
+    },
     sameAs: [
       "https://twitter.com/chessncode",
       "https://linkedin.com/company/chessncode",
@@ -232,14 +240,7 @@ export function generateWebSiteSchema() {
       target: `${baseUrl}/search?q={search_term_string}`,
       "query-input": "required name=search_term_string",
     },
-    publisher: {
-      "@type": "Organization",
-      name: siteName,
-      logo: {
-        "@type": "ImageObject",
-        url: `${baseUrl}/logo.png`,
-      },
-    },
+    publisher: { "@id": organizationId },
   };
 }
 
@@ -349,18 +350,8 @@ export function generateWebPageSchema(config: {
         name: author,
       },
     }),
-    publisher: {
-      "@type": "Organization",
-      name: siteName,
-      logo: {
-        "@type": "ImageObject",
-        url: `${baseUrl}/logo.png`,
-      },
-    },
-    mainEntity: {
-      "@type": "EducationalOrganization",
-      name: siteName,
-    },
+    publisher: { "@id": organizationId },
+    mainEntity: { "@id": organizationId },
   };
 }
 

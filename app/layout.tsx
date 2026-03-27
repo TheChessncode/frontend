@@ -167,60 +167,6 @@ export default function RootLayout({
         {/* Preload critical images */}
         <link rel="preload" href={`${baseUrl}/og-image.jpg`} as="image" />
         <link rel="preload" href={`${baseUrl}/logo.png`} as="image" />
-
-        {/* Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "EducationalOrganization",
-              name: "Chessncode",
-              description:
-                "Chessncode combines chess strategy with coding education to teach digital literacy and programming skills.",
-              url: baseUrl,
-              logo: `${baseUrl}/logo.png`,
-              image: `${baseUrl}/og-image.jpg`,
-              sameAs: [
-                "https://twitter.com/chessncode",
-                "https://linkedin.com/company/chessncode",
-                "https://github.com/chessncode",
-              ],
-              contactPoint: {
-                "@type": "ContactPoint",
-                email: "info@chessncode.com",
-                contactType: "customer service",
-              },
-              areaServed: "Worldwide",
-              knowsAbout: [
-                "Chess Strategy",
-                "Programming Education",
-                "Digital Literacy",
-                "Web Development",
-                "Coding Tutorials",
-              ],
-            }),
-          }}
-        />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              name: "Chessncode",
-              description:
-                "Learn programming and digital literacy through chess strategy",
-              url: baseUrl,
-              potentialAction: {
-                "@type": "SearchAction",
-                target: `${baseUrl}/search?q={search_term_string}`,
-                "query-input": "required name=search_term_string",
-              },
-            }),
-          }}
-        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
