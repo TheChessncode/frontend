@@ -18,6 +18,30 @@ export const StepPersonal = ({ form, onNext }: StepProps) => {
     formState: { errors },
   } = form;
 
+  const stepFields = [
+    "fullName",
+    "email",
+    "describeYourself",
+    "personalStrengths",
+    "growthExpectations",
+  ] as const;
+
+  const watchedValues = form.watch(stepFields);
+  const isStepValid = stepFields.every((fieldName, index) => {
+    const value = watchedValues[index];
+    const isPresent =
+      typeof value === "string" ? value.trim().length > 0 : Boolean(value);
+    const { invalid } = form.getFieldState(fieldName, form.formState);
+    return isPresent && !invalid;
+  });
+
+  const handleNext = () => {
+    void (async () => {
+      const isValid = await form.trigger(stepFields, { shouldFocus: true });
+      if (isValid) onNext();
+    })();
+  };
+
   return (
     <div className="space-y-6">
       <div className="space-y-2">
@@ -75,7 +99,7 @@ export const StepPersonal = ({ form, onNext }: StepProps) => {
         error={errors.growthExpectations?.message}
       />
 
-      <StepNavigation onNext={onNext} isFirst />
+      <StepNavigation onNext={handleNext} isFirst isValid={isStepValid} />
     </div>
   );
 };

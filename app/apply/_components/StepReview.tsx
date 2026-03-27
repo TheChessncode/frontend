@@ -25,6 +25,7 @@ export const StepReview = ({
   error,
 }: StepProps) => {
   const data = form.getValues();
+  const { isValid } = form.formState;
 
   const SummarySection = ({
     title,
@@ -142,7 +143,12 @@ export const StepReview = ({
         </div>
       )}
 
-      <StepNavigation onBack={onPrev} isLast isSubmitting={isSubmitting} />
+      <StepNavigation
+        onBack={onPrev}
+        isLast
+        isSubmitting={isSubmitting}
+        isValid={isValid}
+      />
     </div>
   );
 };

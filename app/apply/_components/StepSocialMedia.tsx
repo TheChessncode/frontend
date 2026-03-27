@@ -19,6 +19,24 @@ export const StepSocialMedia = ({ form, onNext, onPrev }: StepProps) => {
     formState: { errors },
   } = form;
 
+  const stepFields = ["linkedin", "github", "twitter", "instagram"] as const;
+
+  const watchedValues = form.watch(stepFields);
+  const isStepValid = stepFields.every((fieldName, index) => {
+    const value = watchedValues[index];
+    const isPresent =
+      typeof value === "string" ? value.trim().length > 0 : Boolean(value);
+    const { invalid } = form.getFieldState(fieldName, form.formState);
+    return isPresent && !invalid;
+  });
+
+  const handleNext = () => {
+    void (async () => {
+      const isValid = await form.trigger(stepFields, { shouldFocus: true });
+      if (isValid) onNext();
+    })();
+  };
+
   return (
     <div className="space-y-6">
       <div className="space-y-2">
@@ -35,7 +53,8 @@ export const StepSocialMedia = ({ form, onNext, onPrev }: StepProps) => {
           <ApplicationInput
             label="LinkedIn"
             placeholder="linkedin.com/in/username"
-            {...register("linkedin")}
+            {...register("linkedin", { required: "LinkedIn is required" })}
+            error={errors.linkedin?.message}
           />
           <Linkedin
             className="absolute right-4 top-10 text-[var(--text-muted)]"
@@ -46,7 +65,8 @@ export const StepSocialMedia = ({ form, onNext, onPrev }: StepProps) => {
           <ApplicationInput
             label="GitHub"
             placeholder="github.com/username"
-            {...register("github")}
+            {...register("github", { required: "GitHub is required" })}
+            error={errors.github?.message}
           />
           <Github
             className="absolute right-4 top-10 text-[var(--text-muted)]"
@@ -57,7 +77,8 @@ export const StepSocialMedia = ({ form, onNext, onPrev }: StepProps) => {
           <ApplicationInput
             label="Twitter / X"
             placeholder="twitter.com/username"
-            {...register("twitter")}
+            {...register("twitter", { required: "Twitter / X is required" })}
+            error={errors.twitter?.message}
           />
           <Twitter
             className="absolute right-4 top-10 text-[var(--text-muted)]"
@@ -68,7 +89,8 @@ export const StepSocialMedia = ({ form, onNext, onPrev }: StepProps) => {
           <ApplicationInput
             label="Instagram"
             placeholder="instagram.com/username"
-            {...register("instagram")}
+            {...register("instagram", { required: "Instagram is required" })}
+            error={errors.instagram?.message}
           />
           <Instagram
             className="absolute right-4 top-10 text-[var(--text-muted)]"
@@ -77,7 +99,7 @@ export const StepSocialMedia = ({ form, onNext, onPrev }: StepProps) => {
         </div>
       </div>
 
-      <StepNavigation onNext={onNext} onBack={onPrev} />
+      <StepNavigation onNext={handleNext} onBack={onPrev} isValid={isStepValid} />
     </div>
   );
 };

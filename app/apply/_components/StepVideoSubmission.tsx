@@ -19,6 +19,24 @@ export const StepVideoSubmission = ({ form, onNext, onPrev }: StepProps) => {
     formState: { errors },
   } = form;
 
+  const stepFields = ["videoLink", "commitmentConfirmed"] as const;
+
+  const watchedValues = form.watch(stepFields);
+  const isStepValid = stepFields.every((fieldName, index) => {
+    const value = watchedValues[index];
+    const isPresent =
+      typeof value === "string" ? value.trim().length > 0 : Boolean(value);
+    const { invalid } = form.getFieldState(fieldName, form.formState);
+    return isPresent && !invalid;
+  });
+
+  const handleNext = () => {
+    void (async () => {
+      const isValid = await form.trigger(stepFields, { shouldFocus: true });
+      if (isValid) onNext();
+    })();
+  };
+
   return (
     <div className="space-y-6">
       <div className="space-y-2">
@@ -42,7 +60,13 @@ export const StepVideoSubmission = ({ form, onNext, onPrev }: StepProps) => {
       <ApplicationInput
         label="Video Motivation Link"
         placeholder="https://youtube.com/watch?v=..."
-        {...register("videoLink", { required: "Video link is required" })}
+        {...register("videoLink", {
+          required: "Video link is required",
+          pattern: {
+            value: /^https?:\/\/.+/i,
+            message: "Please enter a valid URL (starting with http/https)",
+          },
+        })}
         error={errors.videoLink?.message}
       />
 
@@ -78,7 +102,7 @@ export const StepVideoSubmission = ({ form, onNext, onPrev }: StepProps) => {
         )}
       </div>
 
-      <StepNavigation onNext={onNext} onBack={onPrev} />
+      <StepNavigation onNext={handleNext} onBack={onPrev} isValid={isStepValid} />
     </div>
   );
 };

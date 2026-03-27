@@ -11,7 +11,7 @@ export const partners: Partner[] = [
   {
     partnerName: "Promoting Queens",
     logoUrl: "/promoting-queens.svg",
-    description: "Empowering girls to lead, strategize and conquer through chess",
+    description: "ChessNcode operates in strategic partnerships with promoting Queens (US 501(c) (3)) which has empowered 750+ girls across 4+ regions .",
     stats: [
       {
         title: "Girls Empowered in 2024 alone",

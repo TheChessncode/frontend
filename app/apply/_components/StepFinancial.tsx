@@ -18,6 +18,28 @@ export const StepFinancial = ({ form, onNext, onPrev }: StepProps) => {
     formState: { errors },
   } = form;
 
+  const stepFields = [
+    "scholarshipImpact",
+    "financialBarriers",
+    "employmentImpact",
+  ] as const;
+
+  const watchedValues = form.watch(stepFields);
+  const isStepValid = stepFields.every((fieldName, index) => {
+    const value = watchedValues[index];
+    const isPresent =
+      typeof value === "string" ? value.trim().length > 0 : Boolean(value);
+    const { invalid } = form.getFieldState(fieldName, form.formState);
+    return isPresent && !invalid;
+  });
+
+  const handleNext = () => {
+    void (async () => {
+      const isValid = await form.trigger(stepFields, { shouldFocus: true });
+      if (isValid) onNext();
+    })();
+  };
+
   return (
     <div className="space-y-6">
       <div className="space-y-2">
@@ -56,7 +78,7 @@ export const StepFinancial = ({ form, onNext, onPrev }: StepProps) => {
         error={errors.employmentImpact?.message}
       />
 
-      <StepNavigation onNext={onNext} onBack={onPrev} />
+      <StepNavigation onNext={handleNext} onBack={onPrev} isValid={isStepValid} />
     </div>
   );
 };

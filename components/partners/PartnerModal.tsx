@@ -33,7 +33,7 @@ export default function PartnerModal({
             <div className="p-8">
               <div className="flex items-start justify-between mb-6">
                 <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 bg-[var(--bg-secondary)] rounded-2xl flex items-center justify-center p-3 border border-[var(--border-primary)]">
+                  <div className="w-16 h-16 bg-[var(--bg-secondary)] rounded-2xl flex items-center justify-center p-3 border border-[var(--border-primary)] shrink-0">
                     <Image
                       width={500}
                       height={500}

@@ -20,13 +20,13 @@ export type ApplicationFormData = {
   employmentImpact: string;
 
   // Step 4: Social Media
-  linkedin?: string;
-  github?: string;
-  twitter?: string;
-  instagram?: string;
+  linkedin: string;
+  github: string;
+  twitter: string;
+  instagram: string;
 
   // Step 5: Motivation Video & Commitment
-  videoLink?: string;
+  videoLink: string;
   commitmentConfirmed: boolean;
 };
 

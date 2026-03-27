@@ -10,7 +10,7 @@ import PartnerModal from "./PartnerModal";
 
 export default function PartnersPage() {
   const [selectedPartner, setSelectedPartner] = useState<Partner | null>(null);
-  // const [activeCategory, setActiveCategory] = useState("all");
+  // const [activeCategory, setActiveCategory] = useState("all");    
 
   return (
     <PublicPageContainer>
