@@ -6,6 +6,7 @@ import { useTypewriter, Cursor } from "react-simple-typewriter";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 import { WaitlistModal } from "../ui/WaitlistModal";
 import { useRouter } from "next/navigation";
+import StudentCountdown from "./StudentCountdown";
 
 export default function HeroSection() {
   const [text] = useTypewriter({
@@ -20,7 +21,6 @@ export default function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
 
   const router = useRouter();
 
@@ -154,25 +154,7 @@ export default function HeroSection() {
               </div>
             </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="grid grid-cols-2 gap-4 mt-4"
-            >
-              <div className="text-center">
-                <div className="text-2xl lg:text-3xl font-bold text-[white]">
-                  1M+
-                </div>
-                <div className="text-sm text-[white]/70">Students by 2035</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl lg:text-3xl font-bold text-[white]">
-                  100%
-                </div>
-                <div className="text-sm text-[white]/70">Impact</div>
-              </div>
-            </motion.div>
+            <StudentCountdown />
           </section>
 
           {/* RIGHT COLUMN - VIDEO CONTENT (Desktop & Mobile) */}
