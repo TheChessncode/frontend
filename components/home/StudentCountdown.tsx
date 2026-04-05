@@ -140,10 +140,15 @@ export default function StudentCountdown() {
           />
         </div>
 
-        <p className="text-white/40 text-center text-xs italic">
-          The electric light did not come from the continuous improvement of
-          candles
-        </p>
+        <div className="flex flex-col items-center gap-1 mt-2">
+          <p className="text-blue-200 text-center text-sm italic max-w-md">
+            "The electric light did not come from the continuous improvement of
+            candles"
+          </p>
+          <p className="text-[var(--brand-primary-light)] text-[10px] font-bold uppercase tracking-widest mt-1">
+            — Oren Haran
+          </p>
+        </div>
       </div>
     </motion.div>
   );
