@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { ApplicationInput, ApplicationTextArea } from "./FormFields";
-import { StepNavigation } from "./StepNavigation";
 import { UseFormReturn } from "react-hook-form";
 import { ApplicationFormData } from "../_hooks/useApplicationForm";
+import { ApplicationInput, ApplicationSelect } from "./FormFields";
+import { StepNavigation } from "./StepNavigation";
 
 interface StepProps {
   form: UseFormReturn<ApplicationFormData>;
@@ -12,94 +12,130 @@ interface StepProps {
   onPrev: () => void;
 }
 
-export const StepPersonal = ({ form, onNext }: StepProps) => {
+export const StepPersonal = ({ form, onNext, onPrev }: StepProps) => {
   const {
     register,
     formState: { errors },
+    watch,
+    trigger,
   } = form;
 
-  const stepFields = [
-    "fullName",
-    "email",
-    "describeYourself",
-    "personalStrengths",
-    "growthExpectations",
-  ] as const;
+  const referredBy = watch("referredBy");
 
-  const watchedValues = form.watch(stepFields);
-  const isStepValid = stepFields.every((fieldName, index) => {
-    const value = watchedValues[index];
-    const isPresent =
-      typeof value === "string" ? value.trim().length > 0 : Boolean(value);
-    const { invalid } = form.getFieldState(fieldName, form.formState);
-    return isPresent && !invalid;
-  });
+  const referralOptions = [
+    { value: "Promoting Queens", label: "Promoting Queens" },
+    { value: "FIDE Affiliate", label: "FIDE Affiliate" },
+    { value: "Chess and Code Alumni", label: "Chess and Code Alumni" },
+    { value: "Other", label: "Other" },
+  ];
 
-  const handleNext = () => {
-    void (async () => {
-      const isValid = await form.trigger(stepFields, { shouldFocus: true });
-      if (isValid) onNext();
-    })();
+  const handleNext = async () => {
+    const fields = [
+      "fullName",
+      "dateOfBirth",
+      "country",
+      "cityState",
+      "email",
+      "whatsAppNumber",
+      "referredBy",
+    ];
+    if (referredBy === "Other") {
+      fields.push("referralName", "referralContact");
+    }
+    const isValid = await trigger(fields as any);
+    if (isValid) onNext();
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="space-y-2">
         <h2 className="text-2xl font-bold text-[var(--text-primary)]">
-          Personal Discovery
+          Personal Information
         </h2>
         <p className="text-[var(--text-secondary)]">
-          Let’s start with who you are and what drives you.
+          Provide your basic personal details.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <ApplicationInput
           label="Full Name"
-          placeholder="John Doe"
-          {...register("fullName", { required: "Name is required" })}
+          {...register("fullName", { required: "Full name is required" })}
           error={errors.fullName?.message}
+          placeholder="Enter your full name"
+        />
+        <ApplicationInput
+          label="Date of Birth"
+          type="date"
+          {...register("dateOfBirth", {
+            required: "Date of birth is required",
+          })}
+          error={errors.dateOfBirth?.message}
+        />
+        <ApplicationInput
+          label="Country"
+          {...register("country", { required: "Country is required" })}
+          error={errors.country?.message}
+          placeholder="e.g. Nigeria"
+        />
+        <ApplicationInput
+          label="City/State"
+          {...register("cityState", { required: "City/State is required" })}
+          error={errors.cityState?.message}
+          placeholder="e.g. Lagos"
         />
         <ApplicationInput
           label="Email Address"
           type="email"
-          placeholder="john@example.com"
           {...register("email", {
             required: "Email is required",
-            pattern: { value: /^\S+@\S+$/i, message: "Invalid email" },
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: "Invalid email address",
+            },
           })}
           error={errors.email?.message}
+          placeholder="you@example.com"
+        />
+        <ApplicationInput
+          label="WhatsApp Number"
+          type="tel"
+          {...register("whatsAppNumber", {
+            required: "WhatsApp number is required",
+          })}
+          error={errors.whatsAppNumber?.message}
+          placeholder="e.g. +234..."
+        />
+        <ApplicationSelect
+          label="Referred By"
+          options={referralOptions}
+          {...register("referredBy", { required: "Selection is required" })}
+          error={errors.referredBy?.message}
         />
       </div>
 
-      <ApplicationTextArea
-        label="Describe yourself in 3 sentences."
-        placeholder="Tell us about your background, interests, and what makes you unique."
-        {...register("describeYourself", {
-          required: "This field is required",
-        })}
-        error={errors.describeYourself?.message}
-      />
+      {referredBy === "Other" && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-l-2 border-[var(--brand-primary)] pl-6 py-2">
+          <ApplicationInput
+            label="Referral Name"
+            {...register("referralName", {
+              required: "Referral name is required",
+            })}
+            error={errors.referralName?.message}
+            placeholder="Who referred you?"
+          />
+          <ApplicationInput
+            label="Referral Contact"
+            {...register("referralContact", {
+              required: "Referral contact is required",
+            })}
+            error={errors.referralContact?.message}
+            placeholder="Phone or email"
+          />
+        </div>
+      )}
 
-      <ApplicationTextArea
-        label="What personal strengths or traits will help you succeed in ChessNCode?"
-        placeholder="E.g., Perseverance, logical thinking, dedication..."
-        {...register("personalStrengths", {
-          required: "This field is required",
-        })}
-        error={errors.personalStrengths?.message}
-      />
-
-      <ApplicationTextArea
-        label="How will ChessNCode help you grow personally?"
-        placeholder="Your personal growth expectations..."
-        {...register("growthExpectations", {
-          required: "This field is required",
-        })}
-        error={errors.growthExpectations?.message}
-      />
-
-      <StepNavigation onNext={handleNext} isFirst isValid={isStepValid} />
+      <StepNavigation onNext={handleNext} onBack={onPrev} isFirst={true} />
     </div>
   );
 };

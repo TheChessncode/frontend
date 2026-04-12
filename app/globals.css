@@ -79,3 +79,13 @@ body {
 button {
   cursor: pointer;
 }
+
+.grad-txt {
+  background: var(
+    --gradient,
+    linear-gradient(143deg, var(--brand-primary) 21.47%, var(--error) 289.64%)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

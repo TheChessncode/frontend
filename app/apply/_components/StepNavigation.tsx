@@ -11,6 +11,7 @@ interface StepNavigationProps {
   isLast?: boolean;
   isSubmitting?: boolean;
   isValid?: boolean;
+  nextLabel?: string;
 }
 
 export const StepNavigation = ({
@@ -19,6 +20,7 @@ export const StepNavigation = ({
   isFirst,
   isLast,
   isSubmitting,
+  nextLabel,
   isValid = true,
 }: StepNavigationProps) => {
   return (
@@ -56,7 +58,7 @@ export const StepNavigation = ({
           type="button"
           className="flex items-center gap-2 px-8 py-3 bg-[var(--brand-primary)] text-white rounded-full font-bold shadow-lg shadow-[var(--brand-primary)]/20 hover:bg-[var(--brand-primary-dark)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Next Step
+          {nextLabel || "Next Step"}
           <ArrowRight size={18} />
         </motion.button>
       )}

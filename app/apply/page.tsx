@@ -27,27 +27,36 @@ export default function ApplyPage() {
   return (
     <div className="space-y-8 pb-20">
       <div className="text-center space-y-4">
-        <h1 className="text-4xl font-extrabold tracking-tight text-[var(--text-primary)] sm:text-5xl">
+        <h1 className="text-xl font-extrabold tracking-tight sm:text-5xl grad-txt">
           ChessNcode Scholar Application
         </h1>
-        <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">
-          Start your journey towards a high-bar tech career. Complete our
-          rigorous 5-step application process to earn your spot.
+        <p className="text-xs sm:text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">
+          You must be referred by <strong>Promoting Queens</strong>,{" "}
+          <strong>FIDE affiliate,</strong> or a{" "}
+          <strong>ChessNcode alumna</strong> Please confirm your referral source
+          in Section 1. Applications without a valid referral will not be
+          reviewed.
         </p>
       </div>
 
       <ProgressIndicator currentStep={currentStep} totalSteps={6} />
+      <div className="">
+        <p className="text-sm text-[var(--text-tertiary)] max-w-3xl mx-auto italic text-center mb-6">
+          Please complete all sections honestly and in your own words, We are
+          looking for motivation and mindset, not perfect answers.
+        </p>
 
-      <ApplicationStepsContainer
-        form={form}
-        currentStep={currentStep}
-        nextStep={nextStep}
-        prevStep={prevStep}
-        goToStep={goToStep}
-        isSubmitting={isSubmitting}
-        error={error}
-        onSubmit={handleFinalSubmit}
-      />
+        <ApplicationStepsContainer
+          form={form}
+          currentStep={currentStep}
+          nextStep={nextStep}
+          prevStep={prevStep}
+          goToStep={goToStep}
+          isSubmitting={isSubmitting}
+          error={error}
+          onSubmit={handleFinalSubmit}
+        />
+      </div>
     </div>
   );
 }

@@ -61,7 +61,7 @@ export default function HeroSection() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--brand-primary-dark)] to-[var(--brand-primary-dark)]">
                 Women & Girls
               </span>{" "}
-              Through Chess & Code
+              Through ChessNCode
             </motion.h1>
             <motion.p
               className="text-xl text-[white]/60 mb-8 leading-relaxed"

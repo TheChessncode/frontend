@@ -128,7 +128,7 @@ export const contactInfo = [
   {
     icon: Youtube,
     title: "YouTube",
-    content: "Chess & Code",
+    content: "ChessNCode",
     description: "Tutorials & content",
     gradient: "from-red-500 to-red-700",
     url: "https://youtube.com/@chessncode",

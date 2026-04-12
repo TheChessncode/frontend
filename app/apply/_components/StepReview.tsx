@@ -1,16 +1,29 @@
 "use client";
 
 import React from "react";
-import { StepNavigation } from "./StepNavigation";
 import { UseFormReturn } from "react-hook-form";
 import {
   ApplicationFormData,
   ApplicationStep,
 } from "../_hooks/useApplicationForm";
-import { Pencil } from "lucide-react";
+import { StepNavigation } from "./StepNavigation";
+import { Edit2 } from "lucide-react";
+
+interface Field {
+  label: string;
+  value: string | undefined;
+  isLong?: boolean;
+}
+
+interface Section {
+  title: string;
+  step: ApplicationStep;
+  fields: Field[];
+}
 
 interface StepProps {
   form: UseFormReturn<ApplicationFormData>;
+  onNext: () => void; 
   onPrev: () => void;
   onEdit: (step: ApplicationStep) => void;
   isSubmitting: boolean;
@@ -25,129 +38,142 @@ export const StepReview = ({
   error,
 }: StepProps) => {
   const data = form.getValues();
-  const { isValid } = form.formState;
 
-  const SummarySection = ({
-    title,
-    step,
-    items,
-  }: {
-    title: string;
-    step: ApplicationStep;
-    items: { label: string; value?: string | boolean }[];
-  }) => {
-    const visibleItems = items.filter(
-      (item) => item.value && item.value !== "",
-    );
-    if (visibleItems.length === 0) return null;
+  const sections: Section[] = [
+    {
+      title: "Personal Information",
 
-    return (
-      <div className="bg-[var(--bg-secondary)]/50 rounded-2xl p-6 border border-[var(--border-primary)] relative group transition-all duration-300 hover:shadow-md">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-sm font-black uppercase tracking-widest text-[var(--brand-primary)]">
-            {title}
-          </h3>
-          <button
-            type="button"
-            onClick={() => onEdit(step)}
-            className="p-2 rounded-full hover:bg-[var(--brand-primary)]/10 text-[var(--brand-primary)] transition-colors opacity-0 group-hover:opacity-100"
-            title="Edit Section"
-          >
-            <Pencil size={16} />
-          </button>
-        </div>
-        <div className="space-y-4">
-          {visibleItems.map((item, i) => (
-            <div key={i} className="space-y-1">
-              <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider">
-                {item.label}
-              </span>
-              <p className="text-sm text-[var(--text-primary)] leading-relaxed break-words">
-                {typeof item.value === "boolean"
-                  ? item.value
-                    ? "Confirmed"
-                    : "Not Confirmed"
-                  : item.value}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
+      step: 1 as ApplicationStep,
+      fields: [
+        { label: "Full Name", value: data.fullName },
+        { label: "Date of Birth", value: data.dateOfBirth },
+        { label: "Country", value: data.country },
+        { label: "City/State", value: data.cityState },
+        { label: "Email", value: data.email },
+        { label: "WhatsApp", value: data.whatsAppNumber },
+        { label: "Referred By", value: data.referredBy },
+        ...(data.referredBy === "Other"
+          ? [
+              { label: "Referral Name", value: data.referralName },
+              { label: "Referral Contact", value: data.referralContact },
+            ]
+          : []),
+      ],
+    },
+    {
+      title: "Chess Background",
+      step: 2 as ApplicationStep,
+      fields: [
+        { label: "Duration", value: data.chessDuration },
+        { label: "Involvement", value: data.chessInvolvement },
+        { label: "FIDE Rating", value: data.fideRating || "None" },
+        { label: "Reflection", value: data.chessReflection, isLong: true },
+      ],
+    },
+    {
+      title: "Technology and Career",
+      step: 3 as ApplicationStep,
+      fields: [
+        { label: "Experience", value: data.techExperience },
+        { label: "Career Track", value: data.preferredCareerTrack },
+        { label: "Why Tech?", value: data.whyTechCareer, isLong: true },
+        { label: "Success Look", value: data.successDefinition, isLong: true },
+      ],
+    },
+    {
+      title: "Commitment and Availability",
+      step: 4 as ApplicationStep,
+      fields: [
+        { label: "Hours/Week", value: data.hoursAvailable },
+        { label: "Access", value: data.accessToDevice },
+        {
+          label: "Constraints",
+          value: data.availabilityConstraints,
+          isLong: true,
+        },
+      ],
+    },
+    {
+      title: "Declaration",
+      step: 5 as ApplicationStep,
+      fields: [
+        { label: "Date signed", value: data.declarationDate },
+        { label: "Signature", value: data.signature },
+      ],
+    },
+  ];
 
   return (
     <div className="space-y-8">
       <div className="space-y-2">
-        <h2 className="text-3xl font-black text-[var(--text-primary)]">
-          Final Review
+        <h2 className="text-2xl font-bold text-[var(--text-primary)]">
+          Review Application
         </h2>
         <p className="text-[var(--text-secondary)]">
-          Everything looking good? You can click any section to make edits.
+          Please review your details before final submission.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-6">
-        <SummarySection
-          title="Personal"
-          step={1}
-          items={[
-            { label: "Name", value: data.fullName },
-            { label: "Email", value: data.email },
-            { label: "Bio", value: data.describeYourself },
-            { label: "Strengths", value: data.personalStrengths },
-            { label: "Growth", value: data.growthExpectations },
-          ]}
-        />
-        <SummarySection
-          title="Professional"
-          step={2}
-          items={[
-            { label: "Aspiration", value: data.careerAspiration },
-            { label: "Skills", value: data.techSkillsInterest },
-            { label: "Community", value: data.communityContribution },
-          ]}
-        />
-        <SummarySection
-          title="Financial"
-          step={3}
-          items={[
-            { label: "Impact", value: data.scholarshipImpact },
-            { label: "Barriers", value: data.financialBarriers },
-            { label: "Employment", value: data.employmentImpact },
-          ]}
-        />
-        <SummarySection
-          title="Social & Media"
-          step={4}
-          items={[
-            { label: "LinkedIn", value: data.linkedin },
-            { label: "GitHub", value: data.github },
-            { label: "Twitter", value: data.twitter },
-            { label: "Instagram", value: data.instagram },
-          ]}
-        />
-        <SummarySection
-          title="Commitment"
-          step={5}
-          items={[
-            { label: "Video", value: data.videoLink },
-            { label: "Commitment", value: data.commitmentConfirmed },
-          ]}
-        />
+      <div className="space-y-6">
+        {sections.map((section) => (
+          <div
+            key={section.title}
+            className="bg-[var(--bg-secondary)]/30 rounded-2xl border border-[var(--border-primary)] overflow-hidden"
+          >
+            <div className="px-6 py-4 border-b border-[var(--border-primary)] flex justify-between items-center bg-[var(--bg-secondary)]/50">
+              <h3 className="font-bold text-sm uppercase tracking-wider text-[var(--text-primary)]">
+                {section.title}
+              </h3>
+              <button
+                type="button"
+                onClick={() => onEdit(section.step)}
+                className="flex items-center gap-1.5 text-xs font-bold text-[var(--brand-primary)] hover:opacity-70 transition-opacity"
+              >
+                <Edit2 size={14} />
+                Edit
+              </button>
+            </div>
+            <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+              {section.fields.map((field) => (
+                <div
+                  key={field.label}
+                  className={field.isLong ? "col-span-1 md:col-span-2" : ""}
+                >
+                  <p className="text-[10px] font-bold text-[var(--text-tertiary)] uppercase tracking-wider mb-1">
+                    {field.label}
+                  </p>
+                  {field.label === "Signature" &&
+                  field.value &&
+                  field.value !== "—" ? (
+                    <div className="mt-1 bg-white/50 rounded-lg p-2 border border-[var(--border-primary)] w-fit">
+                      <img
+                        src={field.value}
+                        alt="Signature"
+                        className="h-12 w-auto object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <p className="text-[var(--text-primary)] text-sm leading-relaxed">
+                      {field.value || "—"}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
       {error && (
-        <div className="p-4 rounded-xl bg-[var(--error-light)] border border-[var(--error)] text-[var(--error)] text-sm font-medium">
+        <div className="p-4 bg-[var(--error)]/10 border border-[var(--error)]/20 rounded-xl text-[var(--error)] text-xs font-bold uppercase tracking-tight">
           {error}
         </div>
       )}
 
       <StepNavigation
         onBack={onPrev}
-        isLast
+        isLast={true}
         isSubmitting={isSubmitting}
-        isValid={isValid}
       />
     </div>
   );

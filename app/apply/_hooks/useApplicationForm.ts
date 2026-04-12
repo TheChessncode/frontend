@@ -2,32 +2,37 @@ import { useState } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
 
 export type ApplicationFormData = {
-  // Step 1: Personal
+  // Section 1: Personal Information
   fullName: string;
+  dateOfBirth: string;
+  country: string;
+  cityState: string;
   email: string;
-  describeYourself: string;
-  personalStrengths: string;
-  growthExpectations: string;
+  whatsAppNumber: string;
+  referredBy: string;
+  referralName?: string;
+  referralContact?: string;
 
-  // Step 2: Professional
-  careerAspiration: string;
-  techSkillsInterest: string;
-  communityContribution: string;
+  // Section 2: Chess Background
+  chessDuration: string;
+  chessInvolvement: string;
+  fideRating?: string;
+  chessReflection: string;
 
-  // Step 3: Financial
-  scholarshipImpact: string;
-  financialBarriers: string;
-  employmentImpact: string;
+  // Section 3: Technology and Career
+  techExperience: string;
+  preferredCareerTrack: string;
+  whyTechCareer: string;
+  successDefinition: string;
 
-  // Step 4: Social Media
-  linkedin: string;
-  github: string;
-  twitter: string;
-  instagram: string;
+  // Section 4: Commitment and Availability
+  hoursAvailable: string;
+  accessToDevice: string;
+  availabilityConstraints: string;
 
-  // Step 5: Motivation Video & Commitment
-  videoLink: string;
-  commitmentConfirmed: boolean;
+  // Section 5: Declaration
+  signature: string; // Base64 or path
+  declarationDate: string;
 };
 
 export type ApplicationStep = 1 | 2 | 3 | 4 | 5 | 6;
@@ -49,22 +54,27 @@ export const useApplicationForm = (): UseApplicationForm => {
     mode: "onChange",
     defaultValues: {
       fullName: "",
+      dateOfBirth: "",
+      country: "",
+      cityState: "",
       email: "",
-      describeYourself: "",
-      personalStrengths: "",
-      growthExpectations: "",
-      careerAspiration: "",
-      techSkillsInterest: "",
-      communityContribution: "",
-      scholarshipImpact: "",
-      financialBarriers: "",
-      employmentImpact: "",
-      linkedin: "",
-      github: "",
-      twitter: "",
-      instagram: "",
-      videoLink: "",
-      commitmentConfirmed: false,
+      whatsAppNumber: "",
+      referredBy: "",
+      referralName: "",
+      referralContact: "",
+      chessDuration: "",
+      chessInvolvement: "",
+      fideRating: "",
+      chessReflection: "",
+      techExperience: "",
+      preferredCareerTrack: "",
+      whyTechCareer: "",
+      successDefinition: "",
+      hoursAvailable: "",
+      accessToDevice: "",
+      availabilityConstraints: "",
+      signature: "",
+      declarationDate: "",
     },
   });
 

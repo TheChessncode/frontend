@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
+
 import "./globals.css";
 import PreLaunch from "@/components/pre-launch/PreLaunch";
 
@@ -163,7 +165,6 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin=""
         />
-
         {/* Preload critical images */}
         <link rel="preload" href={`${baseUrl}/og-image.jpg`} as="image" />
         <link rel="preload" href={`${baseUrl}/logo.png`} as="image" />
@@ -174,8 +175,15 @@ export default function RootLayout({
         itemType="https://schema.org/WebPage"
       >
         {children}
-        {/* <PreLaunch /> */}
+        {/* <script
+          src="https://d26karj5r9mky5.cloudfront.net/webchat/widget.js"
+          data-webchat-id="124"
+          data-api-url="https://backend.unifiedbeez.com/api/v1"
+          data-ws-url="wss://backend.unifiedbeez.com"
+          async
+        ></script> */}
       </body>
     </html>
   );
 }
+ 
