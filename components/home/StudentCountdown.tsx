@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { motion, useAnimation, useMotionValue, useSpring } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 interface TimeLeft {
   days: number;
@@ -63,11 +63,6 @@ export default function StudentCountdown() {
         staggerChildren: 0.1,
       },
     },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: { opacity: 1, scale: 1 },
   };
 
   return (
@@ -142,9 +137,10 @@ export default function StudentCountdown() {
 
         <div className="flex flex-col items-center gap-1 mt-2">
           <p className="text-blue-200 text-center text-sm italic max-w-md">
-            "The electric light did not come from the continuous improvement of
-            candles"
+            &quot;The electric light did not come from the continuous
+            improvement of candles&quot;
           </p>
+
           <p className="text-[var(--brand-primary-light)] text-[10px] font-bold uppercase tracking-widest mt-1">
             — Oren Haran
           </p>

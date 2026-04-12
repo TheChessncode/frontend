@@ -25,8 +25,6 @@ export default function HeroSection() {
   const router = useRouter();
 
   useEffect(() => {
-    setIsLoaded(true);
-
     const initializeVideos = () => {
       const videos = [videoRef.current, mobileVideoRef.current].filter(Boolean);
       videos.forEach((video) => {

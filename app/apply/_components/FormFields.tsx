@@ -132,12 +132,7 @@ interface SignaturePadProps {
   onChange: (value: string) => void;
 }
 
-export const SignaturePad = ({
-  label,
-  error,
-  value,
-  onChange,
-}: SignaturePadProps) => {
+export const SignaturePad = ({ label, error, onChange }: SignaturePadProps) => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
   const [isDrawing, setIsDrawing] = React.useState(false);
   const [ctx, setCtx] = React.useState<CanvasRenderingContext2D | null>(null);

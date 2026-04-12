@@ -23,7 +23,7 @@ interface Section {
 
 interface StepProps {
   form: UseFormReturn<ApplicationFormData>;
-  onNext: () => void; 
+  onNext: () => void;
   onPrev: () => void;
   onEdit: (step: ApplicationStep) => void;
   isSubmitting: boolean;
@@ -146,6 +146,7 @@ export const StepReview = ({
                   field.value &&
                   field.value !== "—" ? (
                     <div className="mt-1 bg-white/50 rounded-lg p-2 border border-[var(--border-primary)] w-fit">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={field.value}
                         alt="Signature"

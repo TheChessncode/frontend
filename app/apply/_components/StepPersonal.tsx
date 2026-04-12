@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { UseFormReturn } from "react-hook-form";
+import { UseFormReturn, Path } from "react-hook-form";
 import { ApplicationFormData } from "../_hooks/useApplicationForm";
 import { ApplicationInput, ApplicationSelect } from "./FormFields";
 import { StepNavigation } from "./StepNavigation";
@@ -42,7 +42,8 @@ export const StepPersonal = ({ form, onNext, onPrev }: StepProps) => {
     if (referredBy === "Other") {
       fields.push("referralName", "referralContact");
     }
-    const isValid = await trigger(fields as any);
+    const isValid = await trigger(fields as Path<ApplicationFormData>[]);
+
     if (isValid) onNext();
   };
 
