@@ -40,8 +40,7 @@ export const StepDeclaration = ({ form, onNext, onPrev }: StepProps) => {
         “I confirm that all information in this application is true and
         accurate. I understand that ChessNcode selects scholars based on
         motivation and commitment, and I agree to honor the program’s
-        requirements, including weekly study commitments and the pay-it-forward
-        pledge, if accepted.”
+        requirements, including weekly study commitments, if accepted.”
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
@@ -67,6 +66,16 @@ export const StepDeclaration = ({ form, onNext, onPrev }: StepProps) => {
       </div>
 
       <StepNavigation onNext={handleNext} onBack={onPrev} nextLabel="Proceed" />
+
+      <div className="flex flex-col items-center gap-2 mt-12 pt-8 border-t border-[var(--border-primary)]/30">
+        <p className="text-cyan-400 text-center text-sm italic max-w-md font-semibold drop-shadow-[0_0_8px_rgba(34,211,238,0.3)]">
+          &quot;The electric light did not come from the continuous improvement
+          of candles&quot;
+        </p>
+        <p className="text-yellow-400 text-[10px] font-black uppercase tracking-[0.2em] drop-shadow-[0_0_8px_rgba(250,204,21,0.4)]">
+          — Oren Haran
+        </p>
+      </div>
     </div>
   );
 };

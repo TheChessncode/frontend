@@ -135,15 +135,18 @@ export default function StudentCountdown() {
           />
         </div>
 
-        <div className="flex flex-col items-center gap-1 mt-2">
-          <p className="text-blue-200 text-center text-sm italic max-w-md">
+        <div className="flex flex-col items-center gap-2 mt-6 p-4 rounded-xl bg-blue-500/5 backdrop-blur-[2px] border border-blue-400/10">
+          <p className="text-[12px] font-black uppercase tracking-[0.25em] drop-shadow-[0_0_10px_rgba(250,204,21,0.5)] text-center">
             &quot;The electric light did not come from the continuous
             improvement of candles&quot;
           </p>
-
-          <p className="text-[var(--brand-primary-light)] text-[10px] font-bold uppercase tracking-widest mt-1">
-            — Oren Haran
-          </p>
+          <div className="flex items-center gap-3 mt-1">
+            <div className="h-[2px] w-6 bg-white/50" />
+            <p className="text-[12px] font-black uppercase tracking-[0.25em] drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]">
+              Oren Haran
+            </p>
+            <div className="h-[2px] w-6 bg-white/50" />
+          </div>
         </div>
       </div>
     </motion.div>
