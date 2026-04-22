@@ -57,6 +57,7 @@ export const StepDeclaration = ({ form, onNext, onPrev }: StepProps) => {
             />
           )}
         />
+        
         <ApplicationInput
           label="Date"
           type="date"

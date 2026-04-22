@@ -32,14 +32,14 @@ export default function ProjectPage({ studentSlug }: ProjectPageProps) {
     <PublicPageContainer>
       <HeroSection student={student} />
       <CurriculumTimeline student={student} />
-      {student.dataAnalysisCurriculum && (
+      {/* {student.dataAnalysisCurriculum && (
         <CurriculumTimeline 
           student={student} 
           curriculum={student.dataAnalysisCurriculum}
           title="Data Analysis Program"
           subtitle="6-month comprehensive Data Analysis curriculum"
         />
-      )}
+      )} */}
       <CurrentFocus student={student} />
       <CertificationSection student={student} />
     </PublicPageContainer>
