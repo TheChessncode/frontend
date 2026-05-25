@@ -5,10 +5,8 @@ import {
   Rocket,
   GraduationCap,
   Cpu,
-  Award,
   Target,
   Calendar,
-  MapPin,
 } from "lucide-react";
 
 // Student data schema
@@ -49,6 +47,172 @@ export interface Certification {
   status: "achieved" | "upcoming";
   tags: string[];
 }
+
+// Praise — Data Analysis curriculum (lesson-by-lesson)
+export const praiseDataAnalysisCurriculum: CurriculumPhase[] = [
+  {
+    phase: "Revision: Foundations & Statistics",
+    duration: "23/01/2026 • 1hr 30mins",
+    icon: Database,
+    skills: [
+      "Mr. Clifford",
+      "Data analysis process",
+      "Assignment: analysis process report",
+    ],
+    status: "completed",
+  },
+  {
+    phase: "Excel: Data Collection & Cleaning",
+    duration: "30/01/2026 • 2hrs",
+    icon: Code2,
+    skills: ["Mr. Clifford", "Data collection", "Data cleaning"],
+    status: "completed",
+  },
+  {
+    phase: "Excel: Data Cleaning (Tools & Fixes)",
+    duration: "04/02/2026 • 1hr 30mins",
+    icon: Code2,
+    skills: ["Mr. Clifford", "Sort & filter", "Rows, columns & cells"],
+    status: "completed",
+  },
+  {
+    phase: "Report Setup & Visualization Prep",
+    duration: "06/02/2026 • 2hrs",
+    icon: Rocket,
+    skills: ["Mr. Clifford", "Report-ready dataset", "Visualization setup"],
+    status: "completed",
+  },
+  {
+    phase: "Excel: Filtering & Sorting",
+    duration: "16/03/2026 • 2hrs",
+    icon: Target,
+    skills: ["Mr. Clifford", "Filtering workflows", "Sorting workflows"],
+    status: "completed",
+  },
+  {
+    phase: "Revision: Data Analysis Foundation",
+    duration: "06/04/2026 • 2hrs",
+    icon: Database,
+    skills: ["Mr. Jadons", "Foundation refresh"],
+    status: "completed",
+  },
+  {
+    phase: "Excel: Analyst Worksheet Setup",
+    duration: "07/04/2026 • 1hr 30mins",
+    icon: Code2,
+    skills: ["Mr. Jadons", "Worksheet structure", "Best practices"],
+    status: "completed",
+  },
+  {
+    phase: "Excel: Analyst vs Ordinary User",
+    duration: "13/04/2026 • 1hr 30mins",
+    icon: Brain,
+    skills: ["Mr. Jadons", "Analyst workflow mindset"],
+    status: "completed",
+  },
+  {
+    phase: "Excel: Data Analysis Features",
+    duration: "14/04/2026 • 1hr 30mins",
+    icon: Code2,
+    skills: ["Mr. Jadons", "Excel features overview"],
+    status: "completed",
+  },
+  {
+    phase: "Excel: Data Entry + Functions Intro",
+    duration: "20/04/2026 • 2hrs",
+    icon: Code2,
+    skills: ["Mr. Jadons", "Data organization", "Presentation"],
+    status: "completed",
+  },
+  {
+    phase: "Excel: Functions & Formulas (Intro)",
+    duration: "21/04/2026 • 2hrs",
+    icon: Code2,
+    skills: ["Mr. Jadons", "Functions basics", "Formulas basics"],
+    status: "completed",
+  },
+  {
+    phase: "Excel: Functions & Formulas (Practice)",
+    duration: "27/04/2026 • 2hrs",
+    icon: Code2,
+    skills: ["Mr. Jadons", "Practice session"],
+    status: "completed",
+  },
+  {
+    phase: "Excel: Functions & Formulas (Practice)",
+    duration: "28/04/2026 • 1hr 30mins",
+    icon: Code2,
+    skills: ["Mr. Jadons", "Practice session"],
+    status: "completed",
+  },
+  {
+    phase: "Excel: Functions & Formulas (Practice)",
+    duration: "04/05/2026 • 2hrs",
+    icon: Code2,
+    skills: ["Mr. Jadons", "Practice session"],
+    status: "completed",
+  },
+  {
+    phase: "Excel: Functions & Formulas (Practice)",
+    duration: "05/05/2026 • 1hr 30mins",
+    icon: Code2,
+    skills: ["Mr. Jadons", "Practice session"],
+    status: "completed",
+  },
+  {
+    phase: "Text Functions: LEN & LEFT",
+    duration: "18/05/2026 • 2hrs",
+    icon: Code2,
+    skills: ["Mr. Jadons", "Text cleanup", "Dataset formatting"],
+    status: "completed",
+  },
+  {
+    phase: "Text Functions: Mastery",
+    duration: "19/05/2026 • 1hr 30mins",
+    icon: GraduationCap,
+    skills: [
+      "Mr. Jadons",
+      "PROPER, TRIM, CONCAT",
+      "UPPER/LOWER, RIGHT",
+    ],
+    status: "completed",
+  },
+  {
+    phase: "Date & Time Functions",
+    duration: "20/05/2026 • 2hrs",
+    icon: Calendar,
+    skills: ["Mr. Jadons", "Dates", "Time calculations"],
+    status: "current",
+  },
+  {
+    phase: "SQL & Databases",
+    duration: "Month 3",
+    icon: Database,
+    skills: ["SQL fundamentals", "JOINs", "Subqueries", "Window functions"],
+    status: "upcoming",
+  },
+  {
+    phase: "Python for Data Analysis",
+    duration: "Month 4",
+    icon: Code2,
+    skills: ["Python basics", "NumPy", "Pandas", "Data cleaning"],
+    status: "upcoming",
+  },
+  {
+    phase: "Data Visualization",
+    duration: "Month 5",
+    icon: Rocket,
+    skills: ["Matplotlib", "Seaborn", "Tableau", "Storytelling"],
+    status: "upcoming",
+  },
+  {
+    phase: "BI Tools & Career Prep",
+    duration: "Month 6",
+    icon: GraduationCap,
+    skills: ["Power BI", "Portfolio", "LinkedIn", "Interview prep"],
+    status: "upcoming",
+  },
+];
 
 // Students database
 export const students: Student[] = [
@@ -236,116 +400,12 @@ export const students: Student[] = [
       },
     ],
     currentFocus: {
-      title: "Game Analysis & Advanced Attacking",
+      title: "Date & Time Functions",
       description:
-        "Praise is currently mastering the step-by-step guide on how to attack, capture, protect, and block, while applying these lessons in supervised Lichess matches.",
-      project: "Attack & Protection Strategies",
+        "Praise is currently learning Excel date and time functions, building on earlier text functions to clean datasets and generate accurate time-based insights.",
+      project: "Excel Functions Practice Workbook",
     },
-    dataAnalysisCurriculum: [
-      {
-        phase: "Foundations & Statistics",
-        duration: "Month 1",
-        icon: Database,
-        skills: [
-          "Data Analysis Fundamentals",
-          "Descriptive Statistics",
-          "Probability",
-          "Hypothesis Testing",
-        ],
-        status: "upcoming",
-      },
-      {
-        phase: "Excel Mastery",
-        duration: "Month 2",
-        icon: Code2,
-        skills: [
-          "Advanced Functions",
-          "VLOOKUP",
-          "Pivot Tables",
-          "Data Analysis",
-        ],
-        status: "upcoming",
-      },
-      {
-        phase: "SQL & Databases",
-        duration: "Month 3",
-        icon: Database,
-        skills: ["SQL Fundamentals", "JOINs", "Subqueries", "Window Functions"],
-        status: "upcoming",
-      },
-      {
-        phase: "Python for Data Analysis",
-        duration: "Month 4",
-        icon: Code2,
-        skills: ["Python Basics", "NumPy", "Pandas", "Data Cleaning"],
-        status: "upcoming",
-      },
-      {
-        phase: "Data Visualization",
-        duration: "Month 5",
-        icon: Rocket,
-        skills: ["Matplotlib", "Seaborn", "Tableau", "Storytelling"],
-        status: "upcoming",
-      },
-      {
-        phase: "BI Tools & Career Prep",
-        duration: "Month 6",
-        icon: GraduationCap,
-        skills: ["Power BI", "Portfolio", "LinkedIn", "Interview Prep"],
-        status: "upcoming",
-      },
-    ],
-  },
-];
-
-// Data Analysis Curriculum for Praise
-export const praiseDataAnalysisCurriculum = [
-  {
-    phase: "Foundations & Statistics",
-    duration: "Month 1",
-    icon: Database,
-    skills: [
-      "Data Analysis Fundamentals",
-      "Descriptive Statistics",
-      "Probability",
-      "Hypothesis Testing",
-    ],
-    status: "upcoming" as const,
-  },
-  {
-    phase: "Excel Mastery",
-    duration: "Month 2",
-    icon: Code2,
-    skills: ["Advanced Functions", "VLOOKUP", "Pivot Tables", "Data Analysis"],
-    status: "upcoming" as const,
-  },
-  {
-    phase: "SQL & Databases",
-    duration: "Month 3",
-    icon: Database,
-    skills: ["SQL Fundamentals", "JOINs", "Subqueries", "Window Functions"],
-    status: "upcoming" as const,
-  },
-  {
-    phase: "Python for Data Analysis",
-    duration: "Month 4",
-    icon: Code2,
-    skills: ["Python Basics", "NumPy", "Pandas", "Data Cleaning"],
-    status: "upcoming" as const,
-  },
-  {
-    phase: "Data Visualization",
-    duration: "Month 5",
-    icon: Rocket,
-    skills: ["Matplotlib", "Seaborn", "Tableau", "Storytelling"],
-    status: "upcoming" as const,
-  },
-  {
-    phase: "BI Tools & Career Prep",
-    duration: "Month 6",
-    icon: GraduationCap,
-    skills: ["Power BI", "Portfolio", "LinkedIn", "Interview Prep"],
-    status: "upcoming" as const,
+    dataAnalysisCurriculum: praiseDataAnalysisCurriculum,
   },
 ];
 

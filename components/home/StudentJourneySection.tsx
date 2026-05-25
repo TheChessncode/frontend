@@ -1,170 +1,101 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { ChevronRight, Star } from "lucide-react";
 import {
-  ChevronRight,
-  Star,
-  Target,
-  Trophy,
-  User,
-  Brain,
-  Database,
-  GraduationCap,
-  Rocket,
-} from "lucide-react";
-import { getAllStudents } from "@/constants/studentsData";
+  getAllStudents,
+  Student,
+  CurriculumPhase,
+} from "@/constants/studentsData";
 import Link from "next/link";
 
+type JourneyLevel = {
+  level: number;
+  title: string;
+  status: "completed" | "current" | "upcoming";
+  skills: string[];
+  duration: string;
+  icon: React.ReactNode;
+};
+
+function phasesToLevels(
+  phases: CurriculumPhase[],
+  levelOffset: number,
+): JourneyLevel[] {
+  return phases.map((phase, index) => ({
+    level: levelOffset + index + 1,
+    title: phase.phase,
+    status: phase.status,
+    skills: phase.skills,
+    duration: phase.duration,
+    icon: <phase.icon className="w-5 h-5 text-[var(--text-secondary)]" />,
+  }));
+}
+
+function getJourneyLevels(student: Student | undefined): JourneyLevel[] {
+  if (!student) return [];
+
+  const mainLevels = phasesToLevels(student.curriculum, 0);
+  const extraLevels = student.dataAnalysisCurriculum?.length
+    ? phasesToLevels(student.dataAnalysisCurriculum, mainLevels.length)
+    : [];
+
+  return [...mainLevels, ...extraLevels];
+}
+
 export default function StudentJourneySection() {
-  const students = getAllStudents();
+  const students = useMemo(() => getAllStudents(), []);
   const [selectedStudentSlug, setSelectedStudentSlug] = useState(
     students[0]?.slug || "elora",
   );
-  const selectedStudent =
-    students.find((s) => s.slug === selectedStudentSlug) || students[0];
 
-  // Generate levels based on student's curriculum
-  const getLevelsForStudent = (student: typeof selectedStudent) => {
-    if (!student) return [];
+  const selectedStudent = useMemo(() => {
+    return (
+      students.find((s) => s.slug === selectedStudentSlug) || students[0]
+    );
+  }, [students, selectedStudentSlug]);
 
-    if (student.slug === "elora") {
-      // Elora's journey: Data Science & Machine Learning track
-      return [
-        {
-          level: 1,
-          title: "Foundation Phase",
-          status: "completed" as const,
-          skills: ["Math Fundamentals", "Python Basics", "SQL", "Git & GitHub"],
-          projects: ["Math fundamentals", "Data structure understanding"],
-          icon: (
-            <GraduationCap className="w-5 h-5 text-[var(--text-secondary)]" />
-          ),
-        },
-        {
-          level: 2,
-          title: "Data Analysis",
-          status: "completed" as const,
-          skills: ["Pandas", "NumPy", "Data Visualization", "Tableau"],
-          projects: ["Data analysis projects", "Visualization dashboards"],
-          icon: <Database className="w-5 h-5 text-[var(--text-secondary)]" />,
-        },
-        {
-          level: 3,
-          title: "Machine Learning",
-          status: "current" as const,
-          skills: [
-            "Supervised Learning",
-            "Model Selection",
-            "Feature Engineering",
-            "APIs",
-          ],
-          projects: ["Predictive models", "Chess move prediction"],
-          icon: <Brain className="w-5 h-5 text-[var(--text-secondary)]" />,
-        },
-        {
-          level: 4,
-          title: "Deployment & MLOps",
-          status: "upcoming" as const,
-          skills: ["Streamlit", "Docker", "MLOps", "Deep Learning"],
-          projects: ["Model deployment", "Production systems"],
-          icon: <Rocket className="w-5 h-5 text-[var(--text-secondary)]" />,
-        },
+  const levels = useMemo(() => getJourneyLevels(selectedStudent), [selectedStudent]);
 
-        {
-          level: 5,
-          title: "Advanced Topics & Career",
-          status: "upcoming" as const,
-          skills: ["NLP", "Computer Vision", "Capstone Project", "Job Prep"],
-          projects: ["Capstone project", "Professional portfolio"],
-          icon: <User className="w-5 h-5 text-[var(--text-secondary)]" />,
-        },
-      ];
-    } else if (student.slug === "praise") {
-      // Praise's journey: Chess Training + Data Analysis track (just starting)
-      return [
-        {
-          level: 1,
-          title: "Chess Fundamentals",
-          status: "completed" as const,
-          skills: [
-            "Piece Movements",
-            "Coordination",
-            "Fundamentals",
-            "Mini-games",
-          ],
-          projects: ["Chess basics", "Pattern recognition"],
-          icon: <Brain className="w-5 h-5 text-[var(--text-secondary)]" />,
-        },
-        {
-          level: 2,
-          title: "Defense & Attacking",
-          status: "current" as const,
-          skills: [
-            "Defensive Thinking",
-            "Attacking Principles",
-            "Piece Roles",
-            "Strong Squares",
-          ],
-          projects: ["Chess strategies", "Tactical thinking"],
-          icon: <Target className="w-5 h-5 text-[var(--text-secondary)]" />,
-        },
-        {
-          level: 3,
-          title: "Opening & Checkmate",
-          status: "upcoming" as const,
-          skills: [
-            "Opening Principles",
-            "Pawn Structures",
-            "Checkmate Patterns",
-            "Castling",
-          ],
-          projects: ["Opening repertoire", "Endgame techniques"],
-          icon: (
-            <GraduationCap className="w-5 h-5 text-[var(--text-secondary)]" />
-          ),
-        },
-        {
-          level: 4,
-          title: "Data Analysis Foundations",
-          status: "upcoming" as const,
-          skills: [
-            "Statistics",
-            "Excel",
-            "Data Fundamentals",
-            "Analysis Process",
-          ],
-          projects: ["Statistical analysis", "Excel dashboards"],
-          icon: <Database className="w-5 h-5 text-[var(--text-secondary)]" />,
-        },
-        {
-          level: 5,
-          title: "Data Analysis Mastery",
-          status: "upcoming" as const,
-          skills: ["SQL", "Python", "Visualization", "BI Tools", "Career Prep"],
-          projects: ["Data projects", "Portfolio development"],
-          icon: <User className="w-5 h-5 text-[var(--text-secondary)]" />,
-        },
-      ];
+  const defaultCurrentLevel = useMemo(() => {
+    if (!levels.length) return 1;
+
+    const currentIndices = levels
+      .map((level, index) => (level.status === "current" ? index : -1))
+      .filter((index) => index >= 0);
+
+    if (currentIndices.length) {
+      return currentIndices[currentIndices.length - 1] + 1;
     }
-    return [];
-  };
 
-  const levels = getLevelsForStudent(selectedStudent);
-  const currentLevelIndex = levels.findIndex((l) => l.status === "current");
-  const [currentLevel, setCurrentLevel] = useState(
-    currentLevelIndex >= 0 ? currentLevelIndex + 1 : 1,
-  );
+    const lastCompletedIndex = levels
+      .map((level, index) => (level.status === "completed" ? index : -1))
+      .filter((index) => index >= 0)
+      .pop();
+
+    return lastCompletedIndex !== undefined ? lastCompletedIndex + 1 : 1;
+  }, [levels]);
+
+  const [currentLevel, setCurrentLevel] = useState(defaultCurrentLevel);
 
   // Update current level when student changes
   useEffect(() => {
-    const newLevels = getLevelsForStudent(selectedStudent);
-    const newCurrentLevelIndex = newLevels.findIndex(
-      (l) => l.status === "current",
-    );
-    setCurrentLevel(newCurrentLevelIndex >= 0 ? newCurrentLevelIndex + 1 : 1);
-  }, [selectedStudentSlug, selectedStudent]);
+    setCurrentLevel(defaultCurrentLevel);
+  }, [selectedStudentSlug, defaultCurrentLevel]);
+
+  const activeLevel = useMemo(() => {
+    return levels.find((level) => level.level === currentLevel);
+  }, [levels, currentLevel]);
+
+  const progressPercent = levels.length
+    ? (currentLevel / levels.length) * 100
+    : 0;
+
+  if (!selectedStudent) {
+    return null;
+  }
 
   return (
     <section className="bg-[var(--bg-secondary)] py-16 px-4 border-b border-[var(--border-primary)]">
@@ -261,7 +192,7 @@ export default function StudentJourneySection() {
                   Journey Progress
                 </h3>
                 <span className="text-[var(--brand-primary)] font-bold">
-                  {((currentLevel / levels.length) * 100).toFixed(0)}% Complete
+                  {progressPercent.toFixed(0)}% Complete
                 </span>
               </div>
 
@@ -270,7 +201,7 @@ export default function StudentJourneySection() {
                   className="h-full bg-gradient-to-r from-[var(--brand-primary)] to-[var(--brand-primary-dark)] rounded-full"
                   initial={{ width: 0 }}
                   whileInView={{
-                    width: `${(currentLevel / levels.length) * 100}%`,
+                    width: `${progressPercent}%`,
                   }}
                   transition={{ duration: 1.5 }}
                 />
@@ -336,15 +267,15 @@ export default function StudentJourneySection() {
                       </div>
 
                       <p className="text-sm text-[var(--text-tertiary)]">
-                        Focus: {level.projects.join(", ")}
+                        Duration: {level.duration}
                       </p>
                     </div>
 
-                    <ChevronRight
+                    {/* <ChevronRight
                       className={`w-5 h-5 text-[var(--text-secondary)] text-[var(--text-tertiary)] transition-transform ${
                         currentLevel === level.level ? "rotate-90" : ""
                       }`}
-                    />
+                    /> */}
                   </div>
                 </motion.div>
               ))}
@@ -359,32 +290,29 @@ export default function StudentJourneySection() {
           className="mt-12 bg-gradient-to-r from-[var(--brand-primary)] via-[var(--brand-primary-dark)] to-[var(--brand-primary-dark)] rounded-2xl p-8 text-white text-center"
         >
           <h3 className="text-2xl font-bold mb-2">
-            Current Focus: {levels.find((l) => l.level === currentLevel)?.title}
+            Current Focus: {activeLevel?.title || "—"}
           </h3>
           <p className="mb-4 opacity-90">
-            {selectedStudent?.slug === "elora"
-              ? currentLevel === 3
-                ? "Mastering supervised and unsupervised learning algorithms, building on chess-honed pattern recognition skills"
-                : currentLevel === 2
-                  ? "Completed data analysis fundamentals, now advancing to machine learning"
-                  : "Building on chess analytical skills to solve real-world data problems"
-              : selectedStudent?.slug === "praise"
-                ? currentLevel === 2
-                  ? "Learning defensive thinking and attacking principles in chess, building the foundation for data analysis"
-                  : "Building foundational chess skills that will translate to data analysis expertise"
-                : "Building on chess analytical skills to solve real-world data problems"}
+            {activeLevel?.status === "current" &&
+            activeLevel.title === selectedStudent.currentFocus.title
+              ? selectedStudent.currentFocus.description
+              : activeLevel?.status === "completed"
+                ? `Completed ${activeLevel.title}.`
+                : activeLevel?.status === "current"
+                  ? `Currently working on ${activeLevel.title}.`
+                  : activeLevel
+                    ? `Next up: ${activeLevel.title}.`
+                    : "Select a level to view the focus."}
           </p>
           <div className="flex flex-wrap justify-center gap-2">
-            {levels
-              .find((l) => l.level === currentLevel)
-              ?.skills.map((skill, i) => (
-                <span
-                  key={i}
-                  className="px-3 py-1 bg-white/20 rounded-full text-sm"
-                >
-                  {skill}
-                </span>
-              ))}
+            {activeLevel?.skills.map((skill, i) => (
+              <span
+                key={i}
+                className="px-3 py-1 bg-white/20 rounded-full text-sm"
+              >
+                {skill}
+              </span>
+            ))}
           </div>
         </motion.div>
       </div>
