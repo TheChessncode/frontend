@@ -9,26 +9,26 @@ export const INSTAGRAM_REELS: ReelData[] = [
   {
     id: "1",
     title: "",
-    url: "https://www.instagram.com/chessncode/reel/DUZoW1ODfBH/",
-    embedUrl: "https://www.instagram.com/reel/DUZoW1ODfBH/embed",
+    url: "https://www.instagram.com/chessncode/reel/DZRCbmwixmZ/",
+    embedUrl: "https://www.instagram.com/reel/DZRCbmwixmZ/embed",
   },
   {
     id: "2",
     title: "",
-    url: "https://www.instagram.com/chessncode/reel/DTW04jljS1p/",
-    embedUrl: "https://www.instagram.com/reel/DTW04jljS1p/embed",
+    url: "https://www.instagram.com/chessncode/reel/DY4vCyAifcx/",
+    embedUrl: "https://www.instagram.com/reel/DY4vCyAifcx/embed",
   },
   {
     id: "3",
     title: "",
-    url: "https://www.instagram.com/chessncode/reel/DTDFTbyAG8_/",
-    embedUrl: "https://www.instagram.com/reel/DTDFTbyAG8_/embed",
+    url: "https://www.instagram.com/chessncode/reel/DYPbKx4CW8S/",
+    embedUrl: "https://www.instagram.com/reel/DYPbKx4CW8S/embed",
   },
   {
     id: "4",
     title: "",
-    url: "https://www.instagram.com/chessncode/reel/DSLJRBSguRT/",
-    embedUrl: "https://www.instagram.com/reel/DSLJRBSguRT/embed",
+    url: "https://www.instagram.com/chessncode/reel/DYLrcyKttZ6",
+    embedUrl: "https://www.instagram.com/reel/DYLrcyKttZ6/embed",
   },
 ];
 
