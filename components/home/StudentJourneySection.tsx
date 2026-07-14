@@ -1,16 +1,29 @@
 "use client";
 
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ChevronRight, Star } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { 
+  Star, 
+  ChevronRight, 
+  Clock, 
+  CheckCircle2, 
+  Brain, 
+  Code2, 
+  BookOpen, 
+  Calendar,
+  Activity
+} from "lucide-react";
 import {
   getAllStudents,
   Student,
   CurriculumPhase,
+  formatTimestamp,
+  StudentLog
 } from "@/constants/studentsData";
 import Link from "next/link";
 
+// Retain types and unused functions as requested ("do not remove what we have now, just don't use it")
 type JourneyLevel = {
   level: number;
   title: string;
@@ -36,13 +49,38 @@ function phasesToLevels(
 
 function getJourneyLevels(student: Student | undefined): JourneyLevel[] {
   if (!student) return [];
-
   const mainLevels = phasesToLevels(student.curriculum, 0);
   const extraLevels = student.dataAnalysisCurriculum?.length
     ? phasesToLevels(student.dataAnalysisCurriculum, mainLevels.length)
     : [];
-
   return [...mainLevels, ...extraLevels];
+}
+
+// Helper to parse duration string to numeric hours
+function parseDurationToHours(duration: string): number {
+  const d = duration.toLowerCase().trim();
+  if (d.includes("hour") || d.includes("hr")) {
+    const hrMatch = d.match(/(\d+)\s*(?:hour|hr)s?/);
+    const minMatch = d.match(/(\d+)\s*(?:min)s?/);
+    
+    let hours = 0;
+    if (hrMatch) {
+      hours += parseInt(hrMatch[1], 10);
+    }
+    if (minMatch) {
+      hours += parseInt(minMatch[1], 10) / 60;
+    }
+    return hours;
+  }
+  
+  if (d.includes("min")) {
+    const minMatch = d.match(/(\d+)\s*mins?/);
+    if (minMatch) {
+      return parseInt(minMatch[1], 10) / 60;
+    }
+  }
+  
+  return 1.5; // Fallback
 }
 
 export default function StudentJourneySection() {
@@ -57,52 +95,44 @@ export default function StudentJourneySection() {
     );
   }, [students, selectedStudentSlug]);
 
-  const levels = useMemo(() => getJourneyLevels(selectedStudent), [selectedStudent]);
+  // Compute Stats
+  const stats = useMemo(() => {
+    const logs = selectedStudent.logs || [];
+    const totalSessions = logs.length;
+    const chessSessions = logs.filter(l => l.sessionType === "Chess").length;
+    const techSessions = logs.filter(l => l.sessionType === "Tech").length;
+    const completedSessions = logs.filter(l => l.status === "Completed").length;
+    
+    const totalHours = logs.reduce((sum, log) => {
+      return sum + parseDurationToHours(log.duration);
+    }, 0);
 
-  const defaultCurrentLevel = useMemo(() => {
-    if (!levels.length) return 1;
+    return {
+      totalSessions,
+      chessSessions,
+      techSessions,
+      completedSessions,
+      totalHours: Math.round(totalHours)
+    };
+  }, [selectedStudent]);
 
-    const currentIndices = levels
-      .map((level, index) => (level.status === "current" ? index : -1))
-      .filter((index) => index >= 0);
-
-    if (currentIndices.length) {
-      return currentIndices[currentIndices.length - 1] + 1;
-    }
-
-    const lastCompletedIndex = levels
-      .map((level, index) => (level.status === "completed" ? index : -1))
-      .filter((index) => index >= 0)
-      .pop();
-
-    return lastCompletedIndex !== undefined ? lastCompletedIndex + 1 : 1;
-  }, [levels]);
-
-  const [currentLevel, setCurrentLevel] = useState(defaultCurrentLevel);
-
-  // Update current level when student changes
-  useEffect(() => {
-    setCurrentLevel(defaultCurrentLevel);
-  }, [selectedStudentSlug, defaultCurrentLevel]);
-
-  const activeLevel = useMemo(() => {
-    return levels.find((level) => level.level === currentLevel);
-  }, [levels, currentLevel]);
-
-  const progressPercent = levels.length
-    ? (currentLevel / levels.length) * 100
-    : 0;
+  // Extract the 4 most recent logs (newest first)
+  const recentLogs = useMemo(() => {
+    const logs = selectedStudent.logs || [];
+    return [...logs].slice(-4).reverse();
+  }, [selectedStudent]);
 
   if (!selectedStudent) {
     return null;
   }
 
   return (
-    <section className="bg-[var(--bg-secondary)] py-16 px-4 border-b border-[var(--border-primary)]">
+    <section className="bg-[var(--bg-secondary)] py-16 px-4 border-b border-[var(--border-primary)] overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           className="text-center mb-12"
         >
           <h2 className="text-4xl lg:text-5xl font-bold text-[var(--text-primary)] mb-4">
@@ -110,7 +140,7 @@ export default function StudentJourneySection() {
             <span className="text-[var(--brand-primary)]">Scholars</span>
           </h2>
           <p className="text-lg text-[var(--text-secondary)] mb-6">
-            Transforming chess skills into tech expertise
+            Real-time logs of their chess study, coding sessions, and learning reflections
           </p>
 
           {/* Student Selector */}
@@ -125,16 +155,18 @@ export default function StudentJourneySection() {
                     : "bg-[var(--bg-secondary)] text-[var(--text-secondary)] border border-[var(--border-primary)] hover:border-[var(--brand-primary)]"
                 }`}
               >
-                {student.name.split(" ").pop()}
+                {student.slug === "elora" ? "Elora" : "Praise"}
               </button>
             ))}
           </div>
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-8 items-start">
+          {/* Profile Card */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
             className="lg:col-span-1 bg-[var(--bg-secondary)] backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-[var(--border-primary)]"
           >
             <div className="text-center">
@@ -151,9 +183,9 @@ export default function StudentJourneySection() {
               </div>
 
               <h3 className="text-2xl font-bold text-[var(--text-primary)]">
-                {selectedStudent.name}
+                {selectedStudent.slug === "elora" ? "Oise Elora Iguehi" : "Praise Okoro"}
               </h3>
-              <p className="text-[var(--text-secondary)]">
+              <p className="text-[var(--text-secondary)] mt-1">
                 {selectedStudent.chessBackground}
               </p>
               <p className="text-sm text-[var(--brand-primary)] font-semibold mt-2">
@@ -172,149 +204,132 @@ export default function StudentJourneySection() {
 
               <Link
                 href={`/projects/${selectedStudent.slug}`}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--brand-primary)] text-white rounded-lg hover:bg-[var(--brand-primary-dark)] transition-colors text-sm font-semibold"
+                className="inline-flex items-center gap-2 w-full justify-center px-4 py-3 bg-[var(--brand-primary)] text-white rounded-lg hover:bg-[var(--brand-primary-dark)] transition-all text-sm font-semibold hover:shadow-md"
               >
-                View Full Journey
+                View Full Reflections Journal
                 <ChevronRight className="w-4 h-4" />
               </Link>
             </div>
           </motion.div>
 
+          {/* Stats and Recent Activity */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.2 }}
             className="lg:col-span-2 space-y-6"
           >
+            {/* Stats Dashboard */}
             <div className="bg-[var(--bg-secondary)] backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-[var(--border-primary)]">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="font-bold text-[var(--text-primary)] text-lg">
-                  Journey Progress
-                </h3>
-                <span className="text-[var(--brand-primary)] font-bold">
-                  {progressPercent.toFixed(0)}% Complete
+              <h3 className="font-bold text-[var(--text-primary)] text-lg mb-4 flex items-center gap-2">
+                <Activity className="w-5 h-5 text-[var(--brand-primary)]" />
+                Learning Activity Stats
+              </h3>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="bg-[var(--bg-primary)] p-4 rounded-xl border border-[var(--border-primary)] flex flex-col items-center justify-center text-center">
+                  <Clock className="w-6 h-6 text-[var(--brand-primary)] mb-2" />
+                  <span className="text-2xl font-bold text-[var(--text-primary)]">{stats.totalHours} hrs</span>
+                  <span className="text-xs text-[var(--text-secondary)] mt-1">Study Time</span>
+                </div>
+                <div className="bg-[var(--bg-primary)] p-4 rounded-xl border border-[var(--border-primary)] flex flex-col items-center justify-center text-center">
+                  <CheckCircle2 className="w-6 h-6 text-green-500 mb-2" />
+                  <span className="text-2xl font-bold text-[var(--text-primary)]">{stats.completedSessions}</span>
+                  <span className="text-xs text-[var(--text-secondary)] mt-1">Completed Sessions</span>
+                </div>
+                <div className="bg-[var(--bg-primary)] p-4 rounded-xl border border-[var(--border-primary)] flex flex-col items-center justify-center text-center">
+                  <Brain className="w-6 h-6 text-purple-500 mb-2" />
+                  <span className="text-2xl font-bold text-[var(--text-primary)]">{stats.chessSessions}</span>
+                  <span className="text-xs text-[var(--text-secondary)] mt-1">Chess Logs</span>
+                </div>
+                <div className="bg-[var(--bg-primary)] p-4 rounded-xl border border-[var(--border-primary)] flex flex-col items-center justify-center text-center">
+                  <Code2 className="w-6 h-6 text-blue-500 mb-2" />
+                  <span className="text-2xl font-bold text-[var(--text-primary)]">{stats.techSessions}</span>
+                  <span className="text-xs text-[var(--text-secondary)] mt-1">Tech Logs</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Recent Activity List */}
+            <div className="space-y-4">
+              <div className="flex justify-between items-center px-1">
+                <h4 className="font-bold text-[var(--text-primary)] text-lg">
+                  Recent Activities
+                </h4>
+                <span className="text-xs text-[var(--text-secondary)] font-medium">
+                  Showing latest 4 entries
                 </span>
               </div>
 
-              <div className="h-3 bg-[var(--bg-tertiary)] rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-gradient-to-r from-[var(--brand-primary)] to-[var(--brand-primary-dark)] rounded-full"
-                  initial={{ width: 0 }}
-                  whileInView={{
-                    width: `${progressPercent}%`,
-                  }}
-                  transition={{ duration: 1.5 }}
-                />
+              <div className="space-y-3">
+                <AnimatePresence mode="wait">
+                  {recentLogs.map((log, index) => {
+                    const isChess = log.sessionType === "Chess";
+                    const isCompleted = log.status === "Completed";
+
+                    return (
+                      <motion.div
+                        key={log.timestamp}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.3, delay: index * 0.05 }}
+                        className={`p-4 rounded-xl border transition-all duration-300 bg-[var(--bg-secondary)] border-[var(--border-primary)] hover:border-[var(--brand-primary)] hover:shadow-md`}
+                      >
+                        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+                          <div className="flex items-center gap-3">
+                            {/* Icon Indicator */}
+                            <div className={`p-2.5 rounded-lg ${
+                              isChess ? 'bg-purple-500/10 text-purple-500' : 'bg-blue-500/10 text-blue-500'
+                            }`}>
+                              {isChess ? <Brain className="w-5 h-5" /> : <Code2 className="w-5 h-5" />}
+                            </div>
+
+                            <div>
+                              <div className="flex flex-wrap items-center gap-2">
+                                <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                                  isChess ? 'bg-purple-500/10 text-purple-400' : 'bg-blue-500/10 text-blue-400'
+                                }`}>
+                                  {log.sessionType}
+                                </span>
+                                <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                                  isCompleted ? 'bg-green-500/10 text-green-400' : 'bg-amber-500/10 text-amber-400'
+                                }`}>
+                                  {log.status}
+                                </span>
+                              </div>
+                              <h4 className="font-bold text-[var(--text-primary)] mt-1 text-sm md:text-base">
+                                {log.topicCovered}
+                              </h4>
+                            </div>
+                          </div>
+
+                          <div className="flex sm:flex-col items-end justify-between sm:justify-start text-xs text-[var(--text-secondary)] mt-2 sm:mt-0 font-medium">
+                            <span className="flex items-center gap-1">
+                              <Calendar className="w-3.5 h-3.5 text-[var(--text-tertiary)]" />
+                              {formatTimestamp(log.timestamp).split(' • ')[0]}
+                            </span>
+                            <span className="text-[var(--text-tertiary)] sm:mt-1">
+                              Duration: {log.duration}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Learning reflection excerpt */}
+                        <div className="mt-3 pt-3 border-t border-[var(--border-primary)]/50">
+                          <p className="text-xs text-[var(--text-secondary)] italic line-clamp-2 pl-3 border-l-2 border-[var(--brand-primary)]/40">
+                            &quot;{log.whatLearned}&quot;
+                          </p>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </AnimatePresence>
               </div>
-
-              <div className="flex justify-between text-sm text-[var(--text-tertiary)] mt-2">
-                <span>Chess Mastery</span>
-                <span>Career Ready</span>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              {levels.map((level, index) => (
-                <motion.div
-                  key={level.level}
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`p-4 rounded-xl border-2 transition-all duration-300 cursor-pointer hover:scale-105 ${
-                    level.status === "current"
-                      ? "border-[var(--brand-primary)] bg-[var(--brand-primary)]/10 shadow-lg"
-                      : level.status === "completed"
-                        ? "border-green-500/30 bg-green-500/5"
-                        : "border-[var(--border-primary)] bg-[var(--bg-secondary)]"
-                  }`}
-                  onClick={() => setCurrentLevel(level.level)}
-                >
-                  <div className="flex items-center gap-4">
-                    <div
-                      className={`flex items-center justify-center w-10 h-10 rounded-full ${
-                        level.status === "completed"
-                          ? "bg-green-500 text-white"
-                          : level.status === "current"
-                            ? "bg-[var(--brand-primary)] text-white"
-                            : "bg-[var(--bg-tertiary)] text-[var(--text-tertiary)]"
-                      }`}
-                    >
-                      {level.status === "completed" ? "✓" : level.level}
-                    </div>
-
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        {level.icon}
-                        <h4 className="font-bold text-[var(--text-primary)]">
-                          {level.title}
-                        </h4>
-                        {level.status === "current" && (
-                          <span className="px-2 py-1 bg-[var(--brand-primary)] text-white text-xs rounded-full">
-                            LEARNING NOW
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="flex flex-wrap gap-2 mb-2">
-                        {level.skills.map((skill, i) => (
-                          <span
-                            key={i}
-                            className="px-2 py-1 bg-[var(--bg-secondary)] text-[var(--text-secondary)] text-xs rounded"
-                          >
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-
-                      <p className="text-sm text-[var(--text-tertiary)]">
-                        Duration: {level.duration}
-                      </p>
-                    </div>
-
-                    {/* <ChevronRight
-                      className={`w-5 h-5 text-[var(--text-secondary)] text-[var(--text-tertiary)] transition-transform ${
-                        currentLevel === level.level ? "rotate-90" : ""
-                      }`}
-                    /> */}
-                  </div>
-                </motion.div>
-              ))}
             </div>
           </motion.div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="mt-12 bg-gradient-to-r from-[var(--brand-primary)] via-[var(--brand-primary-dark)] to-[var(--brand-primary-dark)] rounded-2xl p-8 text-white text-center"
-        >
-          <h3 className="text-2xl font-bold mb-2">
-            Current Focus: {activeLevel?.title || "—"}
-          </h3>
-          <p className="mb-4 opacity-90">
-            {activeLevel?.status === "current" &&
-            activeLevel.title === selectedStudent.currentFocus.title
-              ? selectedStudent.currentFocus.description
-              : activeLevel?.status === "completed"
-                ? `Completed ${activeLevel.title}.`
-                : activeLevel?.status === "current"
-                  ? `Currently working on ${activeLevel.title}.`
-                  : activeLevel
-                    ? `Next up: ${activeLevel.title}.`
-                    : "Select a level to view the focus."}
-          </p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {activeLevel?.skills.map((skill, i) => (
-              <span
-                key={i}
-                className="px-3 py-1 bg-white/20 rounded-full text-sm"
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );

@@ -10,6 +10,15 @@ import {
 } from "lucide-react";
 
 // Student data schema
+export interface StudentLog {
+  timestamp: string;
+  sessionType: "Tech" | "Chess";
+  duration: string;
+  topicCovered: string;
+  status: "Completed" | "Incomplete";
+  whatLearned: string;
+}
+
 export interface Student {
   slug: string;
   name: string;
@@ -28,7 +37,9 @@ export interface Student {
     description: string;
     project: string;
   };
+  logs?: StudentLog[];
 }
+
 
 export interface CurriculumPhase {
   phase: string;
@@ -214,8 +225,371 @@ export const praiseDataAnalysisCurriculum: CurriculumPhase[] = [
   },
 ];
 
+export function formatTimestamp(timestampStr: string): string {
+  const match = timestampStr.match(/^(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2}):(\d{2}):(\d{2})$/);
+  if (!match) return timestampStr;
+  
+  const [_, day, month, year, hour, minute] = match;
+  const monthNames = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ];
+  const mIndex = parseInt(month, 10) - 1;
+  const monthName = monthNames[mIndex] || "Jan";
+  
+  const hInt = parseInt(hour, 10);
+  const ampm = hInt >= 12 ? "PM" : "AM";
+  const formattedHour = hInt % 12 === 0 ? 12 : hInt % 12;
+  const formattedMinute = minute.padStart(2, "0");
+  
+  return `${monthName} ${parseInt(day, 10)}, ${year} • ${formattedHour}:${formattedMinute} ${ampm}`;
+}
+
+export const eloraLogs: StudentLog[] = [
+  {
+    timestamp: "26/05/2026 08:17:19",
+    sessionType: "Chess",
+    duration: "2 hours",
+    topicCovered: "Opening Study",
+    status: "Completed",
+    whatLearned: "We looked at different variations of the exchange slav with plans for both sides"
+  },
+  {
+    timestamp: "28/05/2026 15:05:15",
+    sessionType: "Tech",
+    duration: "2 hours",
+    topicCovered: "Revision",
+    status: "Completed",
+    whatLearned: "We did a recollection of all the topics covered since we started our classes to make sure there are no gaps in my knowledge ahead of our next topic which is Data Visualization"
+  },
+  {
+    timestamp: "01/06/2026 16:38:03",
+    sessionType: "Tech",
+    duration: "2 hrs",
+    topicCovered: "Data Visualization",
+    status: "Completed",
+    whatLearned: "Meaning of data visualization, purpose and principles of data visualization, data visualization tools"
+  },
+  {
+    timestamp: "01/06/2026 16:42:41",
+    sessionType: "Chess",
+    duration: "2 hrs",
+    topicCovered: "Endgame study",
+    status: "Completed",
+    whatLearned: "revision on assignments from the previous class, rook and pawn endgame (the vancura position)"
+  },
+  {
+    timestamp: "06/06/2026 13:08:17",
+    sessionType: "Chess",
+    duration: "2 hours",
+    topicCovered: "Assignment Review",
+    status: "Completed",
+    whatLearned: "We analyzed positions of games from the previous assignment given"
+  },
+  {
+    timestamp: "10/06/2026 05:10:29",
+    sessionType: "Chess",
+    duration: "2 hours",
+    topicCovered: "Opening Study",
+    status: "Completed",
+    whatLearned: "Exchange Slav variation and the plans for both sides"
+  },
+  {
+    timestamp: "14/06/2026 05:03:45",
+    sessionType: "Tech",
+    duration: "2 hours",
+    topicCovered: "Data Visualization with Seaborn",
+    status: "Completed",
+    whatLearned: "Installing seaborn, using pandas and seaborn, plotting charts with seaborn"
+  },
+  {
+    timestamp: "14/06/2026 05:08:59",
+    sessionType: "Tech",
+    duration: "2 hours",
+    topicCovered: "Data Visualization with Matplotlib",
+    status: "Completed",
+    whatLearned: "Understand the various types of charts used in Matplotlib"
+  },
+  {
+    timestamp: "14/06/2026 05:11:06",
+    sessionType: "Tech",
+    duration: "2 hours",
+    topicCovered: "Data Visualization with Seaborn",
+    status: "Completed",
+    whatLearned: "Understanding the various types of charts used in Seaborn"
+  },
+  {
+    timestamp: "14/06/2026 05:13:30",
+    sessionType: "Chess",
+    duration: "2 hours",
+    topicCovered: "Middle Game Study",
+    status: "Completed",
+    whatLearned: "We looked at the Benoni pawn structure and understanding the plans for both sides"
+  },
+  {
+    timestamp: "17/06/2026 06:39:24",
+    sessionType: "Chess",
+    duration: "2 hours",
+    topicCovered: "Endgame Study",
+    status: "Completed",
+    whatLearned: "Review of previous assignment, Rook and 2 pawns vs rook endgame"
+  },
+  {
+    timestamp: "19/06/2026 16:57:05",
+    sessionType: "Tech",
+    duration: "2 hrs",
+    topicCovered: "Introducing to Power Bi",
+    status: "Completed",
+    whatLearned: "Installed power bi, worked through the interface and understanding the terminologies, importing and analyzing data in power bi"
+  },
+  {
+    timestamp: "19/06/2026 16:59:24",
+    sessionType: "Chess",
+    duration: "2 hrs",
+    topicCovered: "Opening Study",
+    status: "Completed",
+    whatLearned: "Review of previous assignment, More variations in the exchange semi-slav and game review"
+  },
+  {
+    timestamp: "21/06/2026 09:35:04",
+    sessionType: "Tech",
+    duration: "2 hours",
+    topicCovered: "Data Transformation",
+    status: "Completed",
+    whatLearned: "Transforming data gotten from real world datasets using power query, an interface in Power BI"
+  },
+  {
+    timestamp: "26/06/2026 16:06:44",
+    sessionType: "Tech",
+    duration: "2 hours",
+    topicCovered: "Data Modeling and Visualization with Power Bi",
+    status: "Completed",
+    whatLearned: "Creating a dashboard with various visualization tools and an ER diagram to show the relationship between tables in our dataset"
+  },
+  {
+    timestamp: "28/06/2026 13:37:44",
+    sessionType: "Tech",
+    duration: "2 hrs",
+    topicCovered: "introduction to Machine Learning",
+    status: "Completed",
+    whatLearned: "Steps in building a machine learning project"
+  },
+  {
+    timestamp: "12/07/2026 16:02:41",
+    sessionType: "Chess",
+    duration: "2 hrs",
+    topicCovered: "Endgame",
+    status: "Completed",
+    whatLearned: "Rook vs pawn endgames"
+  }
+];
+
+export const praiseLogs: StudentLog[] = [
+  {
+    timestamp: "25/05/2026 20:30:00",
+    sessionType: "Tech",
+    duration: "2hrs",
+    topicCovered: "Continued functions and formula",
+    status: "Incomplete",
+    whatLearned: "I learnt how to use the text, date and function"
+  },
+  {
+    timestamp: "31/05/2026 23:49:08",
+    sessionType: "Tech",
+    duration: "120mins",
+    topicCovered: "Date and Time Function",
+    status: "Incomplete",
+    whatLearned: "I learnt how to use the day, days and Week Day Function to Format Data"
+  },
+  {
+    timestamp: "31/05/2026 23:52:56",
+    sessionType: "Tech",
+    duration: "90mins",
+    topicCovered: "Date&Time Function",
+    status: "Incomplete",
+    whatLearned: "I Learnt how to use the Networkdays, Weeknum, and Year function"
+  },
+  {
+    timestamp: "31/05/2026 23:55:53",
+    sessionType: "Tech",
+    duration: "90mins",
+    topicCovered: "Date & Time Function",
+    status: "Completed",
+    whatLearned: "Revised and Practiced the use of all the Date & Time Functions"
+  },
+  {
+    timestamp: "05/06/2026 16:42:28",
+    sessionType: "Tech",
+    duration: "2hrs",
+    topicCovered: "Math & Trig and Some Statistical",
+    status: "Incomplete",
+    whatLearned: "SUMIF FUNCTION- I learnt that in Microsoft Excel, the SUMIF function is used to sum the values in a range that meet the criteria that you specify."
+  },
+  {
+    timestamp: "05/06/2026 17:02:36",
+    sessionType: "Tech",
+    duration: "1hr 30mins",
+    topicCovered: "DATA EXPLORATION- SUMIFS",
+    status: "Completed",
+    whatLearned: "SUMIFS- SUMIFS function is a premade function in Excel, which calculates the sum of a range based on one or more true or false condition."
+  },
+  {
+    timestamp: "05/06/2026 17:15:59",
+    sessionType: "Chess",
+    duration: "1hr30min",
+    topicCovered: "Pin, Skewer, Sacrifice",
+    status: "Completed",
+    whatLearned: "Pins is an attack on a chess piece that forces it to remain there. And Skewer on the other hand is an attack on a piece of a higher value that forces it to move away in other to get advantage,. Sacrifice involves giving out one of the chess piece in other t gain a more superior advantage e.g winning a higher piece or checkmate."
+  },
+  {
+    timestamp: "05/06/2026 17:29:05",
+    sessionType: "Chess",
+    duration: "1hr 30mins",
+    topicCovered: "Introduction to Tactical Ideas in Chess",
+    status: "Incomplete",
+    whatLearned: "Win a piece and draw,  Foot race, An agressive king, Vulnerable Piece, King Power,King Power,Royal invasion. Overextended Piece get in trouble, Salad Time, FRONT AND CENTRE\nKNIGHT MARE, ROOKEY LOOKEY ETC"
+  },
+  {
+    timestamp: "09/06/2026 06:36:01",
+    sessionType: "Tech",
+    duration: "80mins",
+    topicCovered: "Math & Trig & Some Statistical Functions (sub topic-Averaif)",
+    status: "Incomplete",
+    whatLearned: "The use the Averageif function"
+  },
+  {
+    timestamp: "15/06/2026 08:06:34",
+    sessionType: "Chess",
+    duration: "Play on chess.com",
+    topicCovered: "Playing play with developing ideas",
+    status: "Completed",
+    whatLearned: "Learnt to not allow my opp"
+  },
+  {
+    timestamp: "15/06/2026 08:11:19",
+    sessionType: "Chess",
+    duration: "2hrs",
+    topicCovered: "Practical Play with Developing Ideas",
+    status: "Completed",
+    whatLearned: "I learnt not to allow opponents pieces build around my home."
+  },
+  {
+    timestamp: "16/06/2026 08:30:46",
+    sessionType: "Tech",
+    duration: "2hrs",
+    topicCovered: "COUNT, COUNTIF & COUNTIFS Functions.",
+    status: "Completed",
+    whatLearned: "How this functions work and practiced how to use them"
+  },
+  {
+    timestamp: "17/06/2026 06:53:22",
+    sessionType: "Tech",
+    duration: "90mins",
+    topicCovered: "COUNTA & COUNTBLANK (FUNCTIONS & FORMULAS)",
+    status: "Completed",
+    whatLearned: "Learnt the COUNTA & COUNTBLANK functions and practiced how to use it."
+  },
+  {
+    timestamp: "17/06/2026 07:06:23",
+    sessionType: "Chess",
+    duration: "120mins",
+    topicCovered: "FOOL'S MATE & BACK MATE (CHECKMATE)",
+    status: "Completed",
+    whatLearned: "Learnt ways to checkmate the king using the fool's mate and backrank mate tactics"
+  },
+  {
+    timestamp: "18/06/2026 18:22:22",
+    sessionType: "Chess",
+    duration: "130mins",
+    topicCovered: "Played live game on Liches",
+    status: "Completed",
+    whatLearned: "Practiced playing an opponent on Lichess and  learnt that one mistake in chess can cost me the game."
+  },
+  {
+    timestamp: "23/06/2026 13:46:47",
+    sessionType: "Tech",
+    duration: "1hr 30mins",
+    topicCovered: "Revised the IF function",
+    status: "Completed",
+    whatLearned: "Mr.Jadons explained the IF function further for a better understanding"
+  },
+  {
+    timestamp: "23/06/2026 20:18:24",
+    sessionType: "Tech",
+    duration: "1hr 30mins",
+    topicCovered: "Continued IF Function",
+    status: "Completed",
+    whatLearned: "I learnt that the Major reason we use the IF function is to categorize."
+  },
+  {
+    timestamp: "23/06/2026 20:25:47",
+    sessionType: "Chess",
+    duration: "1hr 3mins",
+    topicCovered: "Tactics Continued",
+    status: "Incomplete",
+    whatLearned: "I learnt that learning tactics on the board can be easier than implementing it in life. but overtime consistent practice, can help both synchronize."
+  },
+  {
+    timestamp: "24/06/2026 18:46:11",
+    sessionType: "Tech",
+    duration: "90mins",
+    topicCovered: "IFS, COUNTIFS, AND",
+    status: "Completed",
+    whatLearned: "The Use of this Functions to analyse Data"
+  },
+  {
+    timestamp: "25/06/2026 17:18:39",
+    sessionType: "Chess",
+    duration: "75mins",
+    topicCovered: "Chess.com   practice",
+    status: "Completed",
+    whatLearned: "Practiced playing on chess.com"
+  },
+  {
+    timestamp: "01/07/2026 12:47:23",
+    sessionType: "Tech",
+    duration: "1hr",
+    topicCovered: "Lookup & Reference Function",
+    status: "Incomplete",
+    whatLearned: "I practiced the use of OR & AND function"
+  },
+  {
+    timestamp: "01/07/2026 12:53:20",
+    sessionType: "Tech",
+    duration: "150mins",
+    topicCovered: "Functions & Formula (Vlookup)",
+    status: "Completed",
+    whatLearned: "Practiced the use of Vlookup function"
+  },
+  {
+    timestamp: "08/07/2026 00:01:44",
+    sessionType: "Chess",
+    duration: "2hrs",
+    topicCovered: "Tactics",
+    status: "Incomplete",
+    whatLearned: "I learnt how to use some tactics to win a game"
+  },
+  {
+    timestamp: "08/07/2026 00:03:53",
+    sessionType: "Tech",
+    duration: "120mins",
+    topicCovered: "Lookup and reference function",
+    status: "Incomplete",
+    whatLearned: "Revised the use of VLOOKUP & XLOOKUP"
+  },
+  {
+    timestamp: "08/07/2026 00:05:57",
+    sessionType: "Chess",
+    duration: "120mins",
+    topicCovered: "Tactics",
+    status: "Incomplete",
+    whatLearned: "Continued learning how to use tactics to win a game"
+  }
+];
+
 // Students database
 export const students: Student[] = [
+
   {
     slug: "elora",
     name: "Oise Elora Iguehi",
@@ -304,6 +678,7 @@ export const students: Student[] = [
         "Elora is currently mastering supervised and unsupervised learning algorithms, building on her chess-honed pattern recognition skills to create intelligent systems.",
       project: "Chess Move Prediction Model",
     },
+    logs: eloraLogs,
   },
   {
     slug: "praise",
@@ -406,6 +781,7 @@ export const students: Student[] = [
       project: "Excel Functions Practice Workbook",
     },
     dataAnalysisCurriculum: praiseDataAnalysisCurriculum,
+    logs: praiseLogs,
   },
 ];
 
