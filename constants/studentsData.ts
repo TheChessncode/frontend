@@ -381,6 +381,22 @@ export const eloraLogs: StudentLog[] = [
     topicCovered: "Endgame",
     status: "Completed",
     whatLearned: "Rook vs pawn endgames"
+  },
+  {
+    timestamp: "16/07/2026 16:40:09",
+    sessionType: "Tech",
+    duration: "2 hrs",
+    topicCovered: "Machine Learning Algorithms",
+    status: "Completed",
+    whatLearned: "Understanding the different machine learning algorithms used for classification and regression projects, as well as their different evaluation metrics"
+  },
+  {
+    timestamp: "16/07/2026 16:41:21",
+    sessionType: "Chess",
+    duration: "2 hrs",
+    topicCovered: "endgame study",
+    status: "Completed",
+    whatLearned: "schematic thinking in the endgame"
   }
 ];
 
@@ -584,6 +600,30 @@ export const praiseLogs: StudentLog[] = [
     topicCovered: "Tactics",
     status: "Incomplete",
     whatLearned: "Continued learning how to use tactics to win a game"
+  },
+  {
+    timestamp: "16/07/2026 18:32:30",
+    sessionType: "Tech",
+    duration: "120mins",
+    topicCovered: "Github Complete Setup",
+    status: "Completed",
+    whatLearned: "I was able to complete the setup of my Github account"
+  },
+  {
+    timestamp: "16/07/2026 18:35:57",
+    sessionType: "Tech",
+    duration: "120mins",
+    topicCovered: "INDEX, MATCH, INDEX+MATCH",
+    status: "Completed",
+    whatLearned: "Learnt how to use the index, Match & Index+Match Functions"
+  },
+  {
+    timestamp: "16/07/2026 18:40:48",
+    sessionType: "Chess",
+    duration: "120mins",
+    topicCovered: "Played Chess on lichess",
+    status: "Completed",
+    whatLearned: "Practiced playing with an opponent online"
   }
 ];
 
