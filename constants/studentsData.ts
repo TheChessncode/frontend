@@ -397,6 +397,78 @@ export const eloraLogs: StudentLog[] = [
     topicCovered: "endgame study",
     status: "Completed",
     whatLearned: "schematic thinking in the endgame"
+  },
+  {
+    timestamp: "23/07/2026 15:29:13",
+    sessionType: "Tech",
+    duration: "2 hours",
+    topicCovered: "Machine Learning Projects",
+    status: "Completed",
+    whatLearned: "We began the steps in building a machine learning model for a telecommunication company from scratch"
+  },
+  {
+    timestamp: "23/07/2026 15:30:45",
+    sessionType: "Tech",
+    duration: "2 hours",
+    topicCovered: "Machine Learning Project",
+    status: "Completed",
+    whatLearned: "Final stages of building our machine learning model for a telecommunication company and testing the models"
+  },
+  {
+    timestamp: "23/07/2026 15:34:03",
+    sessionType: "Chess",
+    duration: "2 hrs",
+    topicCovered: "Opening Study",
+    status: "Completed",
+    whatLearned: "We looked at the Petroff defense, one of the responses to whites 1.e4 and the plans for both sides"
+  },
+  {
+    timestamp: "01/08/2026 15:50:38",
+    sessionType: "Chess",
+    duration: "2 hours",
+    topicCovered: "Middle Game",
+    status: "Completed",
+    whatLearned: "Exploring imbalances in the middlegame"
+  },
+  {
+    timestamp: "01/08/2026 15:52:59",
+    sessionType: "Tech",
+    duration: "2 hours",
+    topicCovered: "Building Machine Learning Models",
+    status: "Completed",
+    whatLearned: "We built a machine learning model to predict employee attrition"
+  },
+  {
+    timestamp: "01/08/2026 15:54:37",
+    sessionType: "Tech",
+    duration: "2 hours",
+    topicCovered: "Introduction to Deployment",
+    status: "Completed",
+    whatLearned: "Understanding the steps involved in deploying a machine learning model"
+  },
+  {
+    timestamp: "05/08/2026 16:57:06",
+    sessionType: "Tech",
+    duration: "2 hrs",
+    topicCovered: "Deployment of machine learning models",
+    status: "Completed",
+    whatLearned: "We started the process of deploying our first machine learning project (customer churn prediction)"
+  },
+  {
+    timestamp: "08/08/2026 16:43:20",
+    sessionType: "Tech",
+    duration: "2 hrs",
+    topicCovered: "Deployment",
+    status: "Completed",
+    whatLearned: "Deployment of our telecom customer churn on streamlit"
+  },
+  {
+    timestamp: "15/08/2026 07:59:45",
+    sessionType: "Tech",
+    duration: "2 hrs",
+    topicCovered: "Deployment of machine learning model",
+    status: "Completed",
+    whatLearned: "We successfully deployed our machine learning model involving customer churn prediction on scikit-learn"
   }
 ];
 
@@ -624,6 +696,62 @@ export const praiseLogs: StudentLog[] = [
     topicCovered: "Played Chess on lichess",
     status: "Completed",
     whatLearned: "Practiced playing with an opponent online"
+  },
+  {
+    timestamp: "24/07/2026 12:00:09",
+    sessionType: "Tech",
+    duration: "2hrs",
+    topicCovered: "Data cleaning Exercise",
+    status: "Completed",
+    whatLearned: "We practiced cleaning data like Analysts"
+  },
+  {
+    timestamp: "24/07/2026 12:04:00",
+    sessionType: "Tech",
+    duration: "90minutes",
+    topicCovered: "Data cleaning 2",
+    status: "Completed",
+    whatLearned: "Continued data cleaning"
+  },
+  {
+    timestamp: "24/07/2026 12:16:59",
+    sessionType: "Chess",
+    duration: "90mins",
+    topicCovered: "Played chess on lichess and my old games where reviewed",
+    status: "Completed",
+    whatLearned: "I learnt to think critically before I play"
+  },
+  {
+    timestamp: "28/07/2026 10:25:33",
+    sessionType: "Tech",
+    duration: "120mins",
+    topicCovered: "Conditional Formatting",
+    status: "Incomplete",
+    whatLearned: "I learnt that Conditional formatting is used to highlight and spot trends."
+  },
+  {
+    timestamp: "09/08/2026 16:31:10",
+    sessionType: "Chess",
+    duration: "120min",
+    topicCovered: "Chess practice on Lichess",
+    status: "Completed",
+    whatLearned: "To Always look out for checks, captures and threats"
+  },
+  {
+    timestamp: "13/08/2026 17:56:24",
+    sessionType: "Chess",
+    duration: "120mins",
+    topicCovered: "Making the most out of your pieces",
+    status: "Incomplete",
+    whatLearned: "Learnt how to create connected pawn structures"
+  },
+  {
+    timestamp: "15/08/2026 14:05:56",
+    sessionType: "Tech",
+    duration: "120mins",
+    topicCovered: "Data Validation",
+    status: "Completed",
+    whatLearned: "How to validate data in Data Analytics"
   }
 ];
 
