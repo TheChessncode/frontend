@@ -469,6 +469,14 @@ export const eloraLogs: StudentLog[] = [
     topicCovered: "Deployment of machine learning model",
     status: "Completed",
     whatLearned: "We successfully deployed our machine learning model involving customer churn prediction on scikit-learn"
+  },
+  {
+    timestamp: "19/08/2026 18:00:39",
+    sessionType: "Tech",
+    duration: "2 hrs",
+    topicCovered: "Deployment of machine learning models",
+    status: "Completed",
+    whatLearned: "We explored other methods of deploying machine learning models"
   }
 ];
 
@@ -752,6 +760,14 @@ export const praiseLogs: StudentLog[] = [
     topicCovered: "Data Validation",
     status: "Completed",
     whatLearned: "How to validate data in Data Analytics"
+  },
+  {
+    timestamp: "22/08/2026 21:35:27",
+    sessionType: "Chess",
+    duration: "120mins",
+    topicCovered: "Reading the board",
+    status: "Incomplete",
+    whatLearned: "Learning to understand the middle game"
   }
 ];
 

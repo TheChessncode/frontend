@@ -258,7 +258,7 @@ export default function StudentJourneySection() {
                   Recent Activities
                 </h4>
                 <span className="text-xs text-[var(--text-secondary)] font-medium">
-                  Showing latest 4 entries
+                  Showing latest 4 activities
                 </span>
               </div>
 
