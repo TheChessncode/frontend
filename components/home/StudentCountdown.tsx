@@ -1,162 +1,125 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface TimeLeft {
+  months: number;
   days: number;
   hours: number;
   minutes: number;
   seconds: number;
-  ms: number;
 }
 
-const TARGET_DATE = new Date("January 1, 2035 00:00:00").getTime();
+const TARGET_DATE = new Date("2035-01-01T00:00:00");
 const STUDENT_GOAL = 1000000;
 const CURRENT_STUDENTS = 2; // Based on studentsData.ts
 
 export default function StudentCountdown() {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
+    months: 0,
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
-    ms: 0,
   });
 
   const progress = (CURRENT_STUDENTS / STUDENT_GOAL) * 100;
 
   useEffect(() => {
-    const updateCountdown = () => {
-      const now = new Date().getTime();
-      const distance = TARGET_DATE - now;
-
-      if (distance < 0) {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0, ms: 0 });
-        return;
+    const calculateTimeLeft = (): TimeLeft => {
+      const now = new Date();
+      if (now >= TARGET_DATE) {
+        return { months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
       }
 
-      setTimeLeft({
-        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-        hours: Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-        ),
-        minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-        seconds: Math.floor((distance % (1000 * 60)) / 1000),
-        ms: Math.floor((distance % 1000) / 10), // Reduced to 2 digits for better performance/readability
-      });
+      let months =
+        (TARGET_DATE.getFullYear() - now.getFullYear()) * 12 +
+        (TARGET_DATE.getMonth() - now.getMonth());
 
-      requestAnimationFrame(updateCountdown);
+      const tempDate = new Date(now);
+      tempDate.setMonth(tempDate.getMonth() + months);
+
+      if (tempDate > TARGET_DATE) {
+        months -= 1;
+        tempDate.setMonth(tempDate.getMonth() - 1);
+      }
+
+      const diffMs = TARGET_DATE.getTime() - tempDate.getTime();
+
+      const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+
+      return { months, days, hours, minutes, seconds };
     };
 
-    const animationId = requestAnimationFrame(updateCountdown);
-    return () => cancelAnimationFrame(animationId);
+    setTimeLeft(calculateTimeLeft());
+    const interval = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="w-full max-w-2xl mx-auto lg:mx-0 mt-8"
-    >
-      {/* Countdown Grid */}
-      <div className="flex items-center justify-between gap-0.5 sm:gap-1 md:gap-2 mb-8">
-        <TimeUnit value={timeLeft.days} label="Days" />
-        <TimeSeparator />
-        <TimeUnit value={timeLeft.hours} label="Hours" />
-        <TimeSeparator />
-        <TimeUnit value={timeLeft.minutes} label="Mins" />
-        <TimeSeparator />
-        <TimeUnit value={timeLeft.seconds} label="Secs" />
-        <TimeSeparator />
-        <TimeUnit value={timeLeft.ms} label="Ms" isMs />
+    <div className="w-full max-w-4xl mx-auto flex flex-col items-center">
+      {/* Countdown Title Badge */}
+      <div className="flex items-center gap-2 mb-3">
+        <span className="relative flex h-2 w-2">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-400"></span>
+        </span>
+        <p className="text-xs font-semibold uppercase tracking-widest text-blue-300">
+          Target 2035 Countdown
+        </p>
       </div>
 
-      {/* Progress Section */}
-      <div className="space-y-4">
-        <div className="flex justify-between items-end">
-          <div className="space-y-1">
-            <p className="text-white/60 text-xs font-semibold uppercase tracking-wider">
-              Current Enrollment
-            </p>
-            <div className="flex items-baseline gap-2">
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-4xl font-bold text-white"
-              >
-                {CURRENT_STUDENTS.toLocaleString()}
-              </motion.span>
-              <span className="text-white/40 text-sm">students</span>
-            </div>
+      {/* Countdown Grid (Months, Days, Hours, Mins, Secs) */}
+      <div className="w-full max-w-3xl grid grid-cols-5 gap-2 sm:gap-3.5 mb-4">
+        <TimeUnit value={timeLeft.months} label="Months" />
+        <TimeUnit value={timeLeft.days} label="Days" />
+        <TimeUnit value={timeLeft.hours} label="Hours" />
+        <TimeUnit value={timeLeft.minutes} label="Mins" />
+        <TimeUnit value={timeLeft.seconds} label="Secs" />
+      </div>
+
+      {/* Compact Enrollment & Quote Packaging (No zeros, clean 1M goal display) */}
+      <div className="w-full max-w-xl bg-white/[0.04] backdrop-blur-md p-3.5 sm:p-4 rounded-xl border border-white/10 shadow-lg space-y-2.5">
+        <div className="flex justify-between items-center px-1">
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-xs font-medium text-white/60 uppercase tracking-wider">Enrolled:</span>
+            <span className="text-sm sm:text-base font-bold text-white">{CURRENT_STUDENTS} Students</span>
           </div>
-          <div className="text-right">
-            <p className="text-white/60 text-xs font-semibold uppercase tracking-wider">
-              2035 Goal
-            </p>
-            <p className="text-xl font-bold text-[var(--brand-primary-light)]">
-              1M+
-            </p>
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-xs font-medium text-white/60 uppercase tracking-wider">Goal:</span>
+            <span className="text-sm sm:text-base font-extrabold text-blue-400">1M Scholars</span>
           </div>
         </div>
 
-        {/* Progress Bar Container */}
-        <div className="relative h-4 bg-white/10 rounded-full overflow-hidden border border-white/5">
-          {/* Progress Fill */}
+        {/* Compact Progress Bar */}
+        <div className="relative h-2 bg-black/40 rounded-full overflow-hidden border border-white/10">
           <motion.div
             initial={{ width: 0 }}
-            animate={{ width: `${Math.max(progress, 0.2)}%` }} // Show at least a sliver for 2 students
-            transition={{ duration: 2, ease: "easeOut" }}
-            className="absolute top-0 left-0 h-full bg-gradient-to-r from-[var(--brand-primary)] to-[var(--brand-primary-light)] shadow-[0_0_15px_rgba(41,99,255,0.5)]"
-          />
-
-          {/* Animated Particles/Pulse for the 2 students */}
-          <motion.div
-            animate={{
-              opacity: [0.4, 1, 0.4],
-              scale: [1, 1.2, 1],
-              x: ["0%", "0.1%"], // Tiny jitter
-            }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="absolute top-0 left-0 h-full w-1 bg-white shadow-[0_0_10px_white]"
+            animate={{ width: `${Math.max(progress, 0.4)}%` }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            className="h-full rounded-full bg-blue-500 shadow-[0_0_10px_rgba(41,99,255,0.8)]"
           />
         </div>
 
-        <div className="flex flex-col items-center gap-2 mt-6 p-4 rounded-xl bg-blue-500/5 backdrop-blur-[2px] border border-blue-400/10">
-          <p className="text-[12px] font-black uppercase tracking-[0.25em] drop-shadow-[0_0_10px_rgba(250,204,21,0.5)] text-center">
-            &quot;The electric light did not come from the continuous
-            improvement of candles&quot;
+        {/* Oren Haran Quote */}
+        <div className="pt-2 border-t border-white/5 flex flex-col items-center">
+          <p className="text-[11px] sm:text-xs text-white/70 italic text-center">
+            &quot;The electric light did not come from the continuous improvement of candles&quot;
           </p>
-          <div className="flex items-center gap-3 mt-1">
-            <div className="h-[2px] w-6 bg-white/50" />
-            <p className="text-[12px] font-black uppercase tracking-[0.25em] drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]">
-              Oren Haran
-            </p>
-            <div className="h-[2px] w-6 bg-white/50" />
-          </div>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-blue-300/80 mt-0.5">
+            — Oren Haran
+          </p>
         </div>
       </div>
-    </motion.div>
-  );
-}
-
-function TimeSeparator() {
-  return (
-    <div className="text-white/20 text-lg md:text-3xl font-bold pb-4 md:pb-6 self-center">
-      :
     </div>
   );
 }
@@ -164,28 +127,27 @@ function TimeSeparator() {
 function TimeUnit({
   value,
   label,
-  isMs = false,
 }: {
   value: number;
   label: string;
-  isMs?: boolean;
 }) {
   return (
-    <div className="flex-1 flex flex-col items-center justify-center py-2 px-1 md:p-4 bg-white/5 backdrop-blur-sm rounded-lg md:rounded-xl border border-white/10 hover:border-white/20 transition-all group min-w-0">
-      <div className="relative h-6 md:h-12 flex items-center justify-center">
-        <motion.span
-          // Disable key-based slide-in for MS to allow smooth continuous updating
-          key={isMs ? undefined : value}
-          initial={isMs ? false : { y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className={`text-base sm:text-lg md:text-4xl font-bold tabular-nums leading-none ${
-            isMs ? "text-white/50" : "text-white"
-          }`}
-        >
-          {value.toString().padStart(2, "0")}
-        </motion.span>
+    <div className="flex flex-col items-center justify-center py-2 sm:py-3 px-1 bg-white/[0.05] backdrop-blur-md rounded-xl border border-white/10 hover:border-blue-400/40 transition-colors group">
+      <div className="relative h-6 sm:h-8 flex items-center justify-center overflow-hidden">
+        <AnimatePresence mode="popLayout">
+          <motion.span
+            key={value}
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -10, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="text-base sm:text-xl md:text-2xl font-black tracking-tight tabular-nums text-white group-hover:text-blue-200 transition-colors"
+          >
+            {value.toString().padStart(2, "0")}
+          </motion.span>
+        </AnimatePresence>
       </div>
-      <span className="text-[7px] md:text-xs font-medium text-white/50 uppercase tracking-tighter mt-1 group-hover:text-white/80 transition-colors truncate w-full text-center">
+      <span className="text-[9px] sm:text-[10px] font-semibold text-white/50 uppercase tracking-wider mt-0.5">
         {label}
       </span>
     </div>

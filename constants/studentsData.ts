@@ -193,6 +193,13 @@ export const praiseDataAnalysisCurriculum: CurriculumPhase[] = [
     duration: "20/05/2026 • 2hrs",
     icon: Calendar,
     skills: ["Mr. Jadons", "Dates", "Time calculations"],
+    status: "completed",
+  },
+  {
+    phase: "Excel: Pivot Tables & Data Summarization",
+    duration: "24/08/2026 - 07/09/2026 • 2hrs",
+    icon: Database,
+    skills: ["Mr. Jadons", "Pivot tables", "Data summarization"],
     status: "current",
   },
   {
@@ -477,6 +484,38 @@ export const eloraLogs: StudentLog[] = [
     topicCovered: "Deployment of machine learning models",
     status: "Completed",
     whatLearned: "We explored other methods of deploying machine learning models"
+  },
+  {
+    timestamp: "02/09/2026 15:30:09",
+    sessionType: "Tech",
+    duration: "2 hrs",
+    topicCovered: "Error Handling",
+    status: "Completed",
+    whatLearned: "We fixed errors in the code during the final stages of deployment of our machine learning model on streamlit"
+  },
+  {
+    timestamp: "02/09/2026 15:31:43",
+    sessionType: "Tech",
+    duration: "2 hrs",
+    topicCovered: "Profile Optimization",
+    status: "Completed",
+    whatLearned: "Optimizing my github and linkedin profile for job applications"
+  },
+  {
+    timestamp: "13/09/2026 06:38:51",
+    sessionType: "Tech",
+    duration: "2hrs",
+    topicCovered: "Supermarket Sales Forecasting",
+    status: "Completed",
+    whatLearned: "I was given a Data Science project to work on that covers all the topics we’ve treated so far. The task is to build a predictive model for a supermarket to forecast total sales per transaction. We did a full walkthrough of the project and its requirements"
+  },
+  {
+    timestamp: "13/09/2026 06:40:52",
+    sessionType: "Tech",
+    duration: "2 hrs",
+    topicCovered: "Project Review",
+    status: "Completed",
+    whatLearned: "Review of Supermarket Sales Forecasting Project, steps completed and corrections that needed to be made"
   }
 ];
 
@@ -768,6 +807,46 @@ export const praiseLogs: StudentLog[] = [
     topicCovered: "Reading the board",
     status: "Incomplete",
     whatLearned: "Learning to understand the middle game"
+  },
+  {
+    timestamp: "26/08/2026 10:04:27",
+    sessionType: "Tech",
+    duration: "120mins",
+    topicCovered: "Pivot tables",
+    status: "Completed",
+    whatLearned: "Use of pivot tables to summarize data"
+  },
+  {
+    timestamp: "01/09/2026 15:14:26",
+    sessionType: "Tech",
+    duration: "60mins",
+    topicCovered: "Pivot Table Continued",
+    status: "Incomplete",
+    whatLearned: "We continue to learn how to use Pivot table to summarize data"
+  },
+  {
+    timestamp: "03/09/2026 09:31:22",
+    sessionType: "Tech",
+    duration: "90mins",
+    topicCovered: "Pivot Tables",
+    status: "Completed",
+    whatLearned: "Continued using Pivot Table to summarize data"
+  },
+  {
+    timestamp: "03/09/2026 09:39:41",
+    sessionType: "Chess",
+    duration: "90mins",
+    topicCovered: "Practice on Lichess",
+    status: "Completed",
+    whatLearned: "Played Chess on Lichess on Mr. Mide's Watch"
+  },
+  {
+    timestamp: "07/09/2026 18:23:02",
+    sessionType: "Tech",
+    duration: "130mins",
+    topicCovered: "Pivot Tables",
+    status: "Completed",
+    whatLearned: "Completed learning how to use pivot table analyze and summarize data"
   }
 ];
 
@@ -857,10 +936,10 @@ export const students: Student[] = [
       },
     ],
     currentFocus: {
-      title: "Machine Learning",
+      title: "Machine Learning & Deployment",
       description:
-        "Elora is currently mastering supervised and unsupervised learning algorithms, building on her chess-honed pattern recognition skills to create intelligent systems.",
-      project: "Chess Move Prediction Model",
+        "Elora is currently building and deploying supervised machine learning models on Streamlit, applying data science principles to forecast sales and optimize workflows.",
+      project: "Supermarket Sales Predictive Model",
     },
     logs: eloraLogs,
   },
@@ -959,10 +1038,10 @@ export const students: Student[] = [
       },
     ],
     currentFocus: {
-      title: "Date & Time Functions",
+      title: "Pivot Tables & Data Summarization",
       description:
-        "Praise is currently learning Excel date and time functions, building on earlier text functions to clean datasets and generate accurate time-based insights.",
-      project: "Excel Functions Practice Workbook",
+        "Praise is currently mastering Excel Pivot Tables to aggregate, summarize, and extract data-driven insights from complex datasets.",
+      project: "Sales & Data Summarization Workbook",
     },
     dataAnalysisCurriculum: praiseDataAnalysisCurriculum,
     logs: praiseLogs,

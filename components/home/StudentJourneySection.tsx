@@ -6,11 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
   Star, 
   ChevronRight, 
+  ChevronLeft,
   Clock, 
   CheckCircle2, 
   Brain, 
   Code2, 
-  BookOpen, 
   Calendar,
   Activity
 } from "lucide-react";
@@ -18,8 +18,7 @@ import {
   getAllStudents,
   Student,
   CurriculumPhase,
-  formatTimestamp,
-  StudentLog
+  formatTimestamp
 } from "@/constants/studentsData";
 import Link from "next/link";
 
@@ -86,8 +85,15 @@ function parseDurationToHours(duration: string): number {
 export default function StudentJourneySection() {
   const students = useMemo(() => getAllStudents(), []);
   const [selectedStudentSlug, setSelectedStudentSlug] = useState(
-    students[0]?.slug || "elora",
+    students[0]?.slug || "elora"
   );
+  const ITEMS_PER_PAGE = 4;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handleStudentSelect = (slug: string) => {
+    setSelectedStudentSlug(slug);
+    setCurrentPage(1);
+  };
 
   const selectedStudent = useMemo(() => {
     return (
@@ -116,11 +122,30 @@ export default function StudentJourneySection() {
     };
   }, [selectedStudent]);
 
-  // Extract the 4 most recent logs (newest first)
-  const recentLogs = useMemo(() => {
+  // Extract all logs (newest first)
+  const allLogs = useMemo(() => {
     const logs = selectedStudent.logs || [];
-    return [...logs].slice(-4).reverse();
+    return [...logs].reverse();
   }, [selectedStudent]);
+
+  const totalPages = Math.ceil(allLogs.length / ITEMS_PER_PAGE) || 1;
+
+  const displayedLogs = useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    return allLogs.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  }, [allLogs, currentPage]);
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  const goToPrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
 
   if (!selectedStudent) {
     return null;
@@ -148,7 +173,7 @@ export default function StudentJourneySection() {
             {students.map((student) => (
               <button
                 key={student.slug}
-                onClick={() => setSelectedStudentSlug(student.slug)}
+                onClick={() => handleStudentSelect(student.slug)}
                 className={`px-6 py-2 rounded-full font-semibold transition-all duration-300 ${
                   selectedStudentSlug === student.slug
                     ? "bg-[var(--brand-primary)] text-white shadow-lg scale-105"
@@ -251,20 +276,20 @@ export default function StudentJourneySection() {
               </div>
             </div>
 
-            {/* Recent Activity List */}
+            {/* Activity List with Next/Previous Pagination */}
             <div className="space-y-4">
               <div className="flex justify-between items-center px-1">
                 <h4 className="font-bold text-[var(--text-primary)] text-lg">
-                  Recent Activities
+                  Activity Logs ({allLogs.length})
                 </h4>
                 <span className="text-xs text-[var(--text-secondary)] font-medium">
-                  Showing latest 4 activities
+                  Showing {allLogs.length > 0 ? (currentPage - 1) * ITEMS_PER_PAGE + 1 : 0}–{Math.min(currentPage * ITEMS_PER_PAGE, allLogs.length)} of {allLogs.length}
                 </span>
               </div>
 
               <div className="space-y-3">
-                <AnimatePresence mode="wait">
-                  {recentLogs.map((log, index) => {
+                <AnimatePresence mode="popLayout">
+                  {displayedLogs.map((log, index) => {
                     const isChess = log.sessionType === "Chess";
                     const isCompleted = log.status === "Completed";
 
@@ -274,7 +299,7 @@ export default function StudentJourneySection() {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.3, delay: index * 0.05 }}
+                        transition={{ duration: 0.3, delay: Math.min(index * 0.05, 0.3) }}
                         className={`p-4 rounded-xl border transition-all duration-300 bg-[var(--bg-secondary)] border-[var(--border-primary)] hover:border-[var(--brand-primary)] hover:shadow-md`}
                       >
                         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
@@ -327,6 +352,51 @@ export default function StudentJourneySection() {
                   })}
                 </AnimatePresence>
               </div>
+
+              {/* Pagination Controls */}
+              {totalPages > 1 && (
+                <div className="flex items-center justify-between pt-4 border-t border-[var(--border-primary)]/50">
+                  <button
+                    onClick={goToPrevPage}
+                    disabled={currentPage === 1}
+                    className={`flex items-center gap-1 px-3.5 py-2 rounded-xl text-xs font-semibold border transition-all ${
+                      currentPage === 1
+                        ? "opacity-40 cursor-not-allowed border-[var(--border-primary)] text-[var(--text-tertiary)]"
+                        : "border-[var(--brand-primary)] text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white"
+                    }`}
+                  >
+                    <ChevronLeft className="w-4 h-4" /> Previous
+                  </button>
+
+                  <div className="flex items-center gap-1.5">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                      <button
+                        key={page}
+                        onClick={() => setCurrentPage(page)}
+                        className={`w-7 h-7 rounded-lg text-xs font-bold transition-all ${
+                          currentPage === page
+                            ? "bg-[var(--brand-primary)] text-white shadow-sm"
+                            : "bg-[var(--bg-primary)] text-[var(--text-secondary)] border border-[var(--border-primary)] hover:border-[var(--brand-primary)]"
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={goToNextPage}
+                    disabled={currentPage >= totalPages}
+                    className={`flex items-center gap-1 px-3.5 py-2 rounded-xl text-xs font-semibold border transition-all ${
+                      currentPage >= totalPages
+                        ? "opacity-40 cursor-not-allowed border-[var(--border-primary)] text-[var(--text-tertiary)]"
+                        : "border-[var(--brand-primary)] text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white"
+                    }`}
+                  >
+                    Next <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
             </div>
           </motion.div>
         </div>

@@ -4,19 +4,19 @@ import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Student, 
-  formatTimestamp,
-  StudentLog
+  formatTimestamp
 } from "@/constants/studentsData";
 import { 
   Search, 
   ArrowUpDown, 
   Brain, 
   Code2, 
-  CheckCircle2, 
   AlertCircle, 
   Calendar, 
   Clock,
-  BookOpen
+  BookOpen,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 
 interface CurriculumTimelineProps {
@@ -30,6 +30,8 @@ export default function CurriculumTimeline({
   title,
   subtitle 
 }: CurriculumTimelineProps) {
+  const ITEMS_PER_PAGE = 4;
+  const [currentPage, setCurrentPage] = useState(1);
   const [filterType, setFilterType] = useState<"All" | "Tech" | "Chess">("All");
   const [filterStatus, setFilterStatus] = useState<"All" | "Completed" | "Incomplete">("All");
   const [searchQuery, setSearchQuery] = useState("");
@@ -68,6 +70,25 @@ export default function CurriculumTimeline({
 
     return result;
   }, [logs, filterType, filterStatus, searchQuery, sortOrder]);
+
+  const totalPages = Math.ceil(processedLogs.length / ITEMS_PER_PAGE) || 1;
+
+  const displayedLogs = useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    return processedLogs.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  }, [processedLogs, currentPage]);
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  const goToPrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
 
   const toggleExpand = (timestamp: string) => {
     setExpandedLogs(prev => ({
@@ -169,8 +190,8 @@ export default function CurriculumTimeline({
         {/* Logs Timeline */}
         <div className="relative pl-6 md:pl-8 border-l border-[var(--border-primary)]/80 ml-4 space-y-6">
           <AnimatePresence mode="popLayout">
-            {processedLogs.length > 0 ? (
-              processedLogs.map((log, index) => {
+            {displayedLogs.length > 0 ? (
+              displayedLogs.map((log, index) => {
                 const isChess = log.sessionType === "Chess";
                 const isCompleted = log.status === "Completed";
                 const isExpanded = !!expandedLogs[log.timestamp];
@@ -278,6 +299,53 @@ export default function CurriculumTimeline({
             )}
           </AnimatePresence>
         </div>
+
+        {totalPages > 1 && (
+          <div className="flex items-center justify-between pt-6 mt-8 border-t border-[var(--border-primary)]/80">
+            <button
+              onClick={goToPrevPage}
+              disabled={currentPage === 1}
+              className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold border transition-all ${
+                currentPage === 1
+                  ? "opacity-40 cursor-not-allowed border-[var(--border-primary)] text-[var(--text-tertiary)]"
+                  : "border-[var(--brand-primary)] text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white"
+              }`}
+            >
+              <ChevronLeft className="w-4 h-4" /> Previous
+            </button>
+
+            <div className="flex items-center gap-1.5">
+              <span className="text-xs text-[var(--text-secondary)] font-medium mr-2 hidden sm:inline">
+                Page {currentPage} of {totalPages}
+              </span>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${
+                    currentPage === page
+                      ? "bg-[var(--brand-primary)] text-white shadow-sm"
+                      : "bg-[var(--bg-secondary)] text-[var(--text-secondary)] border border-[var(--border-primary)] hover:border-[var(--brand-primary)]"
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+            </div>
+
+            <button
+              onClick={goToNextPage}
+              disabled={currentPage >= totalPages}
+              className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold border transition-all ${
+                currentPage >= totalPages
+                  ? "opacity-40 cursor-not-allowed border-[var(--border-primary)] text-[var(--text-tertiary)]"
+                  : "border-[var(--brand-primary)] text-[var(--brand-primary)] hover:bg-[var(--brand-primary)] hover:text-white"
+              }`}
+            >
+              Next <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
       </div>
     </motion.section>
   );
