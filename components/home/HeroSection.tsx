@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTypewriter, Cursor } from "react-simple-typewriter";
-import { Play, Pause, Volume2, VolumeX } from "lucide-react";
+import { HeartHandshake, ArrowRight, Sparkles } from "lucide-react";
 import { WaitlistModal } from "../ui/WaitlistModal";
 import { useRouter } from "next/navigation";
 import StudentCountdown from "./StudentCountdown";
@@ -15,268 +16,114 @@ export default function HeroSection() {
     delaySpeed: 2000,
   });
 
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const mobileVideoRef = useRef<HTMLVideoElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const router = useRouter();
 
-  useEffect(() => {
-    const initializeVideos = () => {
-      const videos = [videoRef.current, mobileVideoRef.current].filter(Boolean);
-      videos.forEach((video) => {
-        if (video) {
-          video.muted = true;
-          video.play().catch(console.error);
-        }
-      });
-    };
-
-    initializeVideos();
-  }, []);
-
-  const togglePlay = (video: HTMLVideoElement | null) => {
-    if (video) {
-      if (video.paused) {
-        video.play();
-        setIsPlaying(true);
-      } else {
-        video.pause();
-        setIsPlaying(false);
-      }
-    }
-  };
-
-  const toggleMute = (video: HTMLVideoElement | null) => {
-    if (video) {
-      video.muted = !video.muted;
-      setIsMuted(video.muted);
-    }
-  };
-
-  const gradientBackground = {
-    hidden: { backgroundPosition: "0% 50%" },
+  const containerVariants = {
+    hidden: { opacity: 0 },
     visible: {
-      backgroundPosition: "100% 50%",
+      opacity: 1,
       transition: {
-        duration: 15,
-        repeat: Infinity,
-        repeatType: "reverse",
-        ease: "linear",
+        staggerChildren: 0.12,
+        delayChildren: 0.1,
       },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" as const },
     },
   };
 
   return (
     <>
-      <motion.section
-        className="relative min-h-[90dvh] flex items-center justify-center overflow-hidden py-[20px] border-b border-[var(--border-primary)]"
-        // @ts-expect-error - Framer Motion backgroundPosition type issue
-        variants={gradientBackground}
-        initial="hidden"
-        animate="visible"
-        style={{
-          background:
-            "linear-gradient(-45deg, var(--bg-primary), var(--brand-primary-dark), var(--brand-primary-light), var(--brand-primary))",
-          backgroundSize: "400% 400%",
-        }}
-      >
-        <div className="max-w-7xl mx-auto flex flex-col lg:grid lg:grid-cols-2 lg:items-center gap-6 lg:gap-8   lg:mt-0 px-4 lg:px-8">
-          <section className="flex flex-col justify-center gap-6 lg:gap-8 order-2 lg:order-1 lg:pr-8">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div className="text-center lg:text-left">
-                <p className="uppercase text-[var(--brand-primary)] text-sm font-semibold tracking-widest mb-4">
-                  <span className="text-[white]">{text}</span>
-                  <Cursor cursorColor="var(--brand-primary)" />
-                </p>
-                <h1 className="text-[white] text-2xl lg:text-4xl font-bold leading-tight">
-                  Empowering Girls and Women through Chess and Coding
-                </h1>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="space-y-6"
-            >
-              <div className="text-center lg:text-left">
-                <p className="text-[white] text-lg lg:text-xl leading-relaxed">
-                  Chessncode transforms strategic thinking from the chessboard
-                  into computational thinking for the digital world.
-                </p>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <motion.a
-                  href="mailto:info@chessncode.com"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-[var(--brand-primary)] text-white px-8 py-4 text-base font-semibold rounded-xl hover:bg-[var(--brand-primary-dark)] transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
-                >
-                  <span>Sponsor a Scholar</span>
-                </motion.a>
-
-                <motion.button
-                  onClick={() => router.push("/apply")}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="border border-[white]/60 text-[white]/60 px-8 py-4 text-base font-semibold rounded-xl hover:bg-[var(--brand-primary)] hover:border-[var(--brand-primary)] hover:text-white transition-all duration-200"
-                >
-                  Register Now
-                </motion.button>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="bg-gradient-to-l from-[var(--brand-primary)] to-[var(--brand-primary-dark)] rounded-xl p-6 text-center lg:text-left"
-            >
-              <div className="max-w-md mx-auto lg:mx-0">
-                <p className="text-white/90 text-sm font-light mb-2 tracking-widest uppercase">
-                  Preparation
-                </p>
-                <p className="text-white text-xl lg:text-2xl font-bold leading-tight">
-                  For the next generation
-                </p>
-              </div>
-            </motion.div>
-
-            <StudentCountdown />
-          </section>
-
-          {/* RIGHT COLUMN - VIDEO CONTENT (Desktop & Mobile) */}
-          <section className="flex flex-col gap-6 lg:gap-8 order-1 lg:order-2 lg:h-[80dvh]">
-            {/* Desktop Video */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, x: 50 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="hidden lg:flex h-full w-full relative mt-[20px] rounded-2xl overflow-hidden group shadow-2xl"
-            >
-              <video
-                ref={videoRef}
-                autoPlay
-                muted={isMuted}
-                loop
-                playsInline
-                className="w-full h-full object-cover object-center rounded-2xl"
-                preload="auto"
-                poster="/elora-portrait.jpeg"
-              >
-                <source src="/Elora-Project-Episode2.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 rounded-2xl to-black/50" />
-
-              {/* Control Buttons */}
-              <div className="absolute bottom-6 right-6 flex gap-3">
-                <button
-                  onClick={() => togglePlay(videoRef.current)}
-                  className="bg-white/20 backdrop-blur-lg p-3 rounded-full hover:bg-white/30 transition-all duration-300 border border-white/30 hover:scale-110"
-                >
-                  {isPlaying ? (
-                    <Pause className="w-5 h-5 text-white" />
-                  ) : (
-                    <Play className="w-5 h-5 text-white" />
-                  )}
-                </button>
-                <button
-                  onClick={() => toggleMute(videoRef.current)}
-                  className="bg-white/20 backdrop-blur-lg p-3 rounded-full hover:bg-white/30 transition-all duration-300 border border-white/30 hover:scale-110"
-                >
-                  {isMuted ? (
-                    <VolumeX className="w-5 h-5 text-white" />
-                  ) : (
-                    <Volume2 className="w-5 h-5 text-white" />
-                  )}
-                </button>
-              </div>
-
-              {/* Video Title Overlay */}
-              <div className="absolute top-6 left-6">
-                <div className="bg-black/40 backdrop-blur-sm px-[10px] py-[3px] rounded-full">
-                  <span className="text-white text-sm font-medium">
-                    Project ELora
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Mobile Video */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="lg:hidden w-full h-[50vh] mt-[20px] relative rounded-2xl overflow-hidden group shadow-xl"
-            >
-              <video
-                ref={mobileVideoRef}
-                autoPlay
-                muted={isMuted}
-                loop
-                playsInline
-                className="w-full h-full object-cover object-center"
-                preload="auto"
-                poster="/elora-portrait.jpeg"
-              >
-                <source src="/Elora-Project-Episode2.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-black/50" />
-
-              {/* Control Buttons */}
-              <div className="absolute bottom-4 right-4 flex gap-2">
-                <button
-                  onClick={() => togglePlay(mobileVideoRef.current)}
-                  className="bg-white/20 backdrop-blur-lg p-2 rounded-full hover:bg-white/30 transition-all duration-300 border border-white/30"
-                >
-                  {isPlaying ? (
-                    <Pause className="w-4 h-4 text-white" />
-                  ) : (
-                    <Play className="w-4 h-4 text-white" />
-                  )}
-                </button>
-                <button
-                  onClick={() => toggleMute(mobileVideoRef.current)}
-                  className="bg-white/20 backdrop-blur-lg p-2 rounded-full hover:bg-white/30 transition-all duration-300 border border-white/30"
-                >
-                  {isMuted ? (
-                    <VolumeX className="w-4 h-4 text-white" />
-                  ) : (
-                    <Volume2 className="w-4 h-4 text-white" />
-                  )}
-                </button>
-              </div>
-
-              {/* Video Title Overlay */}
-              <div className="absolute top-4 left-4">
-                <div className="bg-black/40 backdrop-blur-sm px-3 py-1 rounded-full">
-                  <span className="text-white text-xs font-medium">
-                    Project Elora
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-          </section>
+      <section className="relative min-h-[90dvh] flex flex-col items-center justify-center overflow-hidden py-16 lg:py-24 border-b border-white/10">
+        {/* HERO BACKGROUND IMAGE (/heroBg.png) */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/heroBg.png"
+            alt="Hero Background"
+            fill
+            priority
+            className="object-cover object-center"
+          />
+          {/* Subtle Dark Overlay for contrast */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/60 to-[#080d1a]/90 backdrop-blur-[1px]" />
         </div>
-      </motion.section>
 
-      {/* Add the modal component at the bottom */}
+        {/* HERO CONTENT */}
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center space-y-10 lg:space-y-12">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="flex flex-col items-center space-y-6 lg:space-y-8 max-w-4xl mx-auto"
+          >
+            {/* Typewriter Ticker Pill */}
+            <motion.div variants={itemVariants} className="flex justify-center">
+              <div className="inline-flex items-center gap-2 px-4 py-2 shadow-lg">
+                <Sparkles className="w-4 h-4 text-blue-400" />
+                <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-blue-200">
+                  <span>{text}</span>
+                  <Cursor cursorColor="#60a5fa" />
+                </span>
+              </div>
+            </motion.div>
+
+            {/* Main Headline */}
+            <motion.div variants={itemVariants}>
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.1]">
+                Empowering Girls & Women through{" "}
+                <span className="text-blue-400 drop-shadow-md">
+                  Chess & Coding
+                </span>
+              </h1>
+            </motion.div>
+
+            {/* Solid Clean CTA Action Buttons */}
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row gap-4 justify-center pt-2 w-full sm:w-auto"
+            >
+              <motion.a
+                href="mailto:info@chessncode.com"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="bg-[#2963ff] hover:bg-[#1a4fd9] text-white px-8 py-4 text-base font-bold rounded-xl transition-all duration-200 shadow-xl flex items-center justify-center gap-2.5"
+              >
+                <HeartHandshake className="w-5 h-5 text-white/90" />
+                <span>Sponsor a Scholar</span>
+              </motion.a>
+
+              <motion.button
+                onClick={() => router.push("/apply")}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="bg-white/10 hover:bg-white/20 text-white border border-white/30 px-8 py-4 text-base font-bold rounded-xl transition-all duration-200 backdrop-blur-md shadow-xl flex items-center justify-center gap-2.5"
+              >
+                <span>Register Now</span>
+                <ArrowRight className="w-5 h-5 text-white/80" />
+              </motion.button>
+            </motion.div>
+          </motion.div>
+
+          {/* COUNTDOWN SECTION: Centered below the main content over heroBg.png */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="w-full pt-6 border-t border-white/10"
+          >
+            <StudentCountdown />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Waitlist Modal Component */}
       <WaitlistModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
