@@ -516,6 +516,22 @@ export const eloraLogs: StudentLog[] = [
     topicCovered: "Project Review",
     status: "Completed",
     whatLearned: "Review of Supermarket Sales Forecasting Project, steps completed and corrections that needed to be made"
+  },
+  {
+    timestamp: "23/09/2026 16:03:16",
+    sessionType: "Chess",
+    duration: "2 hrs",
+    topicCovered: "project Review",
+    status: "Completed",
+    whatLearned: "Review of the steps completed in our supermarket total sales prediction project and pushing the project to GitHub"
+  },
+  {
+    timestamp: "23/09/2026 16:06:01",
+    sessionType: "Chess",
+    duration: "2 hrs",
+    topicCovered: "project review",
+    status: "Completed",
+    whatLearned: "Review of supermarket total sales prediction project and the process of deployment on streamlit"
   }
 ];
 
@@ -847,6 +863,70 @@ export const praiseLogs: StudentLog[] = [
     topicCovered: "Pivot Tables",
     status: "Completed",
     whatLearned: "Completed learning how to use pivot table analyze and summarize data"
+  },
+  {
+    timestamp: "17/09/2026 19:15:05",
+    sessionType: "Tech",
+    duration: "120mins",
+    topicCovered: "pivot table concluded",
+    status: "Completed",
+    whatLearned: "Completed learning pivot tables"
+  },
+  {
+    timestamp: "17/09/2026 19:18:34",
+    sessionType: "Tech",
+    duration: "120mins",
+    topicCovered: "Visual Chart",
+    status: "Completed",
+    whatLearned: "Started Chart Visualization"
+  },
+  {
+    timestamp: "17/09/2026 19:26:14",
+    sessionType: "Chess",
+    duration: "120mins",
+    topicCovered: "Pawn promotion",
+    status: "Completed",
+    whatLearned: "Using pawns"
+  },
+  {
+    timestamp: "21/09/2026 18:29:28",
+    sessionType: "Chess",
+    duration: "120mins",
+    topicCovered: "Practice on Lichess",
+    status: "Completed",
+    whatLearned: "Played on Lichess"
+  },
+  {
+    timestamp: "27/09/2026 20:50:19",
+    sessionType: "Tech",
+    duration: "120mins",
+    topicCovered: "Chart Visuals",
+    status: "Completed",
+    whatLearned: "I Learnt that chart visuals in Excel are graphical representation of your data that helps you see patterns trends and comparisons."
+  },
+  {
+    timestamp: "27/09/2026 20:53:44",
+    sessionType: "Chess",
+    duration: "90mins",
+    topicCovered: "Practiced with Chess exercises on Lichess",
+    status: "Completed",
+    whatLearned: "Practiced over 50 exercises on how to checkmate in one move"
+  },
+  {
+    timestamp: "27/09/2026 21:15:27",
+    sessionType: "Tech",
+    duration: "120mins",
+    topicCovered: "Excel Dash board",
+    status: "Incomplete",
+    whatLearned: "I learnt how to use dashboards transform raw data into a clear story that's easy to understand without needing to dig through spreadsheet or tables."
+  },
+  {
+    timestamp: "27/09/2026 21:19:36",
+    sessionType: "Chess",
+    duration: "60mins",
+    topicCovered: "Game analysis",
+    status: "Completed",
+    whatLearned: "We analyzed games I played during the week."
   }
 ];
 
