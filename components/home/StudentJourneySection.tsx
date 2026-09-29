@@ -258,7 +258,7 @@ export default function StudentJourneySection() {
                   <span className="text-2xl font-bold text-[var(--text-primary)]">{stats.totalHours} hrs</span>
                   <span className="text-xs text-[var(--text-secondary)] mt-1">Study Time</span>
                 </div>
-                <div className="bg-[var(--bg-primary)] p-4 rounded-xl border border-[var(--border-primary)] flex flex-col items-center justify-center text-center">
+                <div className="bg-[var(--bg- primary)] p-4 rounded-xl border border-[var(--border-primary)] flex flex-col items-center justify-center text-center">
                   <CheckCircle2 className="w-6 h-6 text-green-500 mb-2" />
                   <span className="text-2xl font-bold text-[var(--text-primary)]">{stats.completedSessions}</span>
                   <span className="text-xs text-[var(--text-secondary)] mt-1">Completed Sessions</span>
