@@ -21,6 +21,7 @@ import {
   formatTimestamp
 } from "@/constants/studentsData";
 import Link from "next/link";
+import GraduateSummary from "@/components/projects/GraduateSummary";
 
 // Retain types and unused functions as requested ("do not remove what we have now, just don't use it")
 type JourneyLevel = {
@@ -165,7 +166,7 @@ export default function StudentJourneySection() {
             <span className="text-[var(--brand-primary)]">Scholars</span>
           </h2>
           <p className="text-lg text-[var(--text-secondary)] mb-6">
-            Real-time logs of their chess study, coding sessions, and learning reflections
+            Celebrate our graduates and explore their chess and technology learning journeys
           </p>
 
           {/* Student Selector */}
@@ -210,11 +211,12 @@ export default function StudentJourneySection() {
               <h3 className="text-2xl font-bold text-[var(--text-primary)]">
                 {selectedStudent.slug === "elora" ? "Oise Elora Iguehi" : "Praise Okoro"}
               </h3>
+              {selectedStudent.graduation && <p className="mt-2 text-sm font-semibold text-[var(--brand-primary)]">Graduated{selectedStudent.graduation.date ? ` · ${selectedStudent.graduation.date}` : " · Curriculum complete"}</p>}
               <p className="text-[var(--text-secondary)] mt-1">
                 {selectedStudent.chessBackground}
               </p>
               <p className="text-sm text-[var(--brand-primary)] font-semibold mt-2">
-                Goal: {selectedStudent.currentGoal}
+                {selectedStudent.graduation ? "Graduate · " : "Goal: "}{selectedStudent.currentGoal}
               </p>
 
               <div className="mt-4 p-3 bg-[var(--bg-tertiary)] rounded-lg">
@@ -231,7 +233,7 @@ export default function StudentJourneySection() {
                 href={`/projects/${selectedStudent.slug}`}
                 className="inline-flex items-center gap-2 w-full justify-center px-4 py-3 bg-[var(--brand-primary)] text-white rounded-lg hover:bg-[var(--brand-primary-dark)] transition-all text-sm font-semibold hover:shadow-md"
               >
-                View Full Reflections Journal
+                {selectedStudent.graduation ? "Explore Graduate Profile" : "View Full Reflections Journal"}
                 <ChevronRight className="w-4 h-4" />
               </Link>
             </div>
@@ -245,6 +247,7 @@ export default function StudentJourneySection() {
             transition={{ delay: 0.2 }}
             className="lg:col-span-2 space-y-6"
           >
+            {selectedStudent.graduation ? <GraduateSummary student={selectedStudent} /> : <>
             {/* Stats Dashboard */}
             <div className="bg-[var(--bg-secondary)] backdrop-blur-lg rounded-2xl p-6 shadow-xl border border-[var(--border-primary)]">
               <h3 className="font-bold text-[var(--text-primary)] text-lg mb-4 flex items-center gap-2">
@@ -398,6 +401,7 @@ export default function StudentJourneySection() {
                 </div>
               )}
             </div>
+            </>}
           </motion.div>
         </div>
       </div>

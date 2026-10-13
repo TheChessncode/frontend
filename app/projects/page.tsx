@@ -62,6 +62,7 @@ export default function ProjectsPage() {
                         <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-1">
                           {student.name}
                         </h3>
+                        {student.graduation && <p className="inline-flex mb-2 rounded-full bg-[var(--brand-primary)] px-3 py-1 text-xs font-semibold text-white">Graduated{student.graduation.date ? ` · ${student.graduation.date}` : " · Curriculum complete"}</p>}
                         <p className="text-sm text-[var(--text-secondary)] mb-2">
                           {student.chessBackground}
                         </p>
@@ -80,7 +81,7 @@ export default function ProjectsPage() {
                         Joined: {student.joined}
                       </div>
                       <div className="flex items-center gap-2 text-[var(--brand-primary)] font-semibold group-hover:gap-3 transition-all">
-                        <span>View Journey</span>
+                        <span>{student.graduation ? "View Graduate Profile" : "View Journey"}</span>
                         <ArrowRight className="w-4 h-4" />
                       </div>
                     </div>

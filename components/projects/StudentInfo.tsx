@@ -45,6 +45,7 @@ export default function StudentInfo({ student }: StudentInfoProps) {
           <h1 className="text-[2xl] md:text-3xl font-bold text-white">
             {student.name}
           </h1>
+          {student.graduation && <p className="inline-flex mt-2 mb-2 rounded-full bg-white/15 px-3 py-1 text-sm font-semibold text-white">Graduated{student.graduation.date ? ` · ${student.graduation.date}` : " · Curriculum complete"}</p>}
           <p className="text-lg text-white font-semibold">
             {student.chessBackground}
           </p>
@@ -71,7 +72,7 @@ export default function StudentInfo({ student }: StudentInfoProps) {
         >
           <Target className="w-8 h-8 text-[var(--success)] mb-2" />
           <h3 className="font-semibold text-[var(--text-primary)]">
-            Current Goal
+            {student.graduation ? "Career Direction" : "Current Goal"}
           </h3>
           <p className="text-sm text-[var(--text-secondary)]">
             {student.currentGoal}
