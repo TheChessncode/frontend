@@ -55,7 +55,7 @@ export default async function StudentProjectPage({
   ]);
   const webpageSchema = generateWebPageSchema({
     title: `${student.name} - ${student.chessBackground}`,
-    description: `${student.quote} Currently working towards: ${student.currentGoal}.`,
+    description: student.graduation?.summary || `${student.quote} Currently working towards: ${student.currentGoal}.`,
     url: `/projects/${student.slug}`,
     image: student.image,
   });

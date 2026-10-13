@@ -37,6 +37,12 @@ export interface Student {
     description: string;
     project: string;
   };
+  graduation?: {
+    date?: string;
+    summary: string;
+    linkedin?: string;
+    github?: string;
+  };
   logs?: StudentLog[];
 }
 
@@ -969,21 +975,21 @@ export const students: Student[] = [
           "Feature Engineering",
           "APIs",
         ],
-        status: "current",
+        status: "completed",
       },
       {
         phase: "Deployment & MLOps",
         duration: "Months 9-10",
         icon: Rocket,
         skills: ["Streamlit", "Docker", "MLOps", "Deep Learning"],
-        status: "upcoming",
+        status: "completed",
       },
       {
         phase: "Advanced Topics",
         duration: "Months 11-12",
         icon: Cpu,
         skills: ["NLP", "Computer Vision", "Capstone Project", "Job Prep"],
-        status: "upcoming",
+        status: "completed",
       },
     ],
     certifications: [
@@ -1018,8 +1024,13 @@ export const students: Student[] = [
     currentFocus: {
       title: "Machine Learning & Deployment",
       description:
-        "Elora is currently building and deploying supervised machine learning models on Streamlit, applying data science principles to forecast sales and optimize workflows.",
+        "Elora’s learning journey included supervised machine learning and Streamlit deployment, with a focus on forecasting sales and optimizing workflows.",
       project: "Supermarket Sales Predictive Model",
+    },
+    graduation: {
+      summary: "Elora has graduated from ChessNcode and completed her Data Science & Machine Learning curriculum, from Python foundations to deployment, advanced topics, and capstone preparation.",
+      linkedin: "https://www.linkedin.com/in/iguehioise",
+      github: "https://github.com/Elora-oise",
     },
     logs: eloraLogs,
   },
@@ -1096,14 +1107,14 @@ export const students: Student[] = [
           "Attack & Protection Guide",
           "Lichess Match Play",
         ],
-        status: "current",
+        status: "completed",
       },
       {
         phase: "Middle Game Mastery",
         duration: "Month 6+",
         icon: Target,
         skills: ["Planning", "Open Files", "Attacking", "Positional Play"],
-        status: "upcoming",
+        status: "completed",
       },
     ],
     certifications: [
@@ -1120,10 +1131,14 @@ export const students: Student[] = [
     currentFocus: {
       title: "Pivot Tables & Data Summarization",
       description:
-        "Praise is currently mastering Excel Pivot Tables to aggregate, summarize, and extract data-driven insights from complex datasets.",
+        "Praise’s learning journey included Excel Pivot Tables to aggregate, summarize, and extract data-driven insights from complex datasets.",
       project: "Sales & Data Summarization Workbook",
     },
-    dataAnalysisCurriculum: praiseDataAnalysisCurriculum,
+    dataAnalysisCurriculum: praiseDataAnalysisCurriculum.map((phase) => ({ ...phase, status: "completed" })),
+    graduation: {
+      date: "September 2026",
+      summary: "Praise graduated from ChessNcode in September 2026, completing her chess and data analysis learning journey.",
+    },
     logs: praiseLogs,
   },
 ];

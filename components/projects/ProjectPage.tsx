@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import PublicPageContainer from '@/components/ui/PublicPageContainer';
 import CurriculumTimeline from './CurriculumTimeline';
 import CurrentFocus from './CurrentFocus';
+import GraduateSummary from './GraduateSummary';
 import HeroSection from './HeroSection';
 import CertificationSection from './CertificationSection';
 import { getStudentBySlug } from '@/constants/studentsData';
@@ -31,7 +32,11 @@ export default function ProjectPage({ studentSlug }: ProjectPageProps) {
   return (
     <PublicPageContainer>
       <HeroSection student={student} />
-      <CurriculumTimeline student={student} />
+      {student.graduation ? (
+        <section className="bg-[var(--bg-primary)] py-16 px-4">
+          <div className="max-w-6xl mx-auto"><GraduateSummary student={student} detailed /></div>
+        </section>
+      ) : <CurriculumTimeline student={student} />}
       {/* {student.dataAnalysisCurriculum && (
         <CurriculumTimeline 
           student={student} 

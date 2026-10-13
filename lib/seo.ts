@@ -144,7 +144,9 @@ export function generateScholarMetadata(student: Student): Metadata {
   const scholarUrl = `/projects/${student.slug}`;
   const scholarImage = `${baseUrl}${student.image}`;
   const scholarTitle = `${student.name} - ${student.chessBackground} | Chessncode Scholar`;
-  const scholarDescription = `${student.name} is a Chessncode Scholar ${student.chessBackground}. ${student.quote} Currently working towards: ${student.currentGoal}.`;
+  const scholarDescription = student.graduation
+    ? `${student.name} is a ChessNcode graduate. ${student.graduation.summary}`
+    : `${student.name} is a Chessncode Scholar ${student.chessBackground}. ${student.quote} Currently working towards: ${student.currentGoal}.`;
 
   const scholarKeywords = [
     student.name,

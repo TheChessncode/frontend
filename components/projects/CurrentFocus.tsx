@@ -22,7 +22,7 @@ export default function CurrentFocus({ student }: CurrentFocusProps) {
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}>
           <Lightbulb className="w-16 h-16 text-[var(--warning)] mx-auto mb-6" />
           <h2 className="text-3xl font-bold text-[var(--text-primary)] mb-4">
-            Current Focus: {student.currentFocus.title}
+            {student.graduation ? "Learning Highlights" : "Current Focus"}: {student.currentFocus.title}
           </h2>
           <p className="text-lg text-[var(--text-secondary)] mb-8 max-w-2xl mx-auto">
             {student.currentFocus.description}
@@ -34,7 +34,7 @@ export default function CurrentFocus({ student }: CurrentFocusProps) {
           >
             <Icon className="w-5 h-5 text-[var(--brand-primary)]" />
             <span className="font-semibold text-[var(--text-primary)]">
-              Building: {student.currentFocus.project}
+              {student.graduation ? "Project explored" : "Building"}: {student.currentFocus.project}
             </span>
           </motion.div>
         </motion.div>
