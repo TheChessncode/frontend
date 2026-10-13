@@ -1107,14 +1107,14 @@ export const students: Student[] = [
           "Attack & Protection Guide",
           "Lichess Match Play",
         ],
-        status: "completed",
+        status: "current",
       },
       {
         phase: "Middle Game Mastery",
         duration: "Month 6+",
         icon: Target,
         skills: ["Planning", "Open Files", "Attacking", "Positional Play"],
-        status: "completed",
+        status: "upcoming",
       },
     ],
     certifications: [
@@ -1131,14 +1131,10 @@ export const students: Student[] = [
     currentFocus: {
       title: "Pivot Tables & Data Summarization",
       description:
-        "Praise’s learning journey included Excel Pivot Tables to aggregate, summarize, and extract data-driven insights from complex datasets.",
+        "Praise is currently mastering Excel Pivot Tables to aggregate, summarize, and extract data-driven insights from complex datasets.",
       project: "Sales & Data Summarization Workbook",
     },
-    dataAnalysisCurriculum: praiseDataAnalysisCurriculum.map((phase) => ({ ...phase, status: "completed" })),
-    graduation: {
-      date: "September 2026",
-      summary: "Praise graduated from ChessNcode in September 2026, completing her chess and data analysis learning journey.",
-    },
+    dataAnalysisCurriculum: praiseDataAnalysisCurriculum,
     logs: praiseLogs,
   },
 ];
