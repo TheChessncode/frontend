@@ -933,6 +933,70 @@ export const praiseLogs: StudentLog[] = [
     topicCovered: "Game analysis",
     status: "Completed",
     whatLearned: "We analyzed games I played during the week."
+  },
+  {
+    timestamp: "08/10/2026 12:43:51",
+    sessionType: "Chess",
+    duration: "120mins",
+    topicCovered: "Dashboard",
+    status: "Incomplete",
+    whatLearned: "I learnt that a dashboard is a single-page visual that tells the story of your analysis."
+  },
+  {
+    timestamp: "08/10/2026 14:08:15",
+    sessionType: "Chess",
+    duration: "90mins",
+    topicCovered: "Introduction to the Italian Opening",
+    status: "Incomplete",
+    whatLearned: "Learning the Italian Opening."
+  },
+  {
+    timestamp: "08/10/2026 14:12:30",
+    sessionType: "Chess",
+    duration: "120mins",
+    topicCovered: "Italian Opening Continued",
+    status: "Incomplete",
+    whatLearned: "Learning how to open the game using Italian Opening techniques."
+  },
+  {
+    timestamp: "08/10/2026 14:15:54",
+    sessionType: "Chess",
+    duration: "90mins",
+    topicCovered: "Italian Opening Practice on Lichess and Chess.com",
+    status: "Completed",
+    whatLearned: "Practiced playing using the Italian Opening."
+  },
+  {
+    timestamp: "08/10/2026 16:18:33",
+    sessionType: "Tech",
+    duration: "90mins",
+    topicCovered: "Dashboard Continued",
+    status: "Completed",
+    whatLearned: "Completed dashboards and Excel, ready to move on to SQL."
+  },
+  {
+    timestamp: "15/10/2026 16:11:19",
+    sessionType: "Tech",
+    duration: "120mins",
+    topicCovered: "SQL: Creating a Database",
+    status: "Incomplete",
+    whatLearned: "I'm learning the basic concepts in SQL, starting with creating a database."
+  },
+  {
+    timestamp: "15/10/2026 16:16:11",
+    sessionType: "Tech",
+    duration: "90mins",
+    topicCovered: "SQL: Creating a Database Continued",
+    status: "Completed",
+    whatLearned: "Continued familiarizing myself with creating a database."
+  },
+  {
+    timestamp: "15/10/2026 16:24:51",
+    sessionType: "Chess",
+    duration: "90mins",
+    topicCovered: "Chess Practice on Lichess",
+    status: "Completed",
+    whatLearned: "Practiced playing on Lichess."
   }
 ];
 
