@@ -206,35 +206,35 @@ export const praiseDataAnalysisCurriculum: CurriculumPhase[] = [
     duration: "24/08/2026 - 07/09/2026 • 2hrs",
     icon: Database,
     skills: ["Mr. Jadons", "Pivot tables", "Data summarization"],
-    status: "current",
+    status: "completed",
   },
   {
     phase: "SQL & Databases",
     duration: "Month 3",
     icon: Database,
     skills: ["SQL fundamentals", "JOINs", "Subqueries", "Window functions"],
-    status: "upcoming",
+    status: "completed",
   },
   {
     phase: "Python for Data Analysis",
     duration: "Month 4",
     icon: Code2,
     skills: ["Python basics", "NumPy", "Pandas", "Data cleaning"],
-    status: "upcoming",
+    status: "completed",
   },
   {
     phase: "Data Visualization",
     duration: "Month 5",
     icon: Rocket,
     skills: ["Matplotlib", "Seaborn", "Tableau", "Storytelling"],
-    status: "upcoming",
+    status: "completed",
   },
   {
     phase: "BI Tools & Career Prep",
     duration: "Month 6",
     icon: GraduationCap,
     skills: ["Power BI", "Portfolio", "LinkedIn", "Interview prep"],
-    status: "upcoming",
+    status: "completed",
   },
 ];
 
@@ -1102,7 +1102,7 @@ export const students: Student[] = [
     slug: "praise",
     name: "Praise",
     image: "/praise-portrait.jpg",
-    chessBackground: "ChessNcode Scholar",
+    chessBackground: "ChessNcode Graduate",
     currentGoal: "Job-Ready Data Analyst",
     quote:
       "Transforming strategic thinking from chess into data-driven insights for the real world",
@@ -1171,14 +1171,14 @@ export const students: Student[] = [
           "Attack & Protection Guide",
           "Lichess Match Play",
         ],
-        status: "current",
+        status: "completed",
       },
       {
         phase: "Middle Game Mastery",
         duration: "Month 6+",
         icon: Target,
         skills: ["Planning", "Open Files", "Attacking", "Positional Play"],
-        status: "upcoming",
+        status: "completed",
       },
     ],
     certifications: [
@@ -1195,8 +1195,11 @@ export const students: Student[] = [
     currentFocus: {
       title: "Pivot Tables & Data Summarization",
       description:
-        "Praise is currently mastering Excel Pivot Tables to aggregate, summarize, and extract data-driven insights from complex datasets.",
+        "Praise’s learning journey included Excel Pivot Tables, dashboards, and SQL, with a focus on summarizing data and communicating insights.",
       project: "Sales & Data Summarization Workbook",
+    },
+    graduation: {
+      summary: "Praise has graduated from ChessNcode and completed her chess and Data Analysis curriculum, covering chess strategy, Excel, SQL, Python, data visualization, and career preparation.",
     },
     dataAnalysisCurriculum: praiseDataAnalysisCurriculum,
     logs: praiseLogs,
