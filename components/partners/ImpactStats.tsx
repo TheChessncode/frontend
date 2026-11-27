@@ -12,18 +12,18 @@ export default function ImpactStats() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold mb-6 text-[var(--text-primary)]">
-            Collective Impact
+            Partnership Progress
           </h2>
           <p className="text-lg text-[var(--text-secondary)]">
-            Together, we&apos;re achieving remarkable results
+            Promoting Queens reach and ChessNCode graduate progress
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
-            { value: "1+", label: "Lives impacted", icon: Heart, color: "var(--success)" },
-            { value: "1+", label: "Global Regions", icon: Globe, color: "var(--info)" },
-            { value: "100%", label: "Success Rate", icon: Trophy, color: "var(--warning)" }
+            { value: "750+", label: "Promoting Queens: girls engaged through programs", icon: Heart, color: "var(--success)" },
+            { value: "4+", label: "Promoting Queens: regions reached", icon: Globe, color: "var(--info)" },
+            { value: "ChessNCode", label: "2 scholars, 2 graduates, with 4 more enrolling. Our first graduate completed all 5 modules and earned 3 certificates.", icon: Trophy, color: "var(--warning)" }
           ].map((item, index) => (
             <motion.div
               key={item.label}

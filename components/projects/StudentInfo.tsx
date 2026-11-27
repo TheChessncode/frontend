@@ -1,6 +1,6 @@
 import { Student } from "@/constants/studentsData";
 import { motion } from "framer-motion";
-import { Award, Target, Calendar, MapPin } from "lucide-react";
+import { Award, Target, Calendar, MapPin, GraduationCap } from "lucide-react";
 import Image from "next/image";
 
 interface StudentInfoProps {
@@ -90,6 +90,20 @@ export default function StudentInfo({ student }: StudentInfoProps) {
             {student.joined}
           </p>
         </motion.div>
+        {student.graduation && (
+          <motion.div
+            className="col-span-2 p-4 rounded-xl bg-[var(--bg-primary)] shadow-sm border border-[var(--border-primary)]"
+            whileHover={{ scale: 1.05 }}
+          >
+            <GraduationCap className="w-8 h-8 text-[var(--success)] mb-2" />
+            <h3 className="font-semibold text-[var(--text-primary)]">
+              Graduated
+            </h3>
+            <p className="text-sm text-[var(--text-secondary)]">
+              {student.graduation.date || "Curriculum complete"}
+            </p>
+          </motion.div>
+        )}
       </div>
     </motion.div>
   );

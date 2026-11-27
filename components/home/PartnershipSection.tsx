@@ -73,7 +73,7 @@ export default function PartnershipSection() {
             </div>
 
             <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-[var(--text-primary)] leading-tight mb-6">
-              Proud Partner of{" "}
+              Strategic Partnership:{" "}
               <motion.span
                 className="text-[var(--brand-primary)] relative inline-block"
                 whileHover={{ scale: 1.05 }}
@@ -89,8 +89,19 @@ export default function PartnershipSection() {
             </h2>
 
             <p className="text-lg lg:text-xl text-[var(--text-secondary)] leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">
-              Empowering girls to lead, strategize and conquer through chess
+              Promoting Queens teaches girls chess to build confidence, focus, and critical thinking. ChessNCode is the next step: a pathway from the chessboard into coding, data science, and machine learning.
             </p>
+
+            <p className="text-lg text-[var(--text-secondary)] leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0">
+              Founded by Promoting Queens&apos; project manager, who has been with
+              the organization since its start and serves on its board,
+              ChessNCode is built to carry Promoting Queens girls from the game
+              into tech careers.
+            </p>
+
+            <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">
+              Promoting Queens reach
+            </h3>
 
             <motion.div
               initial={{ y: 30, opacity: 0 }}
@@ -104,7 +115,7 @@ export default function PartnershipSection() {
                   750+
                 </div>
                 <div className="text-sm text-[var(--text-tertiary)]">
-                  Girls Empowered
+                  Girls engaged through programs
                 </div>
               </div>
               <div className="text-center lg:text-left">
@@ -115,15 +126,35 @@ export default function PartnershipSection() {
                   Regions Reached
                 </div>
               </div>
-              <div className="text-center lg:text-left">
-                <div className="text-2xl lg:text-3xl font-bold text-[var(--brand-primary)]">
-                  100%
-                </div>
-                <div className="text-sm text-[var(--text-tertiary)]">
-                  Success Rate
-                </div>
-              </div>
             </motion.div>
+
+            <div className="mb-8 max-w-2xl mx-auto lg:mx-0">
+              <h3 className="mb-3 text-xs font-semibold uppercase tracking-widest text-[var(--text-tertiary)]">
+                Currently in ChessNCode
+              </h3>
+              <div className="inline-grid grid-cols-3 divide-x divide-[var(--border-primary)] rounded-xl border border-[var(--border-primary)] bg-[var(--bg-primary)] py-3" aria-label="ChessNCode statistics">
+                {[
+                  { value: "2", label: "Scholars" },
+                  { value: "2", label: "Graduates" },
+                  { value: "4", label: "Enrolling" },
+                ].map(({ value, label }) => (
+                  <div
+                    key={label}
+                    className="px-4 sm:px-6 text-center"
+                  >
+                    <p className="text-2xl font-bold tracking-tight text-[var(--brand-primary)]">
+                      {value}
+                    </p>
+                    <p className="mt-1 text-xs font-medium text-[var(--text-secondary)]">
+                      {label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-4 text-sm text-[var(--text-secondary)] leading-relaxed">
+                Our first graduate completed all 5 modules and earned 3 certificates.
+              </p>
+            </div>
 
             <motion.a
               href="https://www.promotingqueens.org/"

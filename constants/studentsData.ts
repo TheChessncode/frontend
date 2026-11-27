@@ -19,6 +19,12 @@ export interface StudentLog {
   whatLearned: string;
 }
 
+export interface StudentProject {
+  name: string;
+  description: string;
+  github: string;
+}
+
 export interface Student {
   slug: string;
   name: string;
@@ -28,6 +34,7 @@ export interface Student {
   quote: string;
   joined: string;
   project: string;
+  projects?: StudentProject[];
   location: string;
   curriculum: CurriculumPhase[];
   dataAnalysisCurriculum?: CurriculumPhase[]; // Optional second curriculum for dual-track students
@@ -1092,10 +1099,33 @@ export const students: Student[] = [
       project: "Supermarket Sales Predictive Model",
     },
     graduation: {
+      date: "September 2026",
       summary: "Elora has graduated from ChessNcode and completed her Data Science & Machine Learning curriculum, from Python foundations to deployment, advanced topics, and capstone preparation.",
       linkedin: "https://www.linkedin.com/in/iguehioise",
       github: "https://github.com/Elora-oise",
     },
+    projects: [
+      {
+        name: "Financial Transaction Fraud Detection",
+        description: "Explored financial transaction patterns and classification approaches to identify potential fraud while reducing unnecessary alerts.",
+        github: "https://github.com/Elora-oise/fraud_detection",
+      },
+      {
+        name: "Customer Churn Prediction",
+        description: "Built and evaluated classification models to identify customers at risk of leaving a service provider and inform retention decisions.",
+        github: "https://github.com/Elora-oise/customer_churn_prediction",
+      },
+      {
+        name: "Employee Attrition Prediction",
+        description: "Analysed employee attributes and evaluated classification models, including XGBoost, to predict employee attrition.",
+        github: "https://github.com/Elora-oise/employee_attrition",
+      },
+      {
+        name: "Supermarket Sales Forecasting",
+        description: "Compared regression models to predict supermarket sales from historical data and explored deploying the application with Streamlit.",
+        github: "https://github.com/Elora-oise/supermarket_sales_prediction",
+      },
+    ],
     logs: eloraLogs,
   },
   {
@@ -1199,6 +1229,7 @@ export const students: Student[] = [
       project: "Sales & Data Summarization Workbook",
     },
     graduation: {
+      date: "November 2026",
       summary: "Praise has graduated from ChessNcode and completed her chess and Data Analysis curriculum, covering chess strategy, Excel, SQL, Python, data visualization, and career preparation.",
     },
     dataAnalysisCurriculum: praiseDataAnalysisCurriculum,
