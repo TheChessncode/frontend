@@ -7,6 +7,7 @@ import CurrentFocus from './CurrentFocus';
 import GraduateSummary from './GraduateSummary';
 import HeroSection from './HeroSection';
 import CertificationSection from './CertificationSection';
+import StudentProjects from './StudentProjects';
 import { getStudentBySlug } from '@/constants/studentsData';
 
 interface ProjectPageProps {
@@ -32,6 +33,7 @@ export default function ProjectPage({ studentSlug }: ProjectPageProps) {
   return (
     <PublicPageContainer>
       <HeroSection student={student} />
+      <StudentProjects student={student} />
       {student.graduation ? (
         <section className="bg-[var(--bg-primary)] py-16 px-4">
           <div className="max-w-6xl mx-auto"><GraduateSummary student={student} detailed /></div>
